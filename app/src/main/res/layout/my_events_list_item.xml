@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/item_pic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:adjustViewBounds="true"
+        android:maxHeight="80dp"
+        android:maxWidth="80dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/meal"
+        android:id="@+id/textMeal"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/item_pic" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/date"
+        android:id="@+id/textDate"
+        android:layout_marginRight="50dp"
+        android:layout_above="@+id/textLocation"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="false" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/time"
+        android:id="@+id/textTime"
+        android:layout_below="@+id/textDate"
+        android:layout_alignLeft="@+id/textDate"
+        android:layout_alignStart="@+id/textDate"
+        android:layout_alignBottom="@+id/textLocation" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/location"
+        android:id="@+id/textLocation"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@+id/textMeal"
+        android:layout_toRightOf="@+id/item_pic" />
+
+</RelativeLayout>

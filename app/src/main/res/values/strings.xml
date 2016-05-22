@@ -1,8 +1,38 @@
 <resources>
-    <string name="app_name">CookApp</string>
+    <string name="app_name">Cook Application</string>
 
+    <string name="event">Events</string>
+    <string name="my_events">Meine Events</string>
+    <string name="my_text">Test</string>
+
+    <!-- Show Events Activity -->
+    <string name="incompatibility">Unverträglichkeiten</string>
+    <string name="other_informations">Sonstige Informationen</string>
+
+    <!-- ListView -->
+    <string name="meal">Gericht</string>
+    <string name="location">Entfernung</string>
+    <string name="date">Datum</string>
+    <string name="time">Uhrzeit</string>
+
+    <!-- Navigation Drawer -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+
+    <string-array name="navigationDrawerMenuItems">
+        <item>
+            Events
+        </item>
+        <item>
+            Profil
+        </item>
+        <item>
+            Nachrichten
+        </item>
+    </string-array>
+    <string name="title_activity_navigation">NavigationActivity</string>
+
 </resources>
+
