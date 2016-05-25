@@ -7,6 +7,7 @@
     <!-- Menu Titles -->
     <string name="my_events">Meine Events</string>
     <string name="title_activity_show_event">Event</string>
+    <string name="title_activity_create_event">Event erstellen</string>
 
     <!-- Show Events Activity -->
     <string name="incompatibility">Unverträglichkeiten</string>

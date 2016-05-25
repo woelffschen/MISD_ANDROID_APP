@@ -39,7 +39,7 @@ public class ShowEventActivity extends AppCompatActivity {
 
         TextView textEventCity = (TextView) findViewById(R.id.textEventCity);
         textEventCity.setText(currentEvent.getEventCity());
-        
+
 
         /*
          * TODO EINFÜGEN WEITERER DATEN
