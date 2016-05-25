@@ -57,11 +57,11 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
         // Gericht:
         TextView mealText = (TextView) convertView.findViewById(R.id.textMeal);
-        mealText.setText(currentEvent.getMeal());
+        mealText.setText(currentEvent.getEventMeal().getName());
 
         // Ort:
         TextView locationText = (TextView) convertView.findViewById(R.id.textLocation);
-        locationText.setText(currentEvent.getLocation());
+        locationText.setText(currentEvent.getEventCity());
 
         // Datum:
         TextView datumText = (TextView) convertView.findViewById(R.id.textDate);

@@ -2,8 +2,11 @@
     <string name="app_name">Cook Application</string>
 
     <string name="event">Events</string>
-    <string name="my_events">Meine Events</string>
     <string name="my_text">Test</string>
+
+    <!-- Menu Titles -->
+    <string name="my_events">Meine Events</string>
+    <string name="title_activity_show_event">Event</string>
 
     <!-- Show Events Activity -->
     <string name="incompatibility">Unverträglichkeiten</string>
@@ -32,7 +35,6 @@
             Nachrichten
         </item>
     </string-array>
-    <string name="title_activity_navigation">NavigationActivity</string>
 
 </resources>
 

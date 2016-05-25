@@ -1,38 +1,134 @@
 package com.misd.cookapp;
 
+import android.graphics.Picture;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class Event {
     private int IconId;
-    private String meal;
-    private String location;
-    private Calendar date;
+    // private int eventId;
+    private String eventDescription;
+    private Meal eventMeal;
+    private int eventMinAge;
+    private int eventMaxAge;
+    private char eventGender;
+    private String eventStreet;
+    private int eventPostal;
+    private String eventCity;
+    private User eventOwner;
+    private Calendar eventDate;
 
-    public Event(int IconId, String meal, String location, Calendar date){
-        super();
-        this.IconId = IconId;
-        this.meal = meal;
-        this.location = location;
-        this.date = date;
+    // private String address;
+
+    public Event(String eventDescription, Meal eventMeal, int eventMinAge, int eventMaxAge,
+                 char eventGender, String eventStreet, int eventPostal, String eventCity, User eventOwner, Calendar eventDate){
+
+        this.IconId = R.drawable.pic1;
+        this.eventDescription = eventDescription;
+        this.eventMeal = eventMeal;
+        this.eventMinAge = eventMinAge;
+        this.eventMaxAge = eventMaxAge;
+        this.eventGender = eventGender;
+        this.eventStreet = eventStreet;
+        this.eventPostal = eventPostal;
+        this.eventCity = eventCity;
+        this.eventOwner = eventOwner;
+        this.eventDate = eventDate;
+
     }
 
+    public String getEventDescription() {
+        return eventDescription;
+    }
+
+    public void setEventDescription(String eventDescription) {
+        this.eventDescription = eventDescription;
+    }
 
     public int getIconId() {
         return IconId;
     }
 
-    public String getMeal() {
-        return meal;
+    public void setIconId(int iconId) {
+        IconId = iconId;
     }
 
-    public String getLocation(){
-        return location;
+    public Meal getEventMeal() {
+        return eventMeal;
     }
 
-    // public Calendar getDate() { return date; }
+    public void setEventMeal(Meal eventMeal) {
+        this.eventMeal = eventMeal;
+    }
 
-    public String getDateAsString() {return new SimpleDateFormat("dd.MM.yyyy").format(date.getTime());}
+    public int getEventMinAge() {
+        return eventMinAge;
+    }
 
-    public String getTimeAsString() {return new SimpleDateFormat("hh:mm").format(date.getTime());}
+    public void setEventMinAge(int eventMinAge) {
+        this.eventMinAge = eventMinAge;
+    }
+
+    public int getEventMaxAge() {
+        return eventMaxAge;
+    }
+
+    public void setEventMaxAge(int eventMaxAge) {
+        this.eventMaxAge = eventMaxAge;
+    }
+
+    public char getEventGender() {
+        return eventGender;
+    }
+
+    public void setEventGender(char eventGender) {
+        this.eventGender = eventGender;
+    }
+
+    public String getEventStreet() {
+        return eventStreet;
+    }
+
+    public void setEventStreet(String eventStreet) {
+        this.eventStreet = eventStreet;
+    }
+
+    public int getEventPostal() {
+        return eventPostal;
+    }
+
+    public void setEventPostal(int eventPostal) {
+        this.eventPostal = eventPostal;
+    }
+
+    public String getEventCity() {
+        return eventCity;
+    }
+
+    public void setEventCity(String eventCity) {
+        this.eventCity = eventCity;
+    }
+
+    public User getEventOwner() {
+        return eventOwner;
+    }
+
+    public void setEventOwner(User eventOwner) {
+        this.eventOwner = eventOwner;
+    }
+
+    public Calendar getEventDate() {
+        return eventDate;
+    }
+
+    public void setEventDate(Calendar eventDate) {
+        this.eventDate = eventDate;
+    }
+
+    public String getDateAsString() {return new SimpleDateFormat("dd.MM.yyyy").format(eventDate.getTime());}
+
+    public String getTimeAsString() {return new SimpleDateFormat("hh:mm").format(eventDate.getTime());}
+
+
 }

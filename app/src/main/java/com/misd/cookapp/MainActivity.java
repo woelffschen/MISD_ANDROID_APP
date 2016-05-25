@@ -21,9 +21,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-        import java.util.ArrayList;
-        import java.util.Calendar;
-        import java.util.List;
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.misd.cookapp.HelperMethods.pasteCalendar;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -100,8 +101,8 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.nav_gallery) {
-            // Intent intent = new Intent(this, ShowEventActivity.class);
-            // startActivity(intent);
+            Intent intent = new Intent(this, ShowEventActivity.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_slideshow) {
             // Intent intent = new Intent(this, ???.class);
@@ -128,28 +129,30 @@ public class MainActivity extends AppCompatActivity
 
     // Methoden für die ListView - Beispiele zur Veranschaulichung
     private void populateEventList(){
-        myEvents.add(new Event(R.drawable.pic1, "Lasagne", "Münster", pasteCalendar(2010,10,2,12,34)));
-        myEvents.add(new Event(R.drawable.pic1, "Pizza", "Berlin", pasteCalendar(2010,10,2,12,34)));
-        myEvents.add(new Event(R.drawable.pic1, "Test", "Hamburg", pasteCalendar(2010,10,2,12,34)));
-        myEvents.add(new Event(R.drawable.pic1, "Salat", "München", pasteCalendar(2010,10,2,12,34)));
-        myEvents.add(new Event(R.drawable.pic1, "Nudelauflauf", "Osnabrück", pasteCalendar(2010,10,2,12,34)));
-        myEvents.add(new Event(R.drawable.pic1, "Lasagne", "Münster", pasteCalendar(2010,10,2,12,34)));
-        myEvents.add(new Event(R.drawable.pic1, "Pizza", "Berlin", pasteCalendar(2010,10,2,12,34)));
-        myEvents.add(new Event(R.drawable.pic1, "Test", "Hamburg", pasteCalendar(2010,10,2,12,34)));
-        myEvents.add(new Event(R.drawable.pic1, "Salat", "München", pasteCalendar(2010,10,2,12,34)));
-        myEvents.add(new Event(R.drawable.pic1, "Nudelauflauf", "Osnabrück", pasteCalendar(2010,10,2,12,34)));
-        myEvents.add(new Event(R.drawable.pic1, "Lasagne", "Münster", pasteCalendar(2010,10,2,12,34)));
-        myEvents.add(new Event(R.drawable.pic1, "Pizza", "Berlin", pasteCalendar(2010,10,2,12,34)));
-        myEvents.add(new Event(R.drawable.pic1, "Test", "Hamburg", pasteCalendar(2010,10,2,12,34)));
-        myEvents.add(new Event(R.drawable.pic1, "Salat", "München", pasteCalendar(2010,10,2,12,34)));
-        myEvents.add(new Event(R.drawable.pic1, "Nudelauflauf", "Osnabrück", pasteCalendar(2010,10,2,12,34)));
+        User currentUser = new User("Landreh", "Michael", "Boeselagerstr. 69b", 48163, "Münster", 'm', 23, "+49 163 138 92 82");
+        Meal currentMeal =  new Meal("Spaghetti Bolognese",false, false, false,false);
+
+        myEvents.add(new Event("Ich möchte heute etwas tolles kochen.", currentMeal,
+        18,60, 'b', "Boeselagerstr. 69b", 48163, "Münster", currentUser, pasteCalendar(2010,10,2,12,34)));
+
+        myEvents.add(new Event("Ich möchte heute etwas tolles kochen.", currentMeal,
+                18,60, 'b', "Boeselagerstr. 69b", 48163, "Münster", currentUser, pasteCalendar(2010,10,2,12,34)));
+
+        myEvents.add(new Event("Ich möchte heute etwas tolles kochen.", currentMeal,
+                18,60, 'b', "Boeselagerstr. 69b", 48163, "Münster", currentUser, pasteCalendar(2010,10,2,12,34)));
+
+        myEvents.add(new Event("Ich möchte heute etwas tolles kochen.", currentMeal,
+                18,60, 'b', "Boeselagerstr. 69b", 48163, "Münster", currentUser, pasteCalendar(2010,10,2,12,34)));
+
+        myEvents.add(new Event("Ich möchte heute etwas tolles kochen.", currentMeal,
+                18,60, 'b', "Boeselagerstr. 69b", 48163, "Münster", currentUser, pasteCalendar(2010,10,2,12,34)));
+
+        myEvents.add(new Event("Ich möchte heute etwas tolles kochen.", currentMeal,
+                18,60, 'b', "Boeselagerstr. 69b", 48163, "Münster", currentUser, pasteCalendar(2010,10,2,12,34)));
+
     }
 
-    private Calendar pasteCalendar(int year, int month, int day, int hour, int minute) {
-        Calendar cal = Calendar.getInstance();
-        cal.set(year,month,day,hour,minute);
-        return cal;
-    }
+
 
     private void populateListView(){
         ArrayAdapter<Event> adapter = new MyListAdapter();
@@ -164,7 +167,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> parent, View viewClicked, int position, long id) {
                 Event clickedEvent = myEvents.get(position);
-                String message = "Du hast Position " + position + " angeklickt = " + clickedEvent.getMeal() + ".";
+                String message = "Du hast Position " + position + " angeklickt = " + clickedEvent.getEventMeal().getName() + ".";
                 Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
             }
         });
@@ -192,11 +195,11 @@ public class MainActivity extends AppCompatActivity
 
             // Gericht:
             TextView mealText = (TextView) itemView.findViewById(R.id.textMeal);
-            mealText.setText(currentEvent.getMeal());
+            mealText.setText(currentEvent.getEventMeal().getName());
 
             // Ort:
             TextView locationText = (TextView) itemView.findViewById(R.id.textLocation);
-            locationText.setText(currentEvent.getLocation());
+            locationText.setText(currentEvent.getEventCity());
 
             // Datum:
             TextView datumText = (TextView) itemView.findViewById(R.id.textDate);

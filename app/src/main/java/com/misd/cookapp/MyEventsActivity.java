@@ -15,6 +15,8 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
+import static com.misd.cookapp.HelperMethods.pasteCalendar;
+
 public class MyEventsActivity extends AppCompatActivity {
 
     ExpandableListAdapter listAdapter;
@@ -110,27 +112,30 @@ public class MyEventsActivity extends AppCompatActivity {
 
         // Adding child data
         List<Event> myevents = new ArrayList<>();
-        myevents.add(new Event(R.drawable.pic1, "Lasagne", "Münster", pasteCalendar(2010,10,2,12,34)));
+
+        User currentUser = new User("Landreh", "Michael", "Boeselagerstr. 69b", 48163, "Münster", 'm', 23, "+49 163 138 92 82");
+        Meal currentMeal =  new Meal("Spaghetti Bolognese",false, false, false,false);
+
+        myevents.add(new Event("Ich möchte heute etwas tolles kochen.", currentMeal,
+                18,60, 'b', "Boeselagerstr. 69b", 48163, "Münster", currentUser, pasteCalendar(2010,10,2,12,34)));
 
         List<Event> myrequests = new ArrayList<>();
-        myrequests.add(new Event(R.drawable.pic1, "Lasagne", "Münster", pasteCalendar(2010,10,2,12,34)));
+        myrequests.add(new Event("Ich möchte heute etwas tolles kochen.", currentMeal,
+                18,60, 'b', "Boeselagerstr. 69b", 48163, "Münster", currentUser, pasteCalendar(2010,10,2,12,34)));
 
         List<Event> myattendance = new ArrayList<>();
-        myattendance.add(new Event(R.drawable.pic1, "Lasagne", "Münster", pasteCalendar(2010,10,2,12,34)));
+        myattendance.add(new Event("Ich möchte heute etwas tolles kochen.", currentMeal,
+                18,60, 'b', "Boeselagerstr. 69b", 48163, "Münster", currentUser, pasteCalendar(2010,10,2,12,34)));
 
         List<Event> pastevents = new ArrayList<>();
-        pastevents.add(new Event(R.drawable.pic1, "Lasagne", "Münster", pasteCalendar(2010,10,2,12,34)));
+        pastevents.add(new Event("Ich möchte heute etwas tolles kochen.", currentMeal,
+                18,60, 'b', "Boeselagerstr. 69b", 48163, "Münster", currentUser, pasteCalendar(2010,10,2,12,34)));
+
 
         listDataChild.put(listDataHeader.get(0), myevents); // Header, Child data
         listDataChild.put(listDataHeader.get(1), myrequests);
         listDataChild.put(listDataHeader.get(2), myattendance);
         listDataChild.put(listDataHeader.get(3), pastevents);
-    }
-
-    private Calendar pasteCalendar(int year, int month, int day, int hour, int minute) {
-        Calendar cal = Calendar.getInstance();
-        cal.set(year,month,day,hour,minute);
-        return cal;
     }
 
 }
