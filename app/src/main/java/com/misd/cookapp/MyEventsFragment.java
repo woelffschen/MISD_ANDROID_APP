@@ -36,6 +36,7 @@ public class MyEventsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getActivity().setTitle("Meine Events");
 
     }
 

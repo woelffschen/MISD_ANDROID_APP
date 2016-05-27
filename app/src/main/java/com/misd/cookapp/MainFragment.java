@@ -22,8 +22,7 @@ import static com.misd.cookapp.HelperMethods.pasteCalendar;
 
 /**
  * A simple {@link Fragment} subclass. Activities that contain this fragment must implement the
- * {@link MainFragment.OnFragmentInteractionListener} interface to handle interaction events. Use the {@link
- * MainFragment#newInstance} factory method to create an instance of this fragment.
+ * {@link MainFragment.OnFragmentInteractionListener} interface to handle interaction events.
  */
 public class MainFragment extends Fragment {
     private List<Event> myEvents = new ArrayList<>(); //ListView
@@ -37,7 +36,7 @@ public class MainFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        getActivity().setTitle("Events");
     }
 
     @Override
@@ -162,6 +161,13 @@ public class MainFragment extends Fragment {
                 Event clickedEvent = myEvents.get(position);
                 String message = "Du hast Position " + position + " angeklickt = " + clickedEvent.getEventMeal().getName() + ".";
                 Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
+
+                //Change to the ShowEventFragment
+                Fragment fragment;
+                Bundle args = new Bundle();
+                // args.putSerializable(IDENTIFIER, clickedEvent);
+                // fragment.setArguments(args);
+                // TODO: Hier muss noch das neue ShowEventFragment aufgerufen werden. Diesem muss das eventobject übergeben werden.
             }
         });
     }
