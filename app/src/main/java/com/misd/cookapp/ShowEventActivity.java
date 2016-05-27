@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -34,9 +35,7 @@ public class ShowEventActivity extends AppCompatActivity {
 
 
         setTitle(currentEvent.getEventMeal().getName());
-
-        TextView textEventMeal = (TextView) findViewById(R.id.textEventMeal);
-
+        
         TextView textEventCity = (TextView) findViewById(R.id.textEventCity);
         textEventCity.setText(currentEvent.getEventCity());
 
@@ -45,7 +44,29 @@ public class ShowEventActivity extends AppCompatActivity {
          * TODO EINFÜGEN WEITERER DATEN
          */
 
+        final Button acceptButton = (Button) findViewById(R.id.buttonAccept);
+        acceptButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                Snackbar.make(view, "Sie haben akzeptieren angeklickt.", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
 
+        final Button declineButton = (Button) findViewById(R.id.buttonDecline);
+        declineButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                Snackbar.make(view, "Sie haben ablehnen angeklickt.", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+
+        final Button deleteButton = (Button) findViewById(R.id.buttonDelete);
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                Snackbar.make(view, "Sie haben löschen angeklickt.", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
 
     }
 }

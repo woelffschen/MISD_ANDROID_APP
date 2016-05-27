@@ -16,45 +16,53 @@
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="50dp"
-            android:background="#FF5722"
             android:orientation="vertical">
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@null"
                 android:text="annehmen"
+                android:textSize="20sp"
+                android:textColor="#FF5722"
                 android:id="@+id/buttonAccept"
                 android:layout_gravity="center_horizontal"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="22dp"
+                android:layout_marginStart="22dp" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@null"
                 android:text="ablehnen"
+                android:textSize="20sp"
+                android:textColor="#FF5722"
                 android:id="@+id/buttonDecline"
                 android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true" />
+                android:layout_toRightOf="@+id/buttonAccept"
+                android:layout_toEndOf="@+id/buttonAccept"
+                android:layout_marginLeft="22dp"
+                android:layout_marginStart="22dp" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@null"
                 android:text="löschen"
+                android:textSize="20sp"
+                android:textColor="#FF5722"
                 android:id="@+id/buttonDelete"
                 android:layout_gravity="center"
                 android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+                android:layout_toRightOf="@+id/buttonDecline"
+                android:layout_toEndOf="@+id/buttonDecline"
+                android:layout_marginLeft="22dp"
+                android:layout_marginStart="22dp" />
         </RelativeLayout>
 
-    <TextView
-        android:id="@+id/textEventMeal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Gericht" />
 
     <TextView
         android:id="@+id/textEventCity"
