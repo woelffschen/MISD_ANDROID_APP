@@ -34,15 +34,24 @@ public class ShowEventActivity extends AppCompatActivity {
                 18,60, 'b', "Boeselagerstr. 69b", 48163, "Münster", currentUser, pasteCalendar(2010,10,2,12,34));
 
 
+
         setTitle(currentEvent.getEventMeal().getName());
-        
+
+        TextView textEventOwner = (TextView) findViewById(R.id.textEventOwner);
+        textEventOwner.setText(currentEvent.getEventOwner().getFirstname() + " " + currentEvent.getEventOwner().getLastname());
+
         TextView textEventCity = (TextView) findViewById(R.id.textEventCity);
         textEventCity.setText(currentEvent.getEventCity());
+
+        TextView textEventDescription = (TextView) findViewById(R.id.textEventDescription);
+        textEventDescription.setText(currentEvent.getEventDescription());
+
 
 
         /*
          * TODO EINFÜGEN WEITERER DATEN
          */
+
 
         final Button acceptButton = (Button) findViewById(R.id.buttonAccept);
         acceptButton.setOnClickListener(new View.OnClickListener() {
