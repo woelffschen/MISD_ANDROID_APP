@@ -3,13 +3,13 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_myevents"
+            android:id="@+id/nav_main"
             android:icon="@drawable/ic_action_home"
-            android:title="Meine Events" />
+            android:title="Events" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_my_events"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Zeige Events" />
+            android:title="Meine Events" />
         <item
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/ic_menu_slideshow"
@@ -25,11 +25,23 @@
             <item
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:title="Teilen" />
+        </menu>
+    </item>
+    <item android:title="Über die App">
+        <menu>
+            <item
+                android:id="@+id/nav_settings"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Einstellungen" />
             <item
                 android:id="@+id/nav_send"
                 android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:title="Feedback" />
+            <item
+                android:id="@+id/nav_help"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Hilfe" />
         </menu>
     </item>
 
