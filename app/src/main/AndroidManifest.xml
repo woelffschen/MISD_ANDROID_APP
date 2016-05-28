@@ -18,12 +18,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MyEventsActivity" />
-        <activity
-            android:name=".ShowEventActivity"
-            android:label="@string/title_activity_show_event"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".CreateEventActivity"></activity>
     </application>
 
 </manifest>

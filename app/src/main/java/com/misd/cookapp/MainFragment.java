@@ -154,8 +154,6 @@ public class MainFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View viewClicked, int position, long id) {
                 Event clickedEvent = myEvents.get(position);
-                String message = "Du hast Position " + position + " angeklickt = " + clickedEvent.getEventMeal().getName() + ".";
-                Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
 
                 //Change to the ShowEventFragment
                 Fragment fragment = new ShowEventFragment();

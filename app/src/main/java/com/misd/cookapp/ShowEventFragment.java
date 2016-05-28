@@ -69,9 +69,8 @@ public class ShowEventFragment extends Fragment {
 
 
         /*
-         * TODO EINFÜGEN WEITERER DATEN
-         * Adresse nur anzeigen lassen, wenn man zum Event zugelassen wurde
-         * Unverträglichkeiten nur anzeigen, wenn boolean true
+         * TODO Adresse nur anzeigen lassen, wenn man zum Event zugelassen wurde
+         *
          */
 
 

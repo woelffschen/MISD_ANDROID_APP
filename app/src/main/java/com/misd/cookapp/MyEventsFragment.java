@@ -4,6 +4,8 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +23,8 @@ import static com.misd.cookapp.HelperMethods.pasteCalendar;
  * {@link MyEventsFragment.OnFragmentInteractionListener} interface to handle interaction events.
  */
 public class MyEventsFragment extends Fragment {
+    public static final String ARGS_EVENT_OBJECT = "args_event_object";
+    private static final String LOG_TAG = MyEventsFragment.class.toString();
 
     private OnFragmentInteractionListener mListener;
     ExpandableListAdapter listAdapter;
@@ -50,56 +54,27 @@ public class MyEventsFragment extends Fragment {
         // setting list adapter
         expListView.setAdapter(listAdapter);
 
-        // Listview Group click listener
-        expListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
-
-            @Override
-            public boolean onGroupClick(ExpandableListView parent, View v,
-                                        int groupPosition, long id) {
-                // Toast.makeText(getApplicationContext(),
-                // "Group Clicked " + listDataHeader.get(groupPosition),
-                // Toast.LENGTH_SHORT).show();
-                return false;
-            }
-        });
-
-        // Listview Group expanded listener
-        expListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
-
-            @Override
-            public void onGroupExpand(int groupPosition) {
-                Toast.makeText(getActivity().getApplicationContext(),
-                        listDataHeader.get(groupPosition) + " Expanded",
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        // Listview Group collasped listener
-        expListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
-
-            @Override
-            public void onGroupCollapse(int groupPosition) {
-                Toast.makeText(getActivity().getApplicationContext(),
-                        listDataHeader.get(groupPosition) + " Collapsed",
-                        Toast.LENGTH_SHORT).show();
-
-            }
-        });
-
         // Listview on child click listener
         expListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
 
             @Override
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id) {
-                Toast.makeText(
-                        getActivity().getApplicationContext(),
-                        listDataHeader.get(groupPosition)
-                                + " : "
-                                + listDataChild.get(
-                                listDataHeader.get(groupPosition)).get(
-                                childPosition), Toast.LENGTH_SHORT)
-                        .show();
+
+                Event clickedEvent = listDataChild.get(listDataHeader.get(groupPosition)).get(childPosition);
+
+                //Change to the ShowEventFragment
+                Fragment fragment = new ShowEventFragment();
+                Bundle args = new Bundle();
+                args.putSerializable(ARGS_EVENT_OBJECT, clickedEvent);
+                fragment.setArguments(args);
+
+                // Insert the fragment by replacing any existing fragment
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.content_frame, fragment)
+                        .addToBackStack(null)
+                        .commit();
                 return false;
             }
         });
@@ -121,29 +96,33 @@ public class MyEventsFragment extends Fragment {
         // Adding child data
         List<Event> myevents = new ArrayList<>();
 
+
+
         User currentUser = new User("Landreh", "Michael", "Boeselagerstr. 69b", 48163, "Münster", 'm', 23, "+49 163 138 92 82");
         Meal currentMeal =  new Meal("Spaghetti Bolognese",false, false, false,false);
 
         myevents.add(new Event("Ich möchte heute etwas tolles kochen.", currentMeal,
                 18,60, 'b', "Boeselagerstr. 69b", 48163, "Münster", currentUser, pasteCalendar(2010,10,2,12,34)));
 
+
         List<Event> myrequests = new ArrayList<>();
         myrequests.add(new Event("Ich möchte heute etwas tolles kochen.", currentMeal,
-                18,60, 'b', "Boeselagerstr. 69b", 48163, "Münster", currentUser, pasteCalendar(2010,10,2,12,34)));
+                18,60, 'b', "Boeselagerstr. 69b", 48163, "Bochum", currentUser, pasteCalendar(2010,10,2,12,34)));
 
         List<Event> myattendance = new ArrayList<>();
         myattendance.add(new Event("Ich möchte heute etwas tolles kochen.", currentMeal,
-                18,60, 'b', "Boeselagerstr. 69b", 48163, "Münster", currentUser, pasteCalendar(2010,10,2,12,34)));
+                18,60, 'b', "Boeselagerstr. 69b", 48163, "München", currentUser, pasteCalendar(2010,10,2,12,34)));
 
         List<Event> pastevents = new ArrayList<>();
         pastevents.add(new Event("Ich möchte heute etwas tolles kochen.", currentMeal,
-                18,60, 'b', "Boeselagerstr. 69b", 48163, "Münster", currentUser, pasteCalendar(2010,10,2,12,34)));
+                18,60, 'b', "Boeselagerstr. 69b", 48163, "TikiTaka", currentUser, pasteCalendar(2010,10,2,12,34)));
 
 
         listDataChild.put(listDataHeader.get(0), myevents); // Header, Child data
         listDataChild.put(listDataHeader.get(1), myrequests);
         listDataChild.put(listDataHeader.get(2), myattendance);
         listDataChild.put(listDataHeader.get(3), pastevents);
+        Log.d(LOG_TAG, "The data to provide the my_events_listview is successfully created.");
     }
 
     @Override
@@ -159,12 +138,6 @@ public class MyEventsFragment extends Fragment {
         return rootView;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
 
     @Override
     public void onAttach(Context context) {
