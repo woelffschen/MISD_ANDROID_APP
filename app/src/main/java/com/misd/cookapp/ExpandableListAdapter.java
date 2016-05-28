@@ -65,11 +65,11 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
         // Datum:
         TextView datumText = (TextView) convertView.findViewById(R.id.textDate);
-        datumText.setText(currentEvent.getDateAsString());
+        datumText.setText(currentEvent.getEventDateAsString());
 
         // Uhrzeit:
         TextView uhrzeitText = (TextView) convertView.findViewById(R.id.textTime);
-        uhrzeitText.setText(currentEvent.getTimeAsString());
+        uhrzeitText.setText(currentEvent.getEventTimeAsString());
         return convertView;
     }
 

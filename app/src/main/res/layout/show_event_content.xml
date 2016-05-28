@@ -64,7 +64,14 @@
         </RelativeLayout>
 
     <TextView
-        android:id="@+id/textEventOwner"
+        android:id="@+id/textEventDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+    <TextView
+        android:id="@+id/textEventDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
@@ -75,19 +82,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Ort"/>
-
-    <TextView
-        android:id="@+id/textEventDescription"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
         android:textAppearance="?android:attr/textAppearanceLarge"/>
 
-
-
-        <TextView
+    <TextView
         android:id="@+id/address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -96,13 +93,13 @@
         android:text="Adresse"/>
 
     <TextView
-        android:id="@+id/inputField"
+        android:id="@+id/textEventOwner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Something"/>
+        android:layout_margin="16dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"/>
 
+        <!-- 
     <TextView
         android:id="@+id/incompatibility"
         android:layout_width="wrap_content"
@@ -110,6 +107,14 @@
         android:layout_margin="@dimen/text_margin"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/incompatibility"/>
+
+        <TextView
+            android:id="@+id/textLactoseFree"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Laktosefrei"
+            android:layout_margin="@dimen/text_margin"
+            android:visibility="invisible"/> -->
 
     </LinearLayout>
 

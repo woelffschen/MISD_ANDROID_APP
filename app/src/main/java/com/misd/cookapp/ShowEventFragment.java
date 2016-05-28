@@ -34,8 +34,7 @@ public class ShowEventFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getActivity().setTitle("Event anzeigen");
-        Bundle args = getArguments();
-        currentEvent = (Event) args.getSerializable(MainFragment.ARGS_EVENT_OBJECT);
+
 
 
     }
@@ -44,25 +43,35 @@ public class ShowEventFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.show_event_content, container, false);
+        Bundle args = getArguments();
+        currentEvent = (Event) args.getSerializable(MainFragment.ARGS_EVENT_OBJECT);
+
 
 
 
 
         getActivity().setTitle(currentEvent.getEventMeal().getName());
 
-        TextView textEventOwner = (TextView) rootView.findViewById(R.id.textEventOwner);
-        textEventOwner.setText(currentEvent.getEventOwner().getFirstname() + " " + currentEvent.getEventOwner().getLastname());
+        TextView textEventDescription = (TextView) rootView.findViewById(R.id.textEventDescription);
+        textEventDescription.setText(currentEvent.getEventDescription());
+
+        TextView textEventDate = (TextView) rootView.findViewById(R.id.textEventDate);
+        textEventDate.setText("Event findet statt am: " + currentEvent.getEventDateAsString());
 
         TextView textEventCity = (TextView) rootView.findViewById(R.id.textEventCity);
         textEventCity.setText(currentEvent.getEventCity());
 
-        TextView textEventDescription = (TextView) rootView.findViewById(R.id.textEventDescription);
-        textEventDescription.setText(currentEvent.getEventDescription());
+        TextView textEventOwner = (TextView) rootView.findViewById(R.id.textEventOwner);
+        textEventOwner.setText(currentEvent.getEventOwner().getFirstname() + " " + currentEvent.getEventOwner().getLastname());
 
+        /*TextView textLactoseFree = (TextView) rootView.findViewById(R.id.textLactoseFree);
+        if (currentEvent.getEvent) */
 
 
         /*
          * TODO EINFÜGEN WEITERER DATEN
+         * Adresse nur anzeigen lassen, wenn man zum Event zugelassen wurde
+         * Unverträglichkeiten nur anzeigen, wenn boolean true
          */
 
 

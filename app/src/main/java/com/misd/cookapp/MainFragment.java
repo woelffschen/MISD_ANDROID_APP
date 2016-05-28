@@ -203,11 +203,11 @@ public class MainFragment extends Fragment {
 
             // Datum:
             TextView datumText = (TextView) itemView.findViewById(R.id.textDate);
-            datumText.setText(currentEvent.getDateAsString());
+            datumText.setText(currentEvent.getEventDateAsString());
 
             // Uhrzeit:
             TextView uhrzeitText = (TextView) itemView.findViewById(R.id.textTime);
-            uhrzeitText.setText(currentEvent.getTimeAsString());
+            uhrzeitText.setText(currentEvent.getEventTimeAsString());
 
 
             return itemView;

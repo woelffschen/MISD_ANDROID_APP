@@ -127,9 +127,9 @@ public class Event implements Serializable{
         this.eventDate = eventDate;
     }
 
-    public String getDateAsString() {return new SimpleDateFormat("dd.MM.yyyy").format(eventDate.getTime());}
+    public String getEventDateAsString() {return new SimpleDateFormat("dd.MM.yyyy").format(eventDate.getTime());}
 
-    public String getTimeAsString() {return new SimpleDateFormat("hh:mm").format(eventDate.getTime());}
+    public String getEventTimeAsString() {return new SimpleDateFormat("hh:mm").format(eventDate.getTime());}
 
 
 }
