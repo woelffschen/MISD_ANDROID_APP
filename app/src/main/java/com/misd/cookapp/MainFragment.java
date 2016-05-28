@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ import static com.misd.cookapp.HelperMethods.pasteCalendar;
  * {@link MainFragment.OnFragmentInteractionListener} interface to handle interaction events.
  */
 public class MainFragment extends Fragment {
+    public static final String ARGS_EVENT_OBJECT = "args_event_object";
     private List<Event> myEvents = new ArrayList<>(); //ListView
 
     private OnFragmentInteractionListener mListener;
@@ -54,13 +56,6 @@ public class MainFragment extends Fragment {
 
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -87,7 +82,7 @@ public class MainFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
+
         void onFragmentInteraction(Uri uri);
     }
 
@@ -97,8 +92,8 @@ public class MainFragment extends Fragment {
         User currentUser = new User("Landreh", "Michael", "Boeselagerstr. 69b", 48163, "Münster", 'm', 23, "+49 163 138 92 82");
         Meal currentMeal =  new Meal("Spaghetti Bolognese",false, false, false,false);
 
-        myEvents.add(new Event("Ich möchte heute etwas tolles kochen.", currentMeal,
-                18,60, 'b', "Boeselagerstr. 69b", 48163, "Münster", currentUser, pasteCalendar(2010,10,2,12,34)));
+        myEvents.add(new Event("Ich möchte heute scheiße kochen.", currentMeal,
+                18,60, 'b', "Blubstr.", 48163, "Münster", currentUser, pasteCalendar(2016,3,2,12,34)));
 
         myEvents.add(new Event("Ich möchte heute etwas tolles kochen.", currentMeal,
                 18,60, 'b', "Boeselagerstr. 69b", 48163, "Münster", currentUser, pasteCalendar(2010,10,2,12,34)));
@@ -163,11 +158,17 @@ public class MainFragment extends Fragment {
                 Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
 
                 //Change to the ShowEventFragment
-                Fragment fragment;
+                Fragment fragment = new ShowEventFragment();
                 Bundle args = new Bundle();
-                // args.putSerializable(IDENTIFIER, clickedEvent);
-                // fragment.setArguments(args);
-                // TODO: Hier muss noch das neue ShowEventFragment aufgerufen werden. Diesem muss das eventobject übergeben werden.
+                args.putSerializable(ARGS_EVENT_OBJECT, clickedEvent);
+                fragment.setArguments(args);
+
+                // Insert the fragment by replacing any existing fragment
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.content_frame, fragment)
+                        .addToBackStack(null)
+                        .commit();
             }
         });
     }

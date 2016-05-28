@@ -1,6 +1,8 @@
 package com.misd.cookapp;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
 
     private String lastname;
     private String firstname;

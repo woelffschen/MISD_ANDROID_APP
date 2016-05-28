@@ -2,10 +2,11 @@ package com.misd.cookapp;
 
 import android.graphics.Picture;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public class Event {
+public class Event implements Serializable{
     private int IconId;
     // private int eventId;
     private String eventDescription;
@@ -22,7 +23,7 @@ public class Event {
     // private String address;
 
     public Event(String eventDescription, Meal eventMeal, int eventMinAge, int eventMaxAge,
-                 char eventGender, String eventStreet, int eventPostal, String eventCity, User eventOwner, Calendar eventDate){
+                 char eventGender, String eventStreet, int eventPostal, String eventCity, User eventOwner, Calendar eventDate) {
 
         this.IconId = R.drawable.pic1;
         this.eventDescription = eventDescription;

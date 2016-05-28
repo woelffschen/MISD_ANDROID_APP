@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.misd.cookapp.ShowEventActivity"
-    tools:showIn="@layout/show_event_activity">
+    tools:context="com.misd.cookapp.ShowEventFragment"
+    tools:showIn="@layout/show_event_fragment">
 
     <LinearLayout
         android:layout_width="fill_parent"

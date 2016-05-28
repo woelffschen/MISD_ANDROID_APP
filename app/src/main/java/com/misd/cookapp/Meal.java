@@ -1,6 +1,8 @@
 package com.misd.cookapp;
 
-public class Meal {
+import java.io.Serializable;
+
+public class Meal implements Serializable{
 
     private String name;
     private int mealId;
