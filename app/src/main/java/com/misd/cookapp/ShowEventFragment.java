@@ -11,7 +11,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.RadioGroup;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import static com.misd.cookapp.HelperMethods.pasteCalendar;
 
@@ -34,9 +38,6 @@ public class ShowEventFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getActivity().setTitle("Event anzeigen");
-
-
-
     }
 
     @Override
@@ -46,57 +47,69 @@ public class ShowEventFragment extends Fragment {
         Bundle args = getArguments();
         currentEvent = (Event) args.getSerializable(MainFragment.ARGS_EVENT_OBJECT);
 
-
-
-
+        /*
+         * TODO Teilname anfragen, Teilnahme beenden, Anfrage abbrechen hinzufügen
+         */
 
         getActivity().setTitle(currentEvent.getEventMeal().getName());
+
+        TextView textEventOwner = (TextView) rootView.findViewById(R.id.textEventOwner);
+        textEventOwner.setText("Veranstalter:  " + currentEvent.getEventOwner().getFirstname() + " " + currentEvent.getEventOwner().getLastname());
 
         TextView textEventDescription = (TextView) rootView.findViewById(R.id.textEventDescription);
         textEventDescription.setText(currentEvent.getEventDescription());
 
-        TextView textEventDate = (TextView) rootView.findViewById(R.id.textEventDate);
-        textEventDate.setText("Event findet statt am: " + currentEvent.getEventDateAsString());
+        TextView textEventPostalCode = (TextView) rootView.findViewById(R.id.textEventPostalCode);
+        textEventPostalCode.setText(String.valueOf(currentEvent.getEventPostal()));
 
         TextView textEventCity = (TextView) rootView.findViewById(R.id.textEventCity);
         textEventCity.setText(currentEvent.getEventCity());
 
-        TextView textEventOwner = (TextView) rootView.findViewById(R.id.textEventOwner);
-        textEventOwner.setText(currentEvent.getEventOwner().getFirstname() + " " + currentEvent.getEventOwner().getLastname());
+        // TODO Adresse nur anzeigen lassen, wenn man zum Event zugelassen wurde
+        TextView textEventStreet = (TextView) rootView.findViewById(R.id.textEventStreet);
+        textEventStreet.setText(currentEvent.getEventStreet());
+        textEventStreet.setVisibility(TextView.VISIBLE);
 
-        /*TextView textLactoseFree = (TextView) rootView.findViewById(R.id.textLactoseFree);
-        if (currentEvent.getEvent) */
+        TextView textEventDate = (TextView) rootView.findViewById(R.id.textEventDate);
+        textEventDate.setText("Veranstaltungsdatum:  " + currentEvent.getEventDateAsString());
 
+        TextView textEventGender = (TextView) rootView.findViewById(R.id.textEventGender);
+        char eventGender = currentEvent.getEventGender();
+        switch(eventGender) {
+            case 'm':
+                textEventGender.setText("nur männliche Teilnehmer");
+                break;
+            case 'w':
+                textEventGender.setText("nur weibliche Teilnehmer");
+                break;
+            default:
+                textEventGender.setText("keine Beschränkung");
+        }
 
-        /*
-         * TODO Adresse nur anzeigen lassen, wenn man zum Event zugelassen wurde
-         *
-         */
+        TextView textEventAge = (TextView) rootView.findViewById(R.id.textEventAge);
+        textEventAge.setText("Alter erwünscht von " + currentEvent.getEventMinAge() + " bis " + currentEvent.getEventMaxAge() + " Jahren.");
 
-
-        final Button acceptButton = (Button) rootView.findViewById(R.id.buttonAccept);
-        acceptButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                Snackbar.make(view, "Sie haben akzeptieren angeklickt.", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
-        final Button declineButton = (Button) rootView.findViewById(R.id.buttonDecline);
-        declineButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                Snackbar.make(view, "Sie haben ablehnen angeklickt.", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
-        final Button deleteButton = (Button) rootView.findViewById(R.id.buttonDelete);
-        deleteButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                Snackbar.make(view, "Sie haben löschen angeklickt.", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        TextView textEventIncompatibility = (TextView) rootView.findViewById(R.id.textEventIncompatibility);
+        TextView textEventLactose = (TextView) rootView.findViewById(R.id.textEventLactoseFree);
+        if (currentEvent.getEventMeal().isLactoseFree() == true){
+            textEventIncompatibility.setVisibility(TextView.VISIBLE);
+            textEventLactose.setVisibility(TextView.VISIBLE);
+        }
+        TextView textEventGluten = (TextView) rootView.findViewById(R.id.textEventGlutenFree);
+        if (currentEvent.getEventMeal().isGlutenFree() == true){
+            textEventIncompatibility.setVisibility(TextView.VISIBLE);
+            textEventGluten.setVisibility(TextView.VISIBLE);
+        }
+        TextView textEventFructose = (TextView) rootView.findViewById(R.id.textEventFructoseFree);
+        if (currentEvent.getEventMeal().isFructoseFree() == true){
+            textEventIncompatibility.setVisibility(TextView.VISIBLE);
+            textEventFructose.setVisibility(TextView.VISIBLE);
+        }
+        TextView textEventSorbit = (TextView) rootView.findViewById(R.id.textEventSorbitFree);
+        if (currentEvent.getEventMeal().isSorbitFree() == true){
+            textEventIncompatibility.setVisibility(TextView.VISIBLE);
+            textEventSorbit.setVisibility(TextView.VISIBLE);
+        }
 
         return rootView;
     }

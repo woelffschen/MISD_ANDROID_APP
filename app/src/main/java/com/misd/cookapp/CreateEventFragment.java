@@ -85,9 +85,6 @@ public class CreateEventFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-/**
- * TODO Event erstellen - Übergaben speichern
- */
     private void registerSafeEventListener(View rootView) {
     Button safeEvent = (Button) rootView.findViewById(R.id.eventSafe);
     safeEvent.setOnClickListener(new View.OnClickListener() {

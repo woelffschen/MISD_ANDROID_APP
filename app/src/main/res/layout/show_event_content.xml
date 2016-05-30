@@ -13,110 +13,131 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="50dp"
-            android:orientation="vertical">
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:text="annehmen"
-                android:textSize="20sp"
-                android:textColor="#FF5722"
-                android:id="@+id/buttonAccept"
-                android:layout_gravity="center_horizontal"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginLeft="22dp"
-                android:layout_marginStart="22dp" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:text="ablehnen"
-                android:textSize="20sp"
-                android:textColor="#FF5722"
-                android:id="@+id/buttonDecline"
-                android:layout_alignParentBottom="true"
-                android:layout_toRightOf="@+id/buttonAccept"
-                android:layout_toEndOf="@+id/buttonAccept"
-                android:layout_marginLeft="22dp"
-                android:layout_marginStart="22dp" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:text="löschen"
-                android:textSize="20sp"
-                android:textColor="#FF5722"
-                android:id="@+id/buttonDelete"
-                android:layout_gravity="center"
-                android:layout_alignParentBottom="true"
-                android:layout_toRightOf="@+id/buttonDecline"
-                android:layout_toEndOf="@+id/buttonDecline"
-                android:layout_marginLeft="22dp"
-                android:layout_marginStart="22dp" />
-        </RelativeLayout>
-
-    <!-- TODO ShowEvent gemäß CreateEvent anpassen -->
-
-    <TextView
-        android:id="@+id/textEventDescription"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"/>
-
-    <TextView
-        android:id="@+id/textEventDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"/>
-
-    <TextView
-        android:id="@+id/textEventCity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:textAppearance="?android:attr/textAppearanceLarge"/>
-
-    <TextView
-        android:id="@+id/address"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Adresse"/>
-
-    <TextView
-        android:id="@+id/textEventOwner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"/>
-
-        <!--
-    <TextView
-        android:id="@+id/incompatibility"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/incompatibility"/>
-
         <TextView
-            android:id="@+id/textLactoseFree"
+            android:id="@+id/textEventOwner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Laktosefrei"
+            android:layout_margin="16dp"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/textEventDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="Veranstaltungsort:"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/textEventStreet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_margin="@dimen/text_margin"
-            android:visibility="invisible"/> -->
+            android:text="Straße Nr."
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:visibility="gone" />
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/textEventPostalCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="PLZ"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+            <TextView
+                android:id="@+id/textEventCity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="Stadt"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+        </TableRow>
+
+        <TextView
+            android:id="@+id/textEventDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="Geschlecht: "
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+            <TextView
+                android:id="@+id/textEventGender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="Teilnehmergeschlecht"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+        </TableRow>
+
+        <TextView
+            android:id="@+id/textEventAge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/textEventIncompatibility"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="Bei mir wird gekocht: "
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/textEventLactoseFree"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="lactosefrei"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/textEventGlutenFree"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="glutenfrei"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/textEventFructoseFree"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="fructosefrei"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/textEventSorbitFree"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="sorbitfrei"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:visibility="gone" />
 
     </LinearLayout>
 
