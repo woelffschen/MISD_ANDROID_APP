@@ -23,15 +23,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/editText"
-        android:hint="Name des Events" />
+        android:hint="Name des Eventgerichtes" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textMultiLine"
         android:ems="10"
-        android:id="@+id/editText3"
+        android:id="@+id/eventDescription"
         android:hint="Beschreibung" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="30dp" />
 
     <CheckBox
         android:layout_width="wrap_content"
@@ -45,8 +49,36 @@
         android:layout_height="wrap_content"
         android:inputType="textPostalAddress"
         android:ems="10"
-        android:id="@+id/editText5"
-        android:hint="Adresse" />
+        android:id="@+id/eventStreet"
+        android:hint="Straße Nr." />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <TableRow>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPostalAddress"
+        android:ems="5"
+        android:id="@+id/eventPostalCode"
+        android:hint="PLZ" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPostalAddress"
+        android:ems="10"
+        android:id="@+id/eventCity"
+        android:hint="Stadt" />
+
+    </TableRow>
+    </TableLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="30dp" />
 
     <TextView
         android:layout_width="match_parent"
@@ -55,6 +87,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"/>
 
     <RadioGroup
+        android:id="@+id/radioGroupGender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
@@ -77,6 +110,10 @@
         android:id="@+id/radioButton3" />
     </RadioGroup>
 
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="30dp" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -89,6 +126,52 @@
         rsb:absoluteMaxValue="99"
         rsb:absoluteMinValue="18"
         rsb:textAboveThumbsColor="#000000"/>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="30dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Unverträglichkeiten:"
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+    <CheckBox
+        android:id="@+id/lactoseFree"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Lactose frei"/>
+
+    <CheckBox
+        android:id="@+id/glutenFree"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Gluten frei"/>
+
+    <CheckBox
+        android:id="@+id/fructoseFree"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Fructose frei"/>
+
+    <CheckBox
+        android:id="@+id/sorbitFree"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sorbit frei"/>
+
+    <CalendarView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/calendarView" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="speichern"
+        android:id="@+id/eventSafe"
+        android:layout_gravity="center_horizontal" />
 
 </LinearLayout>
 
