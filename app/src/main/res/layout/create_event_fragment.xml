@@ -101,13 +101,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Nur weiblich"
-        android:id="@+id/radioButton2" />
+        android:id="@+id/radiobutton_onlyFemale" />
 
     <RadioButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Nur männlich"
-        android:id="@+id/radioButton3" />
+        android:id="@+id/radiobutton_onlyMale" />
     </RadioGroup>
 
     <Space
@@ -121,6 +121,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"/>
 
     <org.florescu.android.rangeseekbar.RangeSeekBar
+        android:id="@+id/eventAge"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         rsb:absoluteMaxValue="99"
@@ -164,7 +165,7 @@
     <CalendarView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/calendarView" />
+        android:id="@+id/eventDateTime" />
 
     <Button
         android:layout_width="wrap_content"
