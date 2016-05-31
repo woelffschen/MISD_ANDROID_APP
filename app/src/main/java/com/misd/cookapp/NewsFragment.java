@@ -27,9 +27,10 @@ import static com.misd.cookapp.HelperMethods.pasteCalendar;
  * to handle interaction events.
  */
 public class NewsFragment extends Fragment {
-    private Event currentEvent;
     private List<String> myEventNews = new ArrayList<>(); //ListView
-    public static final String ARGS_EVENT_OBJECT = "args_event_object";
+    //public static final String ARGS_EVENT_OBJECT = "args_event_object";
+    private static final int DATA_TYPE_MESSAGE = 0;
+    private static final int DATA_TYPE_MESSAGE1 = 1;
 
     private OnFragmentInteractionListener mListener;
 
@@ -100,8 +101,6 @@ public class NewsFragment extends Fragment {
 
     }
 
-
-
     private void populateListView(final View rootView){
         ArrayAdapter<String> adapter = new MyListAdapter();
         ListView list = (ListView) rootView.findViewById(R.id.newsListView);
@@ -119,6 +118,9 @@ public class NewsFragment extends Fragment {
         });
     }
 
+    /*
+     * TODO Prüfung welches Nachrichtenlayout angezeigt werden soll
+     */
 
     private class MyListAdapter extends ArrayAdapter<String> {
         public MyListAdapter() {
@@ -128,16 +130,43 @@ public class NewsFragment extends Fragment {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             // Make sure we have a view to work with
-            View itemView = convertView;
-            if (itemView == null) {
-                itemView = getActivity().getLayoutInflater().inflate(R.layout.news_list_item, parent, false);
+            if (convertView == null) {
+                LayoutInflater inflater = getActivity().getLayoutInflater();
+                if (/*Test auf Datentyp*/) {
+                    convertView = inflater.inflate(R.layout.news_list_item, null);
+                }
+                else {
+                    convertView = inflater.inflate(R.layout.news_list_item2, null);
+
+                }
             }
 
-            // Find the event to work with
-            String clickedMessage = myEventNews.get(position);
+            if (/*Test auf Datentyp*/) {
+                // Felder füllen
+            }
+            else {
+                // Felder füllen
+            }
+        }
 
-            return itemView;
+        @Override
+        public int getViewTypeCount() {
+            // Return the total number of xml layouts
+            return 2;
+        }
+
+        @Override
+        public int getItemViewType(int position) {
+            // Returns information which layout type you should use based on position
+            if(/*Test auf Datentyp*/) {
+                return DATA_TYPE_MESSAGE;
+            }
+            else {
+                return DATA_TYPE_MESSAGE1;
+            }
         }
 
     }
+
+
 }
