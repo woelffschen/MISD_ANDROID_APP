@@ -3,6 +3,8 @@ package com.misd.cookapp;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
@@ -45,15 +47,14 @@ public class MainFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.main_fragment, container, false);
+
         // Aufruf Methoden für ListView
         populateEventList();
         populateListView(rootView);
         registerClickCallback(rootView);
+
         // Inflate the layout for this fragment
         return rootView;
-
-
-
     }
 
     @Override

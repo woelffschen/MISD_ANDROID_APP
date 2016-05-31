@@ -3,12 +3,14 @@ package com.misd.cookapp;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -17,9 +19,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, MainFragment.OnFragmentInteractionListener, MyEventsFragment.OnFragmentInteractionListener, ShowEventFragment.OnFragmentInteractionListener,
-CreateEventFragment.OnFragmentInteractionListener {
+CreateEventFragment.OnFragmentInteractionListener, NewsFragment.OnFragmentInteractionListener {
 
 
 
@@ -31,18 +35,8 @@ CreateEventFragment.OnFragmentInteractionListener {
         setSupportActionBar(toolbar);
         setTitle(getString(R.string.event)); // Titel fÃ¼r Activity festlegen
 
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-
-        /*
-         * TODO FloatingButton nur bei MainActivity anzeigen lassen
-        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.content_frame);
-        if (currentFragment instanceof MainFragment) {
-        }
-        else {
-            fab.setVisibility(View.GONE);
-        }
-        */
-
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -57,7 +51,9 @@ CreateEventFragment.OnFragmentInteractionListener {
                 }
             });
 
-
+        /*
+         * TODO FloatingButton nur bei MainActivity anzeigen lassen
+         */
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -120,8 +116,8 @@ CreateEventFragment.OnFragmentInteractionListener {
         } else if (id == R.id.nav_main) {
             fragment = new MainFragment();
 
-        } else if (id == R.id.nav_slideshow) {
-            fragment = new MainFragment();
+        } else if (id == R.id.nav_news) {
+            fragment = new NewsFragment();
 
         } else if (id == R.id.nav_manage) {
             fragment = new MainFragment();
@@ -151,4 +147,5 @@ CreateEventFragment.OnFragmentInteractionListener {
     public void onFragmentInteraction(Uri uri){
         //you can leave it empty
     }
+
 }

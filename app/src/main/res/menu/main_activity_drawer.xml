@@ -11,13 +11,13 @@
             android:icon="@drawable/ic_menu_gallery"
             android:title="Meine Events" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_news"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="..." />
+            android:title="Benachrichtigungen" />
         <item
             android:id="@+id/nav_manage"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:title="" />
     </group>
 
     <item android:title="Communicate">
