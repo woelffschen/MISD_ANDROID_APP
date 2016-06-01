@@ -28,9 +28,8 @@ import static com.misd.cookapp.HelperMethods.pasteCalendar;
  */
 public class NewsFragment extends Fragment {
     private List<String> myEventNews = new ArrayList<>(); //ListView
-    //public static final String ARGS_EVENT_OBJECT = "args_event_object";
-    private static final int DATA_TYPE_MESSAGE = 0;
-    private static final int DATA_TYPE_MESSAGE1 = 1;
+    private static final int TYPE_REQUEST = 0;
+    private static final int TYPE_MESSAGE = 1;
 
     private OnFragmentInteractionListener mListener;
 
@@ -126,44 +125,27 @@ public class NewsFragment extends Fragment {
         public MyListAdapter() {
             super(getActivity(), R.layout.news_list_item, myEventNews);
         }
+        Event currentEvent;
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            // Make sure we have a view to work with
-            if (convertView == null) {
-                LayoutInflater inflater = getActivity().getLayoutInflater();
-                if (/*Test auf Datentyp*/) {
-                    convertView = inflater.inflate(R.layout.news_list_item, null);
-                }
-                else {
-                    convertView = inflater.inflate(R.layout.news_list_item2, null);
-
-                }
+            View itemView = convertView;
+            if (itemView == null) {
+                itemView = getActivity().getLayoutInflater().inflate(R.layout.news_list_item2, parent, false);
             }
-
-            if (/*Test auf Datentyp*/) {
-                // Felder füllen
-            }
-            else {
-                // Felder füllen
-            }
+            return itemView;
         }
 
         @Override
         public int getViewTypeCount() {
-            // Return the total number of xml layouts
+            // Returns the number of types of Views that will be created by getView(int, View, ViewGroup).
             return 2;
         }
 
         @Override
         public int getItemViewType(int position) {
-            // Returns information which layout type you should use based on position
-            if(/*Test auf Datentyp*/) {
-                return DATA_TYPE_MESSAGE;
-            }
-            else {
-                return DATA_TYPE_MESSAGE1;
-            }
+            // Get the type of View that will be created by getView(int, View, ViewGroup) for the specified item.
+            return position % 2;
         }
 
     }
