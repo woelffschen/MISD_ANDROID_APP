@@ -3,31 +3,26 @@ package com.misd.cookapp;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
-
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, MainFragment.OnFragmentInteractionListener, MyEventsFragment.OnFragmentInteractionListener, ShowEventFragment.OnFragmentInteractionListener,
-CreateEventFragment.OnFragmentInteractionListener, NewsFragment.OnFragmentInteractionListener {
+NewsFragment.OnFragmentInteractionListener {
 
+    public static final String SHOW_EVENT_FRAGMENT_NAME = "create_event_fragment";
+    public static final String EVENT_EXTRA = "event";
+    public static final String FRAGMENT_EXTRA = "fragment";
 
 
     @Override
@@ -43,28 +38,11 @@ CreateEventFragment.OnFragmentInteractionListener, NewsFragment.OnFragmentIntera
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-
-                    Fragment fragment = new CreateEventFragment();
-                    getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.content_frame, fragment)
-                            .addToBackStack(null)
-                            .commit();
+                    Intent i = new Intent(MainActivity.this, CreateEventActivity.class);
+                    startActivity(i);
                 }
             });
 
-        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.content_frame);
-        if (currentFragment instanceof MainFragment) {
-            // Button anzeigen
-        }
-        else {
-            // Button nicht anzeigen
-        }
-
-        /*
-         * TODO FloatingButton nur bei MainActivity anzeigen lassen
-         */
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -81,9 +59,33 @@ CreateEventFragment.OnFragmentInteractionListener, NewsFragment.OnFragmentIntera
     }
 
     private void loadFragment() {
-        MainFragment firstFragment = new MainFragment();
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.content_frame, firstFragment).commit();
+        Intent i = getIntent();
+        String pFragmentExtra = i.getStringExtra(FRAGMENT_EXTRA);
+
+
+        //Abfrage, ob ein bestimmtes Fragment aufgerufen werden soll. Wir keines angegeben, wird MainFragment geladen.
+        if (pFragmentExtra != null && pFragmentExtra.equals(SHOW_EVENT_FRAGMENT_NAME)) {
+
+            Fragment fragment = new ShowEventFragment();
+            Bundle args = new Bundle();
+            args.putSerializable(EVENT_EXTRA, i.getSerializableExtra(EVENT_EXTRA));
+            fragment.setArguments(args);
+
+            // Insert the fragment by replacing any existing fragment
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.content_frame, fragment)
+                    .addToBackStack(null)
+                    .commit();
+        } else {
+            MainFragment firstFragment = new MainFragment();
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.content_frame, firstFragment)
+                    .addToBackStack(null)
+                    .commit();
+        }
+
+
+
     }
 
     @Override

@@ -3,21 +3,11 @@ package com.misd.cookapp;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.RadioGroup;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
-
-import static com.misd.cookapp.HelperMethods.pasteCalendar;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,7 +35,7 @@ public class ShowEventFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.show_event_content, container, false);
         Bundle args = getArguments();
-        currentEvent = (Event) args.getSerializable(MainFragment.ARGS_EVENT_OBJECT);
+        currentEvent = (Event) args.getSerializable(MainActivity.EVENT_EXTRA);
 
         /*
          * TODO Teilname anfragen, Teilnahme beenden, Anfrage abbrechen hinzufügen
