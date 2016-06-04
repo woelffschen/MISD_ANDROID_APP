@@ -1,12 +1,10 @@
 package com.misd.cookapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +13,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.misd.cookapp.HelperMethods.pasteCalendar;
+import static com.misd.cookapp.helpers.HelperMethods.pasteCalendar;
 
 
 /**
@@ -156,18 +153,9 @@ public class MainFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View viewClicked, int position, long id) {
                 Event clickedEvent = myEvents.get(position);
 
-                //Change to the ShowEventFragment
-                Fragment fragment = new ShowEventFragment();
-                Bundle args = new Bundle();
-                args.putSerializable(ARGS_EVENT_OBJECT, clickedEvent);
-                fragment.setArguments(args);
-
-                // Insert the fragment by replacing any existing fragment
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                fragmentManager.beginTransaction()
-                        .replace(R.id.content_frame, fragment)
-                        .addToBackStack(null)
-                        .commit();
+                Intent i = new Intent(getContext(),ShowEventActivity.class);
+                i.putExtra(MainActivity.EVENT_EXTRA, clickedEvent);
+                startActivity(i);
             }
         });
     }

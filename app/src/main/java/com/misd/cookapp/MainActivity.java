@@ -15,6 +15,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
+
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.misd.cookapp.helpers.HelperMethods;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, MainFragment.OnFragmentInteractionListener, MyEventsFragment.OnFragmentInteractionListener, ShowEventFragment.OnFragmentInteractionListener,
@@ -43,6 +47,7 @@ NewsFragment.OnFragmentInteractionListener {
                 }
             });
 
+        loadFragment();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -53,7 +58,18 @@ NewsFragment.OnFragmentInteractionListener {
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        loadFragment();
+
+        //Set the User Info in Navigation Drawer
+        View navHeaderLayout = navigationView.getHeaderView(0);
+
+        TextView userMail = (TextView) navHeaderLayout.findViewById(R.id.user_mail);
+        GoogleSignInAccount  acct = (GoogleSignInAccount) HelperMethods.getPreferenceObject(this,HelperMethods.PREFS_USER_DATA, GoogleSignInAccount.class, "GoogleSignInAccount");
+        userMail.setText(acct.getEmail());
+
+        TextView userDisplayName = (TextView) navHeaderLayout.findViewById(R.id.user_display_name);
+        userDisplayName.setText(acct.getDisplayName());
+
+
 
 
     }
@@ -132,9 +148,6 @@ NewsFragment.OnFragmentInteractionListener {
         } else if (id == R.id.nav_news) {
             fragment = new NewsFragment();
 
-        } else if (id == R.id.nav_manage) {
-            fragment = new MainFragment();
-
         } else if (id == R.id.nav_share) {
             fragment = new MainFragment();
 
@@ -160,5 +173,7 @@ NewsFragment.OnFragmentInteractionListener {
     public void onFragmentInteraction(Uri uri){
         //you can leave it empty
     }
+
+
 
 }

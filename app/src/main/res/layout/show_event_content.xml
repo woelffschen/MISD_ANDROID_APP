@@ -1,99 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="20dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.misd.cookapp.ShowEventFragment"
-    tools:showIn="@layout/show_event_fragment">
+    tools:context="com.misd.cookapp.ShowEventActivity"
+    tools:showIn="@layout/show_event_activity">
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/textEventOwner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <TextView
-            android:id="@+id/textEventDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:text="Veranstaltungsort:"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:orientation="horizontal"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="20dp">
 
-        <TextView
-            android:id="@+id/textEventStreet"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_margin"
-            android:text="Straße Nr."
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:visibility="gone" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"/>
             <TextView
-                android:id="@+id/textEventPostalCode"
+                android:id="@+id/textEventOwner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:text="PLZ"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-            <TextView
-                android:id="@+id/textEventCity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:text="Stadt"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-        </TableRow>
+                android:layout_marginTop="16dp"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="EventOwner"/>
 
-        <TextView
-            android:id="@+id/textEventDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
             <TextView
+                android:id="@+id/textEventDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:text="Geschlecht: "
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-            <TextView
-                android:id="@+id/textEventGender"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:text="Teilnehmergeschlecht"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-        </TableRow>
+                android:layout_marginTop="16dp"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="EventDate"
+                android:gravity="right" />
 
+        </LinearLayout>
         <TextView
-            android:id="@+id/textEventAge"
+            android:id="@+id/textEventStatus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="EventStatus"
+            android:gravity="right"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textEventDescription"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSearchResultSubtitle"
+            android:text="Adresse &amp; Kontakt"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/address"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/textEventStreet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Straße Nr."
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/textEventPostalCode"
+                    android:layout_below="@id/textEventStreet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="PLZ"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                <TextView
+                    android:id="@+id/textEventCity"
+                    android:layout_marginLeft="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Stadt"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </LinearLayout>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Base.Widget.AppCompat.Button.Colored"
+                android:text="XY jetzt anrufen"/>
+        </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Die Kotanktdaten werden erst nach Bestätigung der Teilnahme freigegeben."
+            android:textAppearance="?android:attr/textAppearanceSmall"/>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSearchResultSubtitle"
+            android:text="Weitere Infos"/>
+        <TableLayout
+            android:padding="3dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:rowCount="7"
+            android:columnCount="2">
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="Beschränkungen"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                <TextView
+                    android:id="@+id/textEventGender"
+                    android:padding="8dp"
+                    android:text="Teilnehmergeschlecht"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+            </TableRow>
+
+            <TableRow
+                android:padding="3dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="Alter "
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                <TextView
+                    android:id="@+id/textEventAge"
+                    android:text="EventAge"
+                    android:padding="8dp"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+            </TableRow>
+        </TableLayout>
         <TextView
             android:id="@+id/textEventIncompatibility"
             android:layout_width="match_parent"
@@ -138,7 +185,6 @@
             android:text="sorbitfrei"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:visibility="gone" />
-
     </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>

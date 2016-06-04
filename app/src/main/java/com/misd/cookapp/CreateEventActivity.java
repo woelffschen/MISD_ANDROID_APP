@@ -12,7 +12,7 @@ import android.widget.RadioGroup;
 
 import org.florescu.android.rangeseekbar.RangeSeekBar;
 
-import static com.misd.cookapp.HelperMethods.pasteCalendar;
+import static com.misd.cookapp.helpers.HelperMethods.pasteCalendar;
 
 public class CreateEventActivity extends AppCompatActivity {
 

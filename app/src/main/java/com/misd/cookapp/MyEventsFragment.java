@@ -10,13 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import static com.misd.cookapp.HelperMethods.pasteCalendar;
+import static com.misd.cookapp.helpers.HelperMethods.pasteCalendar;
 
 /**
  * A simple {@link Fragment} subclass. Activities that contain this fragment must implement the
