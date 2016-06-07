@@ -18,18 +18,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.Status;
 import com.misd.cookapp.helpers.HelperMethods;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, MainFragment.OnFragmentInteractionListener, MyEventsFragment.OnFragmentInteractionListener, ShowEventFragment.OnFragmentInteractionListener,
-NewsFragment.OnFragmentInteractionListener, GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks {
+NewsFragment.OnFragmentInteractionListener, GoogleApiClient.OnConnectionFailedListener {
 
     public static final String SHOW_EVENT_FRAGMENT_NAME = "create_event_fragment";
     public static final String EVENT_EXTRA = "event";
@@ -159,27 +155,7 @@ NewsFragment.OnFragmentInteractionListener, GoogleApiClient.OnConnectionFailedLi
             fragment = new NewsFragment();
 
         } else if (id == R.id.nav_share) {
-            GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                    //.requestScopes(new Scope(Scopes.PROFILE))
-                    .requestEmail()
-                    //.requestIdToken(SERVER_CLIENT_ID) Wird für die kommunikation mit dem Server gebraucht. Erfordert das hizufügen weiterer rechte
-                    .build();
-            mGoogleApiClient = new GoogleApiClient.Builder(this)
-                    .enableAutoManage(this, this)
-                    .addConnectionCallbacks(this)
-                    .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                    .build();
-            mGoogleApiClient.connect();
-            Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
-                    new ResultCallback<Status>() {
-                        @Override
-                        public void onResult(Status status) {
-                            // [START_EXCLUDE]
-                            Intent i = new Intent(getParent(),LoginActivity.class);
-                            startActivity(i);
-                            // [END_EXCLUDE]
-                        }
-                    });
+
             fragment = new MainFragment();
 
         } else if (id == R.id.nav_send) {
@@ -210,16 +186,6 @@ NewsFragment.OnFragmentInteractionListener, GoogleApiClient.OnConnectionFailedLi
         // be available.
         Log.d(TAG, "onConnectionFailed:" + connectionResult);
     }
-    @Override
-    public void onConnected(Bundle arg0) {
 
-    }
-
-    @Override
-    public void onConnectionSuspended(int arg0) {
-
-        mGoogleApiClient.connect();
-        // updateUI(false);
-    }
 
 }
