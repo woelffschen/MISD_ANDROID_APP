@@ -12,21 +12,31 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.misd.cookapp.helpers.HelperMethods;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, MainFragment.OnFragmentInteractionListener, MyEventsFragment.OnFragmentInteractionListener, ShowEventFragment.OnFragmentInteractionListener,
-NewsFragment.OnFragmentInteractionListener {
+NewsFragment.OnFragmentInteractionListener, GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks {
 
     public static final String SHOW_EVENT_FRAGMENT_NAME = "create_event_fragment";
     public static final String EVENT_EXTRA = "event";
     public static final String FRAGMENT_EXTRA = "fragment";
+    public static final String TAG = "MainActivity";
+
+    GoogleApiClient mGoogleApiClient;
 
 
     @Override
@@ -149,6 +159,27 @@ NewsFragment.OnFragmentInteractionListener {
             fragment = new NewsFragment();
 
         } else if (id == R.id.nav_share) {
+            GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    //.requestScopes(new Scope(Scopes.PROFILE))
+                    .requestEmail()
+                    //.requestIdToken(SERVER_CLIENT_ID) Wird für die kommunikation mit dem Server gebraucht. Erfordert das hizufügen weiterer rechte
+                    .build();
+            mGoogleApiClient = new GoogleApiClient.Builder(this)
+                    .enableAutoManage(this, this)
+                    .addConnectionCallbacks(this)
+                    .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                    .build();
+            mGoogleApiClient.connect();
+            Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
+                    new ResultCallback<Status>() {
+                        @Override
+                        public void onResult(Status status) {
+                            // [START_EXCLUDE]
+                            Intent i = new Intent(getParent(),LoginActivity.class);
+                            startActivity(i);
+                            // [END_EXCLUDE]
+                        }
+                    });
             fragment = new MainFragment();
 
         } else if (id == R.id.nav_send) {
@@ -174,6 +205,21 @@ NewsFragment.OnFragmentInteractionListener {
         //you can leave it empty
     }
 
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        // An unresolvable error has occurred and Google APIs (including Sign-In) will not
+        // be available.
+        Log.d(TAG, "onConnectionFailed:" + connectionResult);
+    }
+    @Override
+    public void onConnected(Bundle arg0) {
 
+    }
+
+    @Override
+    public void onConnectionSuspended(int arg0) {
+
+        mGoogleApiClient.connect();
+        // updateUI(false);
+    }
 
 }

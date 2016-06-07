@@ -57,6 +57,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
 
+
         // [START customize_button]
         // Customize sign-in button. The sign-in button can be displayed in
         // multiple sizes and color schemes. It can also be contextually
@@ -144,7 +145,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     // [START signOut]
-    private void signOut() {
+    public void signOut() {
         Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
                 new ResultCallback<Status>() {
                     @Override
@@ -201,6 +202,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         switch (v.getId()) {
             case R.id.sign_in_button:
                 signIn();
+                break;
+            case R.id.sign_out_button:
+                signOut();
                 break;
         }
     }
