@@ -96,13 +96,13 @@ NewsFragment.OnFragmentInteractionListener, GoogleApiClient.OnConnectionFailedLi
             // Insert the fragment by replacing any existing fragment
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.content_frame, fragment)
-                    .addToBackStack(null)
+
                     .commit();
         } else {
             MainFragment firstFragment = new MainFragment();
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.content_frame, firstFragment)
-                    .addToBackStack(null)
+
                     .commit();
         }
 
