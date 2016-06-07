@@ -2,6 +2,7 @@
     <string name="app_name">Cook Application</string>
 
     <string name="event">Events</string>
+    <string name="title_create_event">Neuen Event erstellen</string>
     <string name="my_text">Test</string>
 
     <!-- Menu Titles -->
@@ -37,9 +38,8 @@
         </item>
     </string-array>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="signed_in_fmt">Ein gellogt als %%</string>
+
+    <string name="signed_in_fmt">Ein geloggt als %%</string>
     <string name="loading">Sie werden eingeloggt...</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"

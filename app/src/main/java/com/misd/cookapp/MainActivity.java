@@ -24,15 +24,13 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.misd.cookapp.helpers.HelperMethods;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, MainFragment.OnFragmentInteractionListener, MyEventsFragment.OnFragmentInteractionListener, ShowEventFragment.OnFragmentInteractionListener,
+        implements NavigationView.OnNavigationItemSelectedListener, MainFragment.OnFragmentInteractionListener, MyEventsFragment.OnFragmentInteractionListener,
 NewsFragment.OnFragmentInteractionListener, GoogleApiClient.OnConnectionFailedListener {
 
     public static final String SHOW_EVENT_FRAGMENT_NAME = "create_event_fragment";
     public static final String EVENT_EXTRA = "event";
     public static final String FRAGMENT_EXTRA = "fragment";
     public static final String TAG = "MainActivity";
-
-    GoogleApiClient mGoogleApiClient;
 
 
     @Override
@@ -81,33 +79,10 @@ NewsFragment.OnFragmentInteractionListener, GoogleApiClient.OnConnectionFailedLi
     }
 
     private void loadFragment() {
-        Intent i = getIntent();
-        String pFragmentExtra = i.getStringExtra(FRAGMENT_EXTRA);
-
-
-        //Abfrage, ob ein bestimmtes Fragment aufgerufen werden soll. Wir keines angegeben, wird MainFragment geladen.
-        if (pFragmentExtra != null && pFragmentExtra.equals(SHOW_EVENT_FRAGMENT_NAME)) {
-
-            Fragment fragment = new ShowEventFragment();
-            Bundle args = new Bundle();
-            args.putSerializable(EVENT_EXTRA, i.getSerializableExtra(EVENT_EXTRA));
-            fragment.setArguments(args);
-
-            // Insert the fragment by replacing any existing fragment
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.content_frame, fragment)
-
-                    .commit();
-        } else {
             MainFragment firstFragment = new MainFragment();
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.content_frame, firstFragment)
-
                     .commit();
-        }
-
-
-
     }
 
     @Override
@@ -123,7 +98,7 @@ NewsFragment.OnFragmentInteractionListener, GoogleApiClient.OnConnectionFailedLi
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        //getMenuInflater().inflate(R.menu.create_event_activity_menu, menu);
         return true;
     }
 

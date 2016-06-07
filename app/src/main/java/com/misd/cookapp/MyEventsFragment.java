@@ -1,10 +1,10 @@
 package com.misd.cookapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -62,18 +62,9 @@ public class MyEventsFragment extends Fragment {
 
                 Event clickedEvent = listDataChild.get(listDataHeader.get(groupPosition)).get(childPosition);
 
-                //Change to the ShowEventFragment
-                Fragment fragment = new ShowEventFragment();
-                Bundle args = new Bundle();
-                args.putSerializable(ARGS_EVENT_OBJECT, clickedEvent);
-                fragment.setArguments(args);
-
-                // Insert the fragment by replacing any existing fragment
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                fragmentManager.beginTransaction()
-                        .replace(R.id.content_frame, fragment)
-                        .addToBackStack(null)
-                        .commit();
+                Intent i = new Intent(getContext(),ShowEventActivity.class);
+                i.putExtra(MainActivity.EVENT_EXTRA, clickedEvent);
+                startActivity(i);
                 return false;
             }
         });

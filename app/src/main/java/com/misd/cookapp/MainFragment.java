@@ -5,12 +5,12 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -26,6 +26,7 @@ import static com.misd.cookapp.helpers.HelperMethods.pasteCalendar;
  */
 public class MainFragment extends Fragment {
     public static final String ARGS_EVENT_OBJECT = "args_event_object";
+    private static final String TAG = "MainFragment";
     private List<Event> myEvents = new ArrayList<>(); //ListView
 
     private OnFragmentInteractionListener mListener;
@@ -171,14 +172,11 @@ public class MainFragment extends Fragment {
             View itemView = convertView;
             if (itemView == null) {
                 itemView = getActivity().getLayoutInflater().inflate(R.layout.main_list_item, parent, false);
+                Log.d(TAG, "itemView is null");
             }
 
             // Find the event to work with
             Event currentEvent = myEvents.get(position);
-
-            // Fill the view
-            ImageView imageView = (ImageView) itemView.findViewById(R.id.item_pic);
-            imageView.setImageResource(currentEvent.getIconId());
 
             // Gericht:
             TextView mealText = (TextView) itemView.findViewById(R.id.textMeal);
