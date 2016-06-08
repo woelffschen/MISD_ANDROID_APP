@@ -130,10 +130,6 @@ NewsFragment.OnFragmentInteractionListener, GoogleApiClient.OnConnectionFailedLi
             fragment = new NewsFragment();
 
         } else if (id == R.id.nav_share) {
-
-            fragment = new MainFragment();
-
-        } else if (id == R.id.nav_send) {
             fragment = new MainFragment();
 
         } else {
