@@ -1,7 +1,10 @@
 package com.misd.cookapp;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -16,12 +19,18 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.formats.NativeAd;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.misd.cookapp.helpers.HelperMethods;
+
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, MainFragment.OnFragmentInteractionListener, MyEventsFragment.OnFragmentInteractionListener,
@@ -73,8 +82,8 @@ NewsFragment.OnFragmentInteractionListener, GoogleApiClient.OnConnectionFailedLi
         TextView userDisplayName = (TextView) navHeaderLayout.findViewById(R.id.user_display_name);
         userDisplayName.setText(acct.getDisplayName());
 
-
-
+        // show The Image in a ImageView
+        new DownloadImageTask((ImageView) navHeaderLayout.findViewById(R.id.imageView)).execute(acct.getPhotoUrl().toString());
 
     }
 
@@ -158,5 +167,29 @@ NewsFragment.OnFragmentInteractionListener, GoogleApiClient.OnConnectionFailedLi
         Log.d(TAG, "onConnectionFailed:" + connectionResult);
     }
 
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+
+        public DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap googleProfilIcon = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                googleProfilIcon = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return googleProfilIcon;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
+        }
+    }
 
 }
