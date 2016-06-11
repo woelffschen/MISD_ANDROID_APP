@@ -22,15 +22,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.gms.ads.formats.NativeAd;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.misd.cookapp.helpers.HelperMethods;
 
 import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, MainFragment.OnFragmentInteractionListener, MyEventsFragment.OnFragmentInteractionListener,
@@ -40,6 +37,7 @@ NewsFragment.OnFragmentInteractionListener, GoogleApiClient.OnConnectionFailedLi
     public static final String EVENT_EXTRA = "event";
     public static final String FRAGMENT_EXTRA = "fragment";
     public static final String TAG = "MainActivity";
+    public static final String START_LOGOUT = "start_logout";
 
 
     @Override
@@ -141,6 +139,10 @@ NewsFragment.OnFragmentInteractionListener, GoogleApiClient.OnConnectionFailedLi
         } else if (id == R.id.nav_share) {
             fragment = new MainFragment();
 
+            Intent i = new Intent(this, LoginActivity.class);
+            i.putExtra(START_LOGOUT,START_LOGOUT);
+            startActivity(i);
+
         } else {
             fragment = new MainFragment();
         }
@@ -178,8 +180,10 @@ NewsFragment.OnFragmentInteractionListener, GoogleApiClient.OnConnectionFailedLi
             String urldisplay = urls[0];
             Bitmap googleProfilIcon = null;
             try {
+                Log.d(TAG, "User image download started...");
                 InputStream in = new java.net.URL(urldisplay).openStream();
                 googleProfilIcon = BitmapFactory.decodeStream(in);
+
             } catch (Exception e) {
                 Log.e("Error", e.getMessage());
                 e.printStackTrace();
@@ -188,6 +192,7 @@ NewsFragment.OnFragmentInteractionListener, GoogleApiClient.OnConnectionFailedLi
         }
 
         protected void onPostExecute(Bitmap result) {
+            Log.d(TAG, "User image download finished.");
             bmImage.setImageBitmap(result);
         }
     }

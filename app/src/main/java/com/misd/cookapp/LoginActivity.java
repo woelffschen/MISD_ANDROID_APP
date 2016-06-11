@@ -21,7 +21,7 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.misd.cookapp.helpers.HelperMethods;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks {
 
     private static final String TAG = "SignInActivity";
     private static final int RC_SIGN_IN = 9001;
@@ -30,6 +30,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private GoogleApiClient mGoogleApiClient;
     private TextView mStatusTextView;
     private ProgressDialog mProgressDialog;
+    private String iExtra;
+    private Intent i;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         // Views
         mStatusTextView = (TextView) findViewById(R.id.status);
+
+        //Get IntentExtra flag
+        i = getIntent();
+        iExtra = i.getStringExtra(MainActivity.START_LOGOUT);
 
         // Button listeners
         findViewById(R.id.sign_in_button).setOnClickListener(this);
@@ -55,6 +61,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 // options specified by gso.
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this, this)
+                .addConnectionCallbacks(this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
 
@@ -71,37 +78,74 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         signInButton.setSize(SignInButton.SIZE_STANDARD);
         signInButton.setScopes(gso.getScopeArray());
         // [END customize_button]
+
+        Intent i = getIntent();
+        String iExtra = i.getStringExtra(MainActivity.START_LOGOUT);
+        if (iExtra != null && iExtra.equals(MainActivity.START_LOGOUT)) {
+            Log.d(TAG, "GoogleApiClient.connect() is called...");
+            mGoogleApiClient.connect();
+        }
+
     }
 
     @Override
     public void onStart() {
+        Log.d(TAG, "LoginActivity.onStart() is called...");
         super.onStart();
+        Log.d(TAG, "GoogleApiClient.connect() is called...");
+        mGoogleApiClient.connect();
 
-        OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
-        if (opr.isDone()) {
-            // If the user's cached credentials are valid, the OptionalPendingResult will be "done"
-            // and the GoogleSignInResult will be available instantly.
-            Log.d(TAG, "Got cached sign-in");
-            GoogleSignInResult result = opr.get();
-            handleSignInResult(result);
-        } else {
-            // If the user has not previously signed in on this device or the sign-in has expired,
-            // this asynchronous branch will attempt to sign in the user silently.  Cross-device
-            // single sign-on will occur in this branch.
-            showProgressDialog();
-            opr.setResultCallback(new ResultCallback<GoogleSignInResult>() {
-                @Override
-                public void onResult(GoogleSignInResult googleSignInResult) {
-                    hideProgressDialog();
-                    handleSignInResult(googleSignInResult);
+
+
+            OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
+            if (opr.isDone()) {
+                Log.d(TAG, "SilentSignIn was successful.");
+                // If the user's cached credentials are valid, the OptionalPendingResult will be "done"
+                // and the GoogleSignInResult will be available instantly.
+                Log.d(TAG, "Got cached sign-in");
+                GoogleSignInResult result = opr.get();
+                if (iExtra == null || !iExtra.equals(MainActivity.START_LOGOUT)) {
+                    handleSignInResult(result);
                 }
-            });
-        }
+
+            } else {
+                // If the user has not previously signed in on this device or the sign-in has expired,
+                // this asynchronous branch will attempt to sign in the user silently.  Cross-device
+                // single sign-on will occur in this branch.
+                showProgressDialog();
+                opr.setResultCallback(new ResultCallback<GoogleSignInResult>() {
+                    @Override
+                    public void onResult(GoogleSignInResult googleSignInResult) {
+                        hideProgressDialog();
+                        handleSignInResult(googleSignInResult);
+                    }
+                });
+            }
+
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mGoogleApiClient.disconnect();
     }
 
     private void signIn() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+
+    @Override
+    public void onConnected(Bundle arg0) {
+        Log.d(TAG, "GoogleApiClient is connected.");
+        if (iExtra != null && iExtra.equals(MainActivity.START_LOGOUT)) {
+            signOut();
+        }
+    }
+
+    @Override
+    public void onConnectionSuspended(final int i) {
+        Log.d(TAG, "GoogleApiClient is suspended.");
     }
 
     @Override
@@ -147,6 +191,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     // [START signOut]
     public void signOut() {
+        Log.d(TAG, "User sign out started....");
         Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
                 new ResultCallback<Status>() {
                     @Override
