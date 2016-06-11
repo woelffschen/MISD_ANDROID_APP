@@ -1,12 +1,14 @@
 package com.misd.cookapp;
 
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.CalendarView;
+import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioGroup;
@@ -15,9 +17,14 @@ import org.florescu.android.rangeseekbar.RangeSeekBar;
 
 import static com.misd.cookapp.helpers.HelperMethods.pasteCalendar;
 
-public class CreateEventActivity extends AppCompatActivity {
+public class CreateEventActivity extends AppCompatActivity implements DatePickerFragment.OnDatePickedListener, TimePickerFragment.OnTimePickedListener {
 
     private Toolbar toolbar;
+    private int eventYear;
+    private int eventMonth;
+    private int eventDay;
+    private int eventMinute;
+    private int eventHour;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +34,17 @@ public class CreateEventActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         setTitle(""); // Titel für Activity festlegen
+
+    }
+
+    public void showTimePickerDialog(View v) {
+        DialogFragment newFragment = new TimePickerFragment();
+        newFragment.show(getFragmentManager(), "timePicker");
+    }
+
+    public void showDatePickerDialog(View v) {
+        DialogFragment newFragment = new DatePickerFragment();
+        newFragment.show(getFragmentManager(), "datePicker");
     }
 
     @Override
@@ -102,13 +120,9 @@ public class CreateEventActivity extends AppCompatActivity {
         int eventMinAge = textEventAge.getSelectedMinValue().intValue();
         int eventMaxAge = textEventAge.getSelectedMaxValue().intValue();
 
-        CalendarView calEventDateTime = (CalendarView) findViewById(R.id.eventDateTime);
 
-            /*
-             * TODO DummyUser sowie Calendar ersetzen
-             */
 
-        Event createdEvent = new Event(eventDescription, (new Meal(eventMealName, eventLactoseFree, eventGlutenFree, eventFructoseFree, eventSorbitFree)), eventMinAge, eventMaxAge, genderRestriction, eventStreet, eventPostalCode, eventCity, (new User("Mustermann", "Max", "Teststraße", 48249, "Dülmen", 'm', 18, "+49123456")), pasteCalendar(2010, 10, 2, 12, 34));
+        Event createdEvent = new Event(eventDescription, (new Meal(eventMealName, eventLactoseFree, eventGlutenFree, eventFructoseFree, eventSorbitFree)), eventMinAge, eventMaxAge, genderRestriction, eventStreet, eventPostalCode, eventCity, (new User("Mustermann", "Max", "Teststraße", 48249, "Dülmen", 'm', 18, "+49123456")), pasteCalendar(eventYear, eventMonth, eventDay, eventHour, eventMinute));
 
         Intent i = new Intent(CreateEventActivity.this,
                 ShowEventActivity.class);
@@ -117,4 +131,21 @@ public class CreateEventActivity extends AppCompatActivity {
         startActivity(i);
     }
     
+    @Override
+    public void onDatePicked(final int year, final int month, final int day) {
+        eventYear = year;
+        eventMonth = month;
+        eventDay = day;
+
+        Button datePicker = (Button) findViewById(R.id.date_picker);
+        datePicker.setText(day + "." + month + "." + year);
+    }
+
+    @Override
+    public void onTimePicked(final int hour, final int minute) {
+        eventHour = hour;
+        eventMinute = minute;
+        Button timePicker = (Button) findViewById(R.id.time_picker);
+        timePicker.setText(hour + ":" + minute);
+    }
 }

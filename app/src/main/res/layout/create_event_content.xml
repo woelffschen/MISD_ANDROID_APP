@@ -36,6 +36,31 @@
             android:id="@+id/eventDescription"
             android:hint="Beschreibung" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+        <Button
+            android:id="@+id/date_picker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Wähle ein Datum"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:onClick="showDatePickerDialog" />
+
+            <Button
+                android:id="@+id/time_picker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:text="Wähle eine Zeit"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:onClick="showTimePickerDialog"
+                />
+        </LinearLayout>
+
         <Space
             android:layout_width="match_parent"
             android:layout_height="30dp" />
@@ -45,7 +70,8 @@
             android:layout_height="wrap_content"
             android:text="Meine HeimAdresse verwenden"
             android:id="@+id/checkBox"
-            android:checked="true" />
+            android:checked="true"
+            android:visibility="gone"/>
 
         <EditText
             android:layout_width="wrap_content"
@@ -165,10 +191,7 @@
             android:layout_height="wrap_content"
             android:text="Sorbit frei"/>
 
-        <CalendarView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/eventDateTime" />
+
 
 
     </LinearLayout>

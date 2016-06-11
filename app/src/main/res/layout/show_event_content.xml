@@ -35,14 +35,29 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="EventOwner"/>
 
-            <TextView
-                android:id="@+id/textEventDate"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="EventDate"
-                android:gravity="right" />
+                android:orientation="vertical"
+                android:gravity="right">
+                <TextView
+                    android:id="@+id/textEventDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="EventDate"
+                    android:gravity="right" />
+                <TextView
+                    android:id="@+id/textEventTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="EventTime"
+                    android:gravity="right" />
+            </LinearLayout>
+
 
         </LinearLayout>
         <TextView
@@ -51,12 +66,15 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="EventStatus"
+            android:layout_marginTop="8dp"
             android:gravity="right"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
             android:id="@+id/textEventDescription"/>
         <TextView
+            android:layout_marginTop="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSearchResultSubtitle"
@@ -100,16 +118,16 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Die Kotanktdaten werden erst nach Bestätigung der Teilnahme freigegeben."
+            android:text="Die Kontaktdaten werden erst nach Bestätigung der Teilnahme freigegeben."
             android:textAppearance="?android:attr/textAppearanceSmall"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
             android:textAppearance="?android:attr/textAppearanceSearchResultSubtitle"
             android:text="Weitere Infos"/>
         <TableLayout
-            android:padding="3dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:rowCount="7"

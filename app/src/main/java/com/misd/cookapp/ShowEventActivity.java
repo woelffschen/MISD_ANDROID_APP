@@ -62,6 +62,9 @@ public class ShowEventActivity extends AppCompatActivity {
         TextView textEventDate = (TextView) findViewById(R.id.textEventDate);
         textEventDate.setText(currentEvent.getEventDateAsString());
 
+        TextView textEventTime = (TextView) findViewById(R.id.textEventTime);
+        textEventTime.setText(currentEvent.getEventTimeAsString());
+
         TextView textEventGender = (TextView) findViewById(R.id.textEventGender);
         char eventGender = currentEvent.getEventGender();
         switch(eventGender) {

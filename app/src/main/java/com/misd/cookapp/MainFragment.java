@@ -25,7 +25,6 @@ import static com.misd.cookapp.helpers.HelperMethods.pasteCalendar;
  * {@link MainFragment.OnFragmentInteractionListener} interface to handle interaction events.
  */
 public class MainFragment extends Fragment {
-    public static final String ARGS_EVENT_OBJECT = "args_event_object";
     private static final String TAG = "MainFragment";
     private List<Event> myEvents = new ArrayList<>(); //ListView
 

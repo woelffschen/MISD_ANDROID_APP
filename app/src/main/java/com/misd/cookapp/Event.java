@@ -1,7 +1,5 @@
 package com.misd.cookapp;
 
-import android.graphics.Picture;
-
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -127,7 +125,16 @@ public class Event implements Serializable{
         this.eventDate = eventDate;
     }
 
-    public String getEventDateAsString() {return new SimpleDateFormat("dd.MM.yyyy").format(eventDate.getTime());}
+    public String getEventDateAsString() {
+        /*String month = "wrong";
+        DateFormatSymbols dfs = new DateFormatSymbols();
+        String[] months = dfs.getMonths();
+        if (num >= 0 && num <= 11 ) {
+            month = months[num];
+        }
+        return month;*/
+        return new SimpleDateFormat("dd. MMM yyyy").format(eventDate.getTime());
+    }
 
     public String getEventTimeAsString() {return new SimpleDateFormat("hh:mm").format(eventDate.getTime());}
 

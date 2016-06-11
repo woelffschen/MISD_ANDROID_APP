@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.HashMap;
@@ -50,9 +49,6 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             convertView = infalInflater.inflate(R.layout.my_events_list_item, null);
         }
 
-        // Fill the view
-        ImageView imageView = (ImageView) convertView.findViewById(R.id.item_pic);
-        imageView.setImageResource(currentEvent.getIconId());
 
 
         // Gericht:

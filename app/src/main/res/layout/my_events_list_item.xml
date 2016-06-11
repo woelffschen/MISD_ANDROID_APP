@@ -1,28 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-    <ImageView
-        android:id="@+id/item_pic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:adjustViewBounds="true"
-        android:maxHeight="80dp"
-        android:maxWidth="80dp" />
+                android:layout_height="match_parent"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/meal"
         android:id="@+id/textMeal"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="12dp"
-        android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@+id/item_pic" />
+        android:layout_marginTop="12dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -30,7 +20,7 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="@string/date"
         android:id="@+id/textDate"
-        android:layout_marginRight="50dp"
+        android:layout_marginRight="10dp"
         android:layout_above="@+id/textLocation"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="false" />
@@ -49,11 +39,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="@string/location"
         android:id="@+id/textLocation"
-        android:layout_marginLeft="10dp"
         android:layout_below="@+id/textMeal"
-        android:layout_toRightOf="@+id/item_pic" />
+        android:layout_marginBottom="12dp"/>
 
 </RelativeLayout>
