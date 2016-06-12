@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/meal"
+        android:textColor="#000000"
         android:id="@+id/textMeal"
         android:layout_alignParentTop="true"
         android:layout_marginTop="12dp"/>

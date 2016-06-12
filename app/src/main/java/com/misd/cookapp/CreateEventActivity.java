@@ -1,6 +1,7 @@
 package com.misd.cookapp;
 
 import android.app.DialogFragment;
+import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,8 +13,14 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.TextView;
+
+import com.misd.cookapp.helpers.HelperMethods;
 
 import org.florescu.android.rangeseekbar.RangeSeekBar;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static com.misd.cookapp.helpers.HelperMethods.pasteCalendar;
 
@@ -63,8 +70,16 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_save) {
-            saveEvent();
-            return true;
+            if (isValidEventDate() &&
+                    isValidEventTime() &&
+                    isValidMealName() &&
+                    isValidEventStreet() &&
+                    isValidEventPc() &&
+                    isValidEventCity()){
+                saveEvent();
+                return true;
+            }
+
         }
         if (id == R.id.action_abort) {
             finish();
@@ -73,15 +88,13 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
 
         return super.onOptionsItemSelected(item);
     }
-    
+
     private void saveEvent() {
         EditText textEventMealName = (EditText) findViewById(R.id.editText);
         String eventMealName = textEventMealName.getText().toString();
 
         EditText textEventDescription = (EditText) findViewById(R.id.eventDescription);
         String eventDescription = textEventDescription.getText().toString();
-
-        // TODO Heimatadresse verwenden
 
         EditText textEventStreet = (EditText) findViewById(R.id.eventStreet);
         String eventStreet = textEventStreet.getText().toString();
@@ -116,10 +129,9 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
         CheckBox chkEventSorbitFree = (CheckBox) findViewById(R.id.sorbitFree);
         boolean eventSorbitFree = chkEventSorbitFree.isChecked();
 
-        RangeSeekBar textEventAge = (RangeSeekBar) findViewById(R.id.eventAge);
+        final RangeSeekBar textEventAge = (RangeSeekBar) findViewById(R.id.eventAge);
         int eventMinAge = textEventAge.getSelectedMinValue().intValue();
         int eventMaxAge = textEventAge.getSelectedMaxValue().intValue();
-
 
 
         Event createdEvent = new Event(eventDescription, (new Meal(eventMealName, eventLactoseFree, eventGlutenFree, eventFructoseFree, eventSorbitFree)), eventMinAge, eventMaxAge, genderRestriction, eventStreet, eventPostalCode, eventCity, (new User("Mustermann", "Max", "Teststraße", 48249, "Dülmen", 'm', 18, "+49123456")), pasteCalendar(eventYear, eventMonth, eventDay, eventHour, eventMinute));
@@ -130,7 +142,7 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
         i.putExtra(MainActivity.EVENT_EXTRA,createdEvent);
         startActivity(i);
     }
-    
+
     @Override
     public void onDatePicked(final int year, final int month, final int day) {
         eventYear = year;
@@ -148,4 +160,60 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
         Button timePicker = (Button) findViewById(R.id.time_picker);
         timePicker.setText(hour + ":" + minute);
     }
+
+
+
+    /*
+     * Validierung
+     */
+    public boolean isValidMealName() {
+        EditText textEventMealName = (EditText) findViewById(R.id.editText);
+        if (textEventMealName.length() == 0) {
+            textEventMealName.setError("Feld darf nicht leer sein.");
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+    public boolean isValidEventStreet() {
+        EditText textEventStreet = (EditText) findViewById(R.id.eventStreet);
+        if (textEventStreet.length() == 0) {
+            textEventStreet.setError("Feld darf nicht leer sein.");
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+    public boolean isValidEventPc() {
+        // TODO Validierung Postleitzahl auf falsche Eingaben
+        EditText textEventPostalCode = (EditText) findViewById(R.id.eventPostalCode);
+        if (textEventPostalCode.length() == 0) {
+            textEventPostalCode.setError("Feld darf nicht leer sein.");
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+    public boolean isValidEventCity() {
+        EditText textEventCity = (EditText) findViewById(R.id.eventCity);
+        if (textEventCity.length() == 0) {
+            textEventCity.setError("Feld darf nicht leer sein.");
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+    public boolean isValidEventDate(){
+        // TODO Validierung ob Datum eingetragen wurde
+            return true;
+    }
+    public boolean isValidEventTime(){
+        // TODO Validierung ob Uhrzeit eingetragen wurde
+            return true;
+    }
+
 }
