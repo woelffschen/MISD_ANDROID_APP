@@ -71,9 +71,9 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_save) {
-            if (isValidEventDate() &&
+            if (isValidMealName() &&
+                    isValidEventDate() &&
                     isValidEventTime() &&
-                    isValidMealName() &&
                     isValidEventStreet() &&
                     isValidEventPc() &&
                     isValidEventCity()){
@@ -176,6 +176,9 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
         EditText textEventMealName = (EditText) findViewById(R.id.editText);
         if (textEventMealName.length() == 0) {
             textEventMealName.setError("Feld darf nicht leer sein.");
+            return false;
+        } else if(textEventMealName.length() > 20) {
+            textEventMealName.setError("Es dürfen max. 20 Zahlen eingegeben werden.");
             return false;
         }
         else {

@@ -102,5 +102,15 @@ public class ShowEventActivity extends AppCompatActivity {
             textEventIncompatibility.setVisibility(TextView.VISIBLE);
             textEventSorbit.setVisibility(TextView.VISIBLE);
         }
+        TextView textEventVegan = (TextView) findViewById(R.id.textEventVegan);
+        if (currentEvent.getEventMeal().isVegan() == true){
+            textEventIncompatibility.setVisibility(TextView.VISIBLE);
+            textEventVegan.setVisibility(TextView.VISIBLE);
+        }
+        TextView textEventVegetarisch = (TextView) findViewById(R.id.textEventVegetarisch);
+        if (currentEvent.getEventMeal().isVegetarisch() == true){
+            textEventIncompatibility.setVisibility(TextView.VISIBLE);
+            textEventVegetarisch.setVisibility(TextView.VISIBLE);
+        }
     }
 }

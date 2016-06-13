@@ -171,25 +171,25 @@
             android:id="@+id/lactoseFree"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Lactose frei"/>
+            android:text="lactosefrei"/>
 
         <CheckBox
             android:id="@+id/glutenFree"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Gluten frei"/>
+            android:text="glutenfrei"/>
 
         <CheckBox
             android:id="@+id/fructoseFree"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Fructose frei"/>
+            android:text="fructosefrei"/>
 
         <CheckBox
             android:id="@+id/sorbitFree"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Sorbit frei"/>
+            android:text="sorbitfrei"/>
 
         <CheckBox
             android:id="@+id/vegan"
