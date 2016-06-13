@@ -88,7 +88,7 @@ public class MainFragment extends Fragment {
     // Methoden für die ListView - Beispiele zur Veranschaulichung
     private void populateEventList(){
         User currentUser = new User("Landreh", "Michael", "Boeselagerstr. 69b", 48163, "Münster", 'm', 23, "+49 163 138 92 82");
-        Meal currentMeal =  new Meal("Spaghetti Bolognese",false, false, false,false);
+        Meal currentMeal =  new Meal("Spaghetti Bolognese", false, false, false, false, false, false);
 
         myEvents.add(new Event("Ich möchte heute scheiße kochen.", currentMeal,
                 18,60, 'b', "Blubstr. 18", 48163, "Münster", currentUser, pasteCalendar(2016,3,2,12,34)));

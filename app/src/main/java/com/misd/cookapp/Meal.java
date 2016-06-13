@@ -10,14 +10,17 @@ public class Meal implements Serializable{
     private boolean glutenFree;
     private boolean fructoseFree;
     private boolean sorbitFree;
+    private boolean vegan;
+    private boolean vegetarisch;
 
-    public Meal(String name, boolean lactoseFree, boolean glutenFree, boolean fructoseFree, boolean sorbitFree) {
+    public Meal(String name, boolean lactoseFree, boolean glutenFree, boolean fructoseFree, boolean sorbitFree, boolean vegan, boolean vegetarisch) {
         this.name = name;
         this.lactoseFree = lactoseFree;
         this.glutenFree = glutenFree;
         this.fructoseFree = fructoseFree;
         this.sorbitFree = sorbitFree;
-        //TODO Vegan und vegetarisch ergänzen
+        this.vegan = vegan;
+        this.vegetarisch = vegetarisch;
     }
 
     public String getName() {
@@ -67,4 +70,12 @@ public class Meal implements Serializable{
     public void setSorbitFree(boolean sorbitFree) {
         this.sorbitFree = sorbitFree;
     }
+
+    public boolean isVegan() { return vegan; }
+
+    public void setVegan(boolean vegan) { this.vegan = vegan; }
+
+    public boolean isVegetarisch() { return vegetarisch; }
+
+    public void setVegetarisch(boolean vegetarisch) { this.vegetarisch = vegetarisch; }
 }

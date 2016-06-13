@@ -104,8 +104,6 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
         EditText textEventPostalCode = (EditText) findViewById(R.id.eventPostalCode);
             int eventPostalCode = Integer.parseInt(textEventPostalCode.getText().toString());
 
-
-
         EditText textEventCity = (EditText) findViewById(R.id.eventCity);
         String eventCity = textEventCity.getText().toString();
 
@@ -132,13 +130,17 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
         boolean eventFructoseFree = chkEventFructoseFree.isChecked();
         CheckBox chkEventSorbitFree = (CheckBox) findViewById(R.id.sorbitFree);
         boolean eventSorbitFree = chkEventSorbitFree.isChecked();
+        CheckBox chkEventVegan = (CheckBox) findViewById(R.id.vegan);
+        boolean eventVegan = chkEventVegan.isChecked();
+        CheckBox chkEventVegetarisch = (CheckBox) findViewById(R.id.vegetarisch);
+        boolean eventVegetarisch = chkEventVegetarisch.isChecked();
 
         final RangeSeekBar textEventAge = (RangeSeekBar) findViewById(R.id.eventAge);
         int eventMinAge = textEventAge.getSelectedMinValue().intValue();
         int eventMaxAge = textEventAge.getSelectedMaxValue().intValue();
 
 
-        Event createdEvent = new Event(eventDescription, (new Meal(eventMealName, eventLactoseFree, eventGlutenFree, eventFructoseFree, eventSorbitFree)), eventMinAge, eventMaxAge, genderRestriction, eventStreet, eventPostalCode, eventCity, (new User("Mustermann", "Max", "Teststraße", 48249, "Dülmen", 'm', 18, "+49123456")), pasteCalendar(eventYear, eventMonth, eventDay, eventHour, eventMinute));
+        Event createdEvent = new Event(eventDescription, (new Meal(eventMealName, eventLactoseFree, eventGlutenFree, eventFructoseFree, eventSorbitFree, eventVegan, eventVegetarisch)), eventMinAge, eventMaxAge, genderRestriction, eventStreet, eventPostalCode, eventCity, (new User("Mustermann", "Max", "Teststraße", 48249, "Dülmen", 'm', 18, "+49123456")), pasteCalendar(eventYear, eventMonth, eventDay, eventHour, eventMinute));
 
         Intent i = new Intent(CreateEventActivity.this,
                 ShowEventActivity.class);
