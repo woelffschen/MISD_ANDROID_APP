@@ -3,9 +3,10 @@ package com.misd.cookapp;
 import java.io.Serializable;
 
 public class User implements Serializable {
-    //TODO int ID hinzufügen
-    //TODO Alle nötigen Informationen vom user für den Server Sammeln: age, gender, telefonnummer
-    //TODO sessionId speichern und mitschicken
+    // TODO int ID hinzufügen
+    // TODO Alle nötigen Informationen vom user für den Server Sammeln: age, gender, telefonnummer
+    // TODO sessionId speichern und mitschicken
+
     private String lastname;
     private String firstname;
     private String street;

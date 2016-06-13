@@ -91,6 +91,7 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
     }
 
     private void saveEvent() {
+        // TODO vegan und vegetarisch hinzufügen
         EditText textEventMealName = (EditText) findViewById(R.id.editText);
         String eventMealName = textEventMealName.getText().toString();
 
