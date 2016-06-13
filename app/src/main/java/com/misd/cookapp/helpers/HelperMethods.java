@@ -51,4 +51,13 @@ public class HelperMethods {
         String json = mPrefs.getString(key, "");
         return gson.fromJson(json, expectedClassType);
     }
+
+    public static boolean isNumericInt(String str) {
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch(Exception e) {
+            return false;
+        }
+    }
 }

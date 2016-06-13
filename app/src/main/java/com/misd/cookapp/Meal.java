@@ -17,6 +17,7 @@ public class Meal implements Serializable{
         this.glutenFree = glutenFree;
         this.fructoseFree = fructoseFree;
         this.sorbitFree = sorbitFree;
+        //TODO Vegan und vegetarisch ergänzen
     }
 
     public String getName() {

@@ -5,6 +5,7 @@ import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ThemedSpinnerAdapter;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -100,7 +101,9 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
         String eventStreet = textEventStreet.getText().toString();
 
         EditText textEventPostalCode = (EditText) findViewById(R.id.eventPostalCode);
-        int eventPostalCode = Integer.parseInt(textEventPostalCode.getText().toString());
+            int eventPostalCode = Integer.parseInt(textEventPostalCode.getText().toString());
+
+
 
         EditText textEventCity = (EditText) findViewById(R.id.eventCity);
         String eventCity = textEventCity.getText().toString();
@@ -173,6 +176,7 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
             return false;
         }
         else {
+            textEventMealName.setError(null);
             return true;
         }
     }
@@ -183,17 +187,22 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
             return false;
         }
         else {
+            textEventStreet.setError(null);
             return true;
         }
     }
     public boolean isValidEventPc() {
-        // TODO Validierung Postleitzahl auf falsche Eingaben
+
         EditText textEventPostalCode = (EditText) findViewById(R.id.eventPostalCode);
         if (textEventPostalCode.length() == 0) {
             textEventPostalCode.setError("Feld darf nicht leer sein.");
             return false;
+        } else if(!HelperMethods.isNumericInt(textEventPostalCode.getText().toString())){
+            textEventPostalCode.setError("Es dürfen nur Zahlen eingegeben werden.");
+            return false;
         }
         else {
+            textEventPostalCode.setError(null);
             return true;
         }
     }
@@ -204,16 +213,28 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
             return false;
         }
         else {
+            textEventCity.setError(null);
             return true;
         }
     }
     public boolean isValidEventDate(){
-        // TODO Validierung ob Datum eingetragen wurde
+
+        Button btnDate = (Button) findViewById(R.id.date_picker);
+        if (btnDate.getText().equals("Wähle ein Datum")) {
+            btnDate.setError("Bitte wählen Sie ein Datum aus");
+            return false;
+        }
+        btnDate.setError(null);
             return true;
     }
     public boolean isValidEventTime(){
-        // TODO Validierung ob Uhrzeit eingetragen wurde
-            return true;
+        Button btnTime = (Button) findViewById(R.id.time_picker);
+        if (btnTime.getText().equals("Wähle eine Zeit")) {
+            btnTime.setError("Bitte wählen Sie ein Datum aus");
+            return false;
+        }
+        btnTime.setError(null);
+        return true;
     }
 
 }

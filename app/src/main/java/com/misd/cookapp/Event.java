@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class Event implements Serializable{
-    private int IconId;
+    // private int IconId;
     // private int eventId;
     private String eventDescription;
     private Meal eventMeal;
@@ -15,7 +15,7 @@ public class Event implements Serializable{
     private String eventStreet;
     private int eventPostal;
     private String eventCity;
-    private User eventOwner;
+    private User eventOwner; // TODO laut Server ändern in: int eventOwner
     private Calendar eventDate;
 
     // private String address;
@@ -23,7 +23,7 @@ public class Event implements Serializable{
     public Event(String eventDescription, Meal eventMeal, int eventMinAge, int eventMaxAge,
                  char eventGender, String eventStreet, int eventPostal, String eventCity, User eventOwner, Calendar eventDate) {
 
-        this.IconId = R.drawable.pic1;
+        // this.IconId = R.drawable.pic1;
         this.eventDescription = eventDescription;
         this.eventMeal = eventMeal;
         this.eventMinAge = eventMinAge;
@@ -45,13 +45,13 @@ public class Event implements Serializable{
         this.eventDescription = eventDescription;
     }
 
-    public int getIconId() {
+    /* public int getIconId() {
         return IconId;
-    }
+    }*/
 
-    public void setIconId(int iconId) {
+    /* public void setIconId(int iconId) {
         IconId = iconId;
-    }
+    }*/
 
     public Meal getEventMeal() {
         return eventMeal;
