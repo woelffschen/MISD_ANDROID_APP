@@ -26,6 +26,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.misd.cookapp.helpers.HelperMethods;
+import com.misd.cookapp.Server;
+
+import org.ksoap2.SoapFault;
+import org.ksoap2.serialization.SoapObject;
 
 import java.io.InputStream;
 
@@ -180,12 +184,21 @@ NewsFragment.OnFragmentInteractionListener, GoogleApiClient.OnConnectionFailedLi
             String urldisplay = urls[0];
             Bitmap googleProfilIcon = null;
             try {
+
+
+                //TODO TESTEN SERVER
+                int sessionId = Server.login(1);
+                Server.logout(sessionId);
+                int userId = Server.register("Mustermann", "Max", "Münsterstraße", 47152, "Münster", 28, "+49017612344879", 'w');
+
+
                 Log.d(TAG, "User image download started...");
                 InputStream in = new java.net.URL(urldisplay).openStream();
                 googleProfilIcon = BitmapFactory.decodeStream(in);
 
+
             } catch (Exception e) {
-                Log.e("Error", e.getMessage());
+                //Log.e("Error", e.getMessage());
                 e.printStackTrace();
             }
             return googleProfilIcon;

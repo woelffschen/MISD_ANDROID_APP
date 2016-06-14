@@ -3,11 +3,20 @@ package com.misd.cookapp.helpers;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import org.ksoap2.HeaderProperty;
+import org.ksoap2.SoapEnvelope;
+import org.ksoap2.SoapFault;
+import org.ksoap2.serialization.SoapObject;
+import org.ksoap2.serialization.SoapSerializationEnvelope;
+import org.ksoap2.transport.HttpTransportSE;
+
 import java.util.Calendar;
+import java.util.List;
 
 public class HelperMethods {
     public static final String PREFS_USER_DATA = "user_data";
@@ -60,4 +69,65 @@ public class HelperMethods {
             return false;
         }
     }
+
+
+    /*
+     * Kommunikation mit dem Server
+     */
+    private static final String NAMESPACE = "http://onlineService/";
+
+    // localen Port bzw die vom Cluster ansprechen
+    private static final String SESSION_URL = "http://10.70.16.37:8080/software-engineering-wildfly-archetype-ejb-1.0.0/UserInterface";
+    private static final String EVENT_URL ="http://10.70.16.37:8080/software-engineering-wildfly-archetype-ejb-1.0.0/EventInterface";
+    private static final String ATTENDANCE_URL="http://10.70.16.37:8080/software-engineering-wildfly-archetype-ejb-1.0.0/AttendanceInterface";
+
+    public static SoapObject executeSessionSoapAction( String methodName, Object... args) throws SoapFault {
+        return executeSoapAction(SESSION_URL, methodName, args);
+    }
+    public static SoapObject executeEventSoapAction( String methodName, Object... args) throws SoapFault {
+        return executeSoapAction(EVENT_URL, methodName, args);
+    }
+    public static SoapObject executeAttendanceSoapAction( String methodName, Object... args) throws SoapFault {
+        return executeSoapAction(ATTENDANCE_URL, methodName, args);
+    }
+
+    private static SoapObject executeSoapAction(String url, String methodName, Object... args) throws SoapFault {
+
+        Object result = null;
+
+        SoapObject request = new SoapObject(NAMESPACE, methodName);
+
+        for (int i=0; i<args.length; i++) {
+            request.addProperty("arg" + i, args[i]);
+        }
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+
+        envelope.setOutputSoapObject(request);
+
+        HttpTransportSE androidHttpTransport = new HttpTransportSE(url);
+
+        try {
+            List<HeaderProperty> reqHeaders = null;
+            List resp = androidHttpTransport.call("", envelope, reqHeaders);
+            result = envelope.getResponse();
+
+            if (result instanceof SoapFault) {
+                throw (SoapFault) result;
+            }
+        }
+        catch (SoapFault e) {
+            String msg = e.getMessage();
+
+            String t = msg;
+        }
+        catch (Exception e) {
+            //Log.i("Server: " , e.getMessage());
+            String msg = e.getMessage();
+
+            String t = msg;
+        }
+
+        return (SoapObject) result;
+    }
+
 }
