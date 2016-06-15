@@ -1,44 +1,56 @@
 package com.misd.cookapp;
 
+import android.util.Log;
+
+import com.misd.cookapp.exceptions.LoginFailedException;
+import com.misd.cookapp.exceptions.ServerCommunicationException;
 import com.misd.cookapp.helpers.HelperMethods;
 
 import org.ksoap2.SoapFault;
 import org.ksoap2.serialization.SoapObject;
 
+import java.math.BigInteger;
 import java.util.Calendar;
 
 /**
  * Created by Ines on 14.06.2016.
  */
 public class Server {
+    private static final String TAG = "WebserviceClient";
 
     /*
      * UserInterface
      */
 
-    // liefert userId und sessionId - benötigt Parameter
+    // liefert sessionId - benötigt Parameter
     public static int register(String lastname, String firstname, String street, int postalCode, String city,
                                 int age, String telephoneNumber, char gender) throws Exception {
         SoapObject resultRegister = HelperMethods.executeSessionSoapAction("registerUser", lastname, firstname, street, postalCode, city, age, telephoneNumber, (int)gender);
         int returnCode = Integer.valueOf(resultRegister.getPrimitivePropertySafelyAsString("returnCode"));
         if(returnCode == 0) {
-            return Integer.valueOf(resultRegister.getPrimitivePropertySafelyAsString("userId"));
+            return Integer.valueOf(resultRegister.getPrimitivePropertySafelyAsString("sessionId"));
         }else {
             String errorMessage = resultRegister.getPrimitivePropertySafelyAsString("message");
-            throw new Exception(errorMessage);
+            throw new Exception(errorMessage); // TODO spezielle Exception für Fehlercodes erstellen
         }
     }
 
     // liefert sessionId - benötigt userId
-    public static int login(int userId) throws Exception {
+    public static int login(BigInteger userId) throws LoginFailedException, SoapFault, ServerCommunicationException {
         SoapObject resultLogin = HelperMethods.executeSessionSoapAction("loginUser", userId);
+        if (resultLogin == null) {
+            throw new ServerCommunicationException();
+        }
         String strReturnCode = resultLogin.getPrimitivePropertySafelyAsString("returnCode");
         int returnCode = Integer.valueOf(strReturnCode);
         if(returnCode == 0) {
             return Integer.valueOf(resultLogin.getPrimitivePropertySafelyAsString("sessionId"));
-        }else {
+        } else if (returnCode == 10) {
+            throw new LoginFailedException("Login didn't passed. Registration necessary.");
+        }
+        else {
             String errorMessage = resultLogin.getPrimitivePropertySafelyAsString("message");
-            throw new Exception(errorMessage);
+            throw new LoginFailedException();
         }
     }
 
@@ -48,7 +60,7 @@ public class Server {
         int returnCode = Integer.valueOf(resultLogout.getPrimitivePropertySafelyAsString("returnCode"));
         if(returnCode != 0) {
             String errorMessage = resultLogout.getPrimitivePropertySafelyAsString("message");
-            throw new Exception(errorMessage);
+            throw new Exception(errorMessage); // TODO spezielle Exception für Fehlercodes erstellen
         }
     }
 
@@ -76,7 +88,7 @@ public class Server {
             return Integer.valueOf(resultCancel.getPrimitivePropertySafelyAsString("status"));
         }else {
             String errorMessage = resultCancel.getPrimitivePropertySafelyAsString("message");
-            throw new Exception(errorMessage);
+            throw new Exception(errorMessage);// TODO spezielle Exception für Fehlercodes erstellen
         }
     }
 
@@ -88,7 +100,7 @@ public class Server {
             return Integer.valueOf(resultRequest.getPrimitivePropertySafelyAsString("status"));
         }else {
             String errorMessage = resultRequest.getPrimitivePropertySafelyAsString("message");
-            throw new Exception(errorMessage);
+            throw new Exception(errorMessage);// TODO spezielle Exception für Fehlercodes erstellen
         }
     }
 
@@ -100,7 +112,7 @@ public class Server {
             return Integer.valueOf(resultConfirm.getPrimitivePropertySafelyAsString("status"));
         }else {
             String errorMessage = resultConfirm.getPrimitivePropertySafelyAsString("message");
-            throw new Exception(errorMessage);
+            throw new Exception(errorMessage);// TODO spezielle Exception für Fehlercodes erstellen
         }
     }
 
@@ -112,7 +124,7 @@ public class Server {
             return Integer.valueOf(resultReject.getPrimitivePropertySafelyAsString("status"));
         }else {
             String errorMessage = resultReject.getPrimitivePropertySafelyAsString("message");
-            throw new Exception(errorMessage);
+            throw new Exception(errorMessage);// TODO spezielle Exception für Fehlercodes erstellen
         }
     }
 
@@ -123,24 +135,24 @@ public class Server {
      */
 
     // keine Rückgabe - benötigt Paramter inkl. sessionId, user Id (eventId wird bei Liste geliefert)
-    public static void create(int sessionId, int userId, int min, int max, String street, int plz, String city,
+    public static void create(int sessionId, BigInteger userId, int min, int max, String street, int plz, String city,
                                    String comments, char gender, Calendar dateTime, int eo, String name, boolean lactose, boolean gluten,
                                    boolean fructose, boolean sorbit, boolean vega, boolean vegee) throws Exception {
         SoapObject resultCreate = HelperMethods.executeSessionSoapAction("createEvent", sessionId, userId, min, max, street, plz, city, comments, (int)gender, dateTime, eo, name, lactose, gluten, fructose, sorbit, vega, vegee);
         int returnCode = Integer.valueOf(resultCreate.getPrimitivePropertySafelyAsString("returnCode"));
         if(returnCode != 0) {
             String errorMessage = resultCreate.getPrimitivePropertySafelyAsString("message");
-            throw new Exception(errorMessage);
+            throw new Exception(errorMessage);// TODO spezielle Exception für Fehlercodes erstellen
         }
     }
 
     // keine Rückgabe - benötigt eventId, userId
-    public static void delete(int eventId, int userId) throws Exception {
+    public static void delete(int eventId, BigInteger userId) throws Exception {
         SoapObject resultDelete = HelperMethods.executeSessionSoapAction("deleteEvent", eventId, userId);
         int returnCode = Integer.valueOf(resultDelete.getPrimitivePropertySafelyAsString("returnCode"));
         if(returnCode != 0) {
             String errorMessage = resultDelete.getPrimitivePropertySafelyAsString("message");
-            throw new Exception(errorMessage);
+            throw new Exception(errorMessage);// TODO spezielle Exception für Fehlercodes erstellen
         }
     }
 

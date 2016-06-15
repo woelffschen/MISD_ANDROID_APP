@@ -1,11 +1,10 @@
 package com.misd.cookapp;
 
 import java.io.Serializable;
+import java.math.BigInteger;
+import java.util.Calendar;
 
 public class User implements Serializable {
-    // TODO int ID hinzufügen
-    // TODO Alle nötigen Informationen vom user für den Server Sammeln: age, gender, telefonnummer
-    // TODO sessionId speichern und mitschicken
 
     private String lastname;
     private String firstname;
@@ -13,17 +12,17 @@ public class User implements Serializable {
     private int postalCode;
     private String city;
     private char gender;
-    private int age;
+    private Calendar birthday;
     private String telephoneNumber;
 
-    public User(String lastname, String firstname, String street, int postalCode, String city, char gender, int age, String telephoneNumber) {
+    public User(String lastname, String firstname, String street, int postalCode, String city, char gender, Calendar birthday, String telephoneNumber) {
         this.lastname = lastname;
         this.firstname = firstname;
         this.street = street;
         this.postalCode = postalCode;
         this.city = city;
         this.gender = gender;
-        this.age = age;
+        this.birthday = birthday;
         this.telephoneNumber = telephoneNumber;
     }
 
@@ -51,12 +50,12 @@ public class User implements Serializable {
         this.street = street;
     }
 
-    public int getPostelCode() {
+    public int getPostalCode() {
         return postalCode;
     }
 
-    public void setPostelCode(int postelCode) {
-        this.postalCode = postelCode;
+    public void setPostalCode(int postalCode) {
+        this.postalCode = postalCode;
     }
 
     public String getCity() {
@@ -75,12 +74,12 @@ public class User implements Serializable {
         this.gender = gender;
     }
 
-    public int getAge() {
-        return age;
+    public Calendar getBirthday() {
+        return birthday;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setBirthday(Calendar birthday) {
+        this.birthday = birthday;
     }
 
     public String getTelephoneNumber() {
@@ -89,5 +88,11 @@ public class User implements Serializable {
 
     public void setTelephoneNumber(String telephoneNumber) {
         this.telephoneNumber = telephoneNumber;
+    }
+
+    @Override
+    public String toString() {
+        return "User{Vorname: " + getFirstname() + ", Nachname: " + getLastname() + ", Geschlecht: " + (getGender() == 'w'? "weiblich" : "männlich") + ", Straße und Hausnummer: " + getStreet() + ", PLZ:" + getPostalCode() + ", Ort: "
+                + getCity() + ", Telefonnummer: " + getTelephoneNumber();
     }
 }

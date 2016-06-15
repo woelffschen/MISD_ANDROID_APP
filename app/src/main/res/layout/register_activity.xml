@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    tools:context="com.misd.cookapp.RegisterActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bitte geben Sie Ihre Benutzerdaten ein:"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_marginBottom="15dp"
+        android:gravity="center_horizontal|center_vertical"/>
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    <TableRow>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:hint="Vorname"
+            android:ems="10"
+            android:id="@+id/textRegisterFirstname" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:hint="Nachname"
+            android:ems="10"
+            android:id="@+id/textRegisterLastname" />
+        </TableRow>
+    </TableLayout>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPostalAddress"
+        android:hint="Straße Nr."
+        android:ems="10"
+        android:id="@+id/textRegisterStreet" />
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TableRow>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:hint="Postleitzahl"
+            android:ems="10"
+            android:id="@+id/textRegisterPostalCode" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Stadt"
+            android:ems="10"
+            android:id="@+id/textRegisterCity" />
+        </TableRow>
+    </TableLayout>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Telefonnummer"
+        android:inputType="phone"
+        android:ems="10"
+        android:id="@+id/textRegisterTelephonenumber" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+
+        android:text="Bitte wählen Sie Ihr Geschlecht aus:"/>
+
+    <RadioGroup
+        android:id="@+id/radioGroupGenderUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="weiblich"
+            android:id="@+id/radiobutton_female" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="männlich"
+            android:id="@+id/radiobutton_male" />
+    </RadioGroup>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Geburtsdatum auswählen"
+        android:id="@+id/birthday_picker"
+        style="@style/Widget.AppCompat.Button.Borderless" />
+
+</LinearLayout>

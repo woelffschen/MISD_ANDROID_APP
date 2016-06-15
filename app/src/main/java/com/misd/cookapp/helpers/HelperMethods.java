@@ -20,6 +20,7 @@ import java.util.List;
 
 public class HelperMethods {
     public static final String PREFS_USER_DATA = "user_data";
+    public static final String PREFS_SESSION_DATA = "session_data";
 
     public static Calendar pasteCalendar(int year, int month, int day, int hour, int minute) {
         Calendar cal = Calendar.getInstance();
@@ -27,7 +28,13 @@ public class HelperMethods {
         return cal;
     }
 
-    public static void setPreferenceString(Context context, String prefsName, String preferencesName, String key, String value) {
+    public static Calendar pasteCalendar(int year, int month, int day) {
+        Calendar cal = Calendar.getInstance();
+        cal.set(year,month,day);
+        return cal;
+    }
+
+    public static void setPreferenceString(Context context, String prefsName, String key, String value) {
         // We need an Editor object to make preference changes.
         // All objects are from android.context.Context
         SharedPreferences settings = context.getSharedPreferences(prefsName, 0);
@@ -38,10 +45,28 @@ public class HelperMethods {
         editor.commit();
     }
 
-    public static String getPreferenceString(Context context, String prefsName, String preferencesName, String key) {
+    public static String getPreferenceString(Context context, String prefsName, String key) {
         // Restore preferences
         SharedPreferences settings = context.getSharedPreferences(prefsName, 0);
         String output = settings.getString(key, null);
+        return output;
+    }
+
+    public static void setPreferenceInt(Context context, String prefsName, String key, int value) {
+        // We need an Editor object to make preference changes.
+        // All objects are from android.context.Context
+        SharedPreferences settings = context.getSharedPreferences(prefsName, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putInt(key, value);
+
+        // Commit the edits!
+        editor.commit();
+    }
+
+    public static int getPreferenceInt(Context context, String prefsName, String key) {
+        // Restore preferences
+        SharedPreferences settings = context.getSharedPreferences(prefsName, 0);
+        int output = settings.getInt(key,-1);
         return output;
     }
 

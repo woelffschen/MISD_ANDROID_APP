@@ -2,11 +2,15 @@ package com.misd.cookapp;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.auth.api.Auth;
@@ -19,15 +23,28 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
+import com.misd.cookapp.exceptions.LoginFailedException;
+import com.misd.cookapp.exceptions.ServerCommunicationException;
 import com.misd.cookapp.helpers.HelperMethods;
+
+import org.ksoap2.SoapFault;
+
+import java.io.InputStream;
+import java.math.BigInteger;
+
+import javax.security.auth.login.LoginException;
+
+import static com.misd.cookapp.helpers.HelperMethods.pasteCalendar;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks {
 
     private static final String TAG = "SignInActivity";
     private static final int RC_SIGN_IN = 9001;
     private static final String SERVER_CLIENT_ID = "server_client_id";
+    private static final String SESSION_ID_KEY = "session_id_key";
 
     private GoogleApiClient mGoogleApiClient;
+    private GoogleSignInAccount acct;
     private TextView mStatusTextView;
     private ProgressDialog mProgressDialog;
     private String iExtra;
@@ -102,7 +119,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Log.d(TAG, "SilentSignIn was successful.");
                 // If the user's cached credentials are valid, the OptionalPendingResult will be "done"
                 // and the GoogleSignInResult will be available instantly.
-                Log.d(TAG, "Got cached sign-in");
                 GoogleSignInResult result = opr.get();
                 if (iExtra == null || !iExtra.equals(MainActivity.START_LOGOUT)) {
                     handleSignInResult(result);
@@ -168,17 +184,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
-            GoogleSignInAccount acct = result.getSignInAccount();
+            acct = result.getSignInAccount();
             HelperMethods.setPreferenceObject(this, HelperMethods.PREFS_USER_DATA, "GoogleSignInAccount", acct);
-            updateUi(true);
+            loginAtServer();
         } else {
-            Log.w(TAG, "Der Anmeldevorgang war nicht erfolgreich.");
-            //Hier einfügen was passieren soll, wenn der user nicht eingeloogt wurde
-            View parentLayout = findViewById(R.id.login_layout);
-            Snackbar snackbar = Snackbar
-                    .make(parentLayout, "Sie konnten leider nicht angemeldet werden. Versuchen Sie es erneut!", Snackbar.LENGTH_LONG);
-            snackbar.show();
+            updateUi(false);
         }
+    }
+
+    private void loginAtServer() {
+        new LoginTask().execute();
     }
 
     private void updateUi(final boolean b) {
@@ -186,6 +201,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             Intent i = new Intent(this, MainActivity.class);
             startActivity(i);
+        } else {
+            Log.w(TAG, "Der Anmeldevorgang war nicht erfolgreich.");
+            //Hier einfügen was passieren soll, wenn der user nicht eingeloogt wurde
+            View parentLayout = findViewById(R.id.login_layout);
+            Snackbar snackbar = Snackbar
+                    .make(parentLayout, "Sie konnten leider nicht angemeldet werden. Versuchen Sie es erneut!", Snackbar.LENGTH_LONG);
+            snackbar.show();
         }
     }
 
@@ -252,6 +274,53 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.sign_out_button:
                 signOut();
                 break;
+        }
+    }
+
+
+    private class LoginTask extends AsyncTask<Void, Void, Void> {
+
+        public LoginTask() {
+
+        }
+
+        @Override
+        protected void onPreExecute() {
+            Log.d(TAG, "Start login at server...");
+            showProgressDialog();
+        }
+
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            try {
+                int sessionId = Server.login(new BigInteger(acct.getId()));
+                Log.d(TAG,"Server login successful");
+                HelperMethods.setPreferenceInt(getApplicationContext(),HelperMethods.PREFS_SESSION_DATA, SESSION_ID_KEY,sessionId);
+                updateUi(true);
+            } catch (LoginFailedException ex) {
+                Log.d(TAG, ex.getMessage());
+                Intent i = new Intent(getApplicationContext(), RegisterActivity.class);
+                startActivity(i);
+            } catch (ServerCommunicationException sce) {
+                Log.e(TAG,sce.getMessage());
+                updateUi(false);
+            } catch (SoapFault sf) {
+                Log.e(TAG,"SoapAction failed: " + sf.getMessage());
+                sf.printStackTrace();
+                updateUi(false);
+            } catch (Exception e) {
+                //Log.e(TAG, e.getMessage());
+                e.printStackTrace();
+                updateUi(false);
+            }
+            return null;
+        }
+
+
+        @Override
+        protected void onPostExecute(Void params) {
+            hideProgressDialog();
         }
     }
 }

@@ -91,7 +91,6 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
     }
 
     private void saveEvent() {
-        // TODO vegan und vegetarisch hinzufügen
         EditText textEventMealName = (EditText) findViewById(R.id.editText);
         String eventMealName = textEventMealName.getText().toString();
 
@@ -140,7 +139,7 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
         int eventMaxAge = textEventAge.getSelectedMaxValue().intValue();
 
 
-        Event createdEvent = new Event(eventDescription, (new Meal(eventMealName, eventLactoseFree, eventGlutenFree, eventFructoseFree, eventSorbitFree, eventVegan, eventVegetarisch)), eventMinAge, eventMaxAge, genderRestriction, eventStreet, eventPostalCode, eventCity, (new User("Mustermann", "Max", "Teststraße", 48249, "Dülmen", 'm', 18, "+49123456")), pasteCalendar(eventYear, eventMonth, eventDay, eventHour, eventMinute));
+        Event createdEvent = new Event(eventDescription, (new Meal(eventMealName, eventLactoseFree, eventGlutenFree, eventFructoseFree, eventSorbitFree, eventVegan, eventVegetarisch)), eventMinAge, eventMaxAge, genderRestriction, eventStreet, eventPostalCode, eventCity, (new User("Mustermann", "Max", "Teststraße", 48249, "Dülmen", 'm', pasteCalendar(1993,04,17), "+49123456")), pasteCalendar(eventYear, eventMonth, eventDay, eventHour, eventMinute));
 
         Intent i = new Intent(CreateEventActivity.this,
                 ShowEventActivity.class);

@@ -32,6 +32,7 @@ import org.ksoap2.SoapFault;
 import org.ksoap2.serialization.SoapObject;
 
 import java.io.InputStream;
+import java.math.BigInteger;
 
 import static com.misd.cookapp.helpers.HelperMethods.pasteCalendar;
 
@@ -188,11 +189,11 @@ NewsFragment.OnFragmentInteractionListener, GoogleApiClient.OnConnectionFailedLi
             try {
 
 
-                //TODO TESTEN SERVER
-                int sessionId = Server.login(1);
-                Server.logout(sessionId);
-                int userId = Server.register("Mustermann", "Max", "Münsterstraße", 47152, "Münster", 28, "+49017612344879", 'w');
-                Server.create(sessionId,userId,18,28,"Münsterstraße",47152,"Münster","Bitte Hintertür verwenden",'b',pasteCalendar(2010,10,2,12,34),1,"Pizza",false,false,false,false,true,true);
+                // TODO TESTEN SERVER
+                // int sessionId = Server.login(new BigInteger("12345678"));
+                // Server.logout(sessionId);
+                // sessionId = Server.register("Mustermann", "Max", "Münsterstraße", 47152, "Münster", 28, "+49017612344879", 'w');
+                // Server.create(sessionId,new BigInteger("12345678"),18,28,"Münsterstraße",47152,"Münster","Bitte Hintertür verwenden",'b',pasteCalendar(2010,10,2,12,34),1,"Pizza",false,false,false,false,true,true);
                 // Server.delete(eventId, userId);
 
 

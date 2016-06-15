@@ -88,7 +88,7 @@ public class MyEventsFragment extends Fragment {
 
 
 
-        User currentUser = new User("Landreh", "Michael", "Boeselagerstr. 69b", 48163, "Münster", 'm', 23, "+49 163 138 92 82");
+        User currentUser = new User("Landreh", "Michael", "Boeselagerstr. 69b", 48163, "Münster", 'm', pasteCalendar(1933,2,19), "+49 163 138 92 82");
         Meal currentMeal =  new Meal("Spaghetti Bolognese",false, false, false, false, false, false);
 
         myevents.add(new Event("Ich möchte heute etwas tolles kochen.", currentMeal,
