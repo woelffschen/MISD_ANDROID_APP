@@ -23,7 +23,6 @@
             android:layout_gravity="center_vertical"
             android:layout_marginTop="20dp">
 
-
             <ImageView
                 android:layout_width="48dp"
                 android:layout_height="48dp"/>
@@ -57,9 +56,8 @@
                     android:text="EventTime"
                     android:gravity="right" />
             </LinearLayout>
-
-
         </LinearLayout>
+
         <TextView
             android:id="@+id/textEventStatus"
             android:layout_width="match_parent"
@@ -79,6 +77,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSearchResultSubtitle"
             android:text="Adresse &amp; Kontakt"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -89,7 +88,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Straße Nr."
-                android:textAppearance="?android:attr/textAppearanceMedium"/>
+                android:textAppearance="?android:attr/textAppearanceSmall"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -100,14 +99,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="PLZ"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
                 <TextView
                     android:id="@+id/textEventCity"
                     android:layout_marginLeft="8dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Stadt"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
             </LinearLayout>
             <Button
                 android:layout_width="match_parent"
@@ -115,6 +114,7 @@
                 style="@style/Base.Widget.AppCompat.Button.Colored"
                 android:text="XY jetzt anrufen"/>
         </LinearLayout>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -126,7 +126,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:textAppearance="?android:attr/textAppearanceSearchResultSubtitle"
+            android:textStyle="bold"
             android:text="Weitere Infos"/>
+
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -146,11 +148,10 @@
             </TableRow>
 
             <TableRow
-                android:padding="3dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <TextView
-                    android:text="Alter "
+                    android:text="Alter"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
                 <TextView
                     android:id="@+id/textEventAge"
@@ -159,68 +160,64 @@
                     android:textAppearance="?android:attr/textAppearanceSmall" />
             </TableRow>
         </TableLayout>
+
         <TextView
             android:id="@+id/textEventIncompatibility"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:text="Bei mir wird gekocht: "
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_marginTop="8dp"
+            android:text="Ernährungsform"
+            android:textAppearance="?android:attr/textAppearanceSmall"
             android:visibility="gone"/>
 
         <TextView
             android:id="@+id/textEventLactoseFree"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
             android:text="lactosefrei"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textAppearance="?android:attr/textAppearanceSmall"
             android:visibility="gone" />
 
         <TextView
             android:id="@+id/textEventGlutenFree"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
             android:text="glutenfrei"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textAppearance="?android:attr/textAppearanceSmall"
             android:visibility="gone" />
 
         <TextView
             android:id="@+id/textEventFructoseFree"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
             android:text="fructosefrei"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textAppearance="?android:attr/textAppearanceSmall"
             android:visibility="gone" />
 
         <TextView
             android:id="@+id/textEventSorbitFree"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
             android:text="sorbitfrei"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textAppearance="?android:attr/textAppearanceSmall"
             android:visibility="gone" />
 
         <TextView
             android:id="@+id/textEventVegan"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
             android:text="vegan"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textAppearance="?android:attr/textAppearanceSmall"
             android:visibility="gone" />
 
         <TextView
             android:id="@+id/textEventVegetarisch"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
             android:text="vegetarisch"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textAppearance="?android:attr/textAppearanceSmall"
             android:visibility="gone" />
+
     </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>
