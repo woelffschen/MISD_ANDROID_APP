@@ -2,9 +2,13 @@ package com.misd.cookapp;
 
 import android.app.DialogFragment;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -13,6 +17,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.misd.cookapp.helpers.HelperMethods;
+import com.misd.cookapp.interfaces.IServer;
 
 import org.florescu.android.rangeseekbar.RangeSeekBar;
 
@@ -20,9 +25,12 @@ import java.util.Calendar;
 
 import static com.misd.cookapp.helpers.HelperMethods.pasteCalendar;
 
+/*
+ * @author Ines Müller
+ */
 public class RegisterActivity extends AppCompatActivity implements DatePickerFragment.OnDatePickedListener {
     private static final String TAG = "RegisterActivity";
-    Calendar birthday;
+    int unixDateOfBirth;
     User createdUser;
 
     @Override
@@ -37,46 +45,11 @@ public class RegisterActivity extends AppCompatActivity implements DatePickerFra
         newFragment.show(getFragmentManager(), "datePicker");
     }
 
-    private void registerUser() {
-
-        EditText textRegisterFirstname  = (EditText) findViewById(R.id.textRegisterFirstname);
-        String registerFirstname = textRegisterFirstname.getText().toString();
-
-        EditText textRegisterLastname  = (EditText) findViewById(R.id.textRegisterLastname);
-        String registerLastname = textRegisterLastname.getText().toString();
-
-        EditText textRegisterStreet = (EditText) findViewById(R.id.textRegisterStreet);
-        String registerStreet = textRegisterStreet.getText().toString();
-
-        EditText textRegisterPostalCode = (EditText) findViewById(R.id.textRegisterPostalCode);
-        Integer registerPostalCode = Integer.parseInt(textRegisterPostalCode.getText().toString());
-
-        EditText textRegisterCity = (EditText) findViewById(R.id.textRegisterCity);
-        String registerCity = textRegisterCity.getText().toString();
-
-        EditText textRegisterTelephonenumber = (EditText) findViewById(R.id.textRegisterTelephonenumber);
-        String registerTelephonenumber = textRegisterTelephonenumber.getText().toString();
-
-        RadioGroup radioGroupGenderUser = (RadioGroup) findViewById(R.id.radioGroupGenderUser);
-        int selectedId = radioGroupGenderUser.getCheckedRadioButtonId(); // get selected radio button from radioGroup
-        // Check which radiobutton was clicked
-        char registerGender = 'x';
-        switch (selectedId) {
-            case R.id.radiobutton_male:
-                registerGender = 'm';
-                break;
-            case R.id.radiobutton_female:
-                registerGender = 'w';
-                break;
-        }
-
-        createdUser = new User(registerLastname,registerFirstname,registerStreet,registerPostalCode, registerCity, registerGender, birthday, registerTelephonenumber);
-        Log.d(TAG, "User created: " + createdUser.toString());
-    }
 
     @Override
     public void onDatePicked(final int year, final int month, final int day) {
-        birthday = pasteCalendar(year, month, day);
+        Calendar birthday = pasteCalendar(year, month, day);
+        this.unixDateOfBirth = (int) birthday.getTimeInMillis() / 1000;
 
         Button datePicker = (Button) findViewById(R.id.birthday_picker);
         datePicker.setText(day + "." + month + "." + year);
@@ -179,5 +152,86 @@ public class RegisterActivity extends AppCompatActivity implements DatePickerFra
         return true;
     }
 
+    public void register(View v) {
+        EditText textRegisterFirstname  = (EditText) findViewById(R.id.textRegisterFirstname);
+        String registerFirstname = textRegisterFirstname.getText().toString();
 
+        EditText textRegisterLastname  = (EditText) findViewById(R.id.textRegisterLastname);
+        String registerLastname = textRegisterLastname.getText().toString();
+
+        EditText textRegisterMail = (EditText) findViewById(R.id.textRegisterMail);
+        String registerMail = textRegisterMail.getText().toString();
+
+        EditText textRegisterStreet = (EditText) findViewById(R.id.textRegisterStreet);
+        String registerStreet = textRegisterStreet.getText().toString();
+
+        EditText textRegisterPostalCode = (EditText) findViewById(R.id.textRegisterPostalCode);
+        Integer registerPostalCode = Integer.parseInt(textRegisterPostalCode.getText().toString());
+
+        EditText textRegisterCity = (EditText) findViewById(R.id.textRegisterCity);
+        String registerCity = textRegisterCity.getText().toString();
+
+        EditText textRegisterTelephonenumber = (EditText) findViewById(R.id.textRegisterTelephonenumber);
+        String registerTelephonenumber = textRegisterTelephonenumber.getText().toString();
+
+        RadioGroup radioGroupGenderUser = (RadioGroup) findViewById(R.id.radioGroupGenderUser);
+        int selectedId = radioGroupGenderUser.getCheckedRadioButtonId(); // get selected radio button from radioGroup
+        // Check which radiobutton was clicked
+        char registerGender = 'x';
+        switch (selectedId) {
+            case R.id.radiobutton_male:
+                registerGender = 'm';
+                break;
+            case R.id.radiobutton_female:
+                registerGender = 'w';
+                break;
+        }
+
+        User user = new User(registerMail, registerLastname, registerFirstname, registerStreet, registerPostalCode, registerCity, registerGender, unixDateOfBirth, registerTelephonenumber);
+        Log.d(TAG, "User created: " + user.toString());
+        new LoginTask().execute(user);
+    }
+
+    private class LoginTask extends AsyncTask<User, Void, Integer> {
+        @Override
+        protected Integer doInBackground(User... params) {
+            int sessionId = 0;
+                    IServer server = CookApplication.getCookApplication().getServer();
+            try {
+                sessionId = server.register(params[0].getMailAddress(),
+                        params[0].getLastname(),
+                        params[0].getFirstname(),
+                        params[0].getStreet(),
+                        params[0].getPostalCode(),
+                        params[0].getCity(),
+                        (int)params[0].getBirthday().getTimeInMillis() / 1000,
+                        params[0].getTelephoneNumber(),
+                        params[0].getGender());
+
+                CookApplication cookApplication = CookApplication.getCookApplication();
+                if(sessionId > 0) {
+                    cookApplication.setSessionId(sessionId);
+                    cookApplication.setLoggedInUser(params[0]);
+                }else {
+                    cookApplication.setSessionId(0);
+                    cookApplication.setLoggedInUser(null);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.e(TAG, e.getMessage());
+            }
+
+            return sessionId;
+        }
+
+        @Override
+        protected void onPostExecute(Integer sessionId) {
+            if(sessionId == 0) {
+                // TODO TOAST anzeigen
+            }else {
+                Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(i);
+            }
+        }
+    }
 }

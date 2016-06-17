@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:padding="10dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="Aktion auswählen:"
+        android:textSize="20dp" />
+
+
+    <!-- TODO Anzeige wenn kein Eventowner -->
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/request_attendance"
+        android:text="Event anfragen"
+        android:layout_marginTop="10dp"
+        android:textColor="#F16700"
+        android:background="@null"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/cancel_attendance"
+        android:text="Teilnahme stornieren"
+        android:layout_marginTop="10dp"
+        android:textColor="#F16700"
+        android:background="@null"/>
+
+
+    <!-- TODO Anzeige wenn Eventowner -->
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/confirm_attendance"
+        android:text="Teilname bestätigen"
+        android:layout_marginTop="10dp"
+        android:textColor="#F16700"
+        android:background="@null"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/reject_attendance"
+        android:text="Teilname ablehnen"
+        android:layout_marginTop="10dp"
+        android:textColor="#F16700"
+        android:background="@null"/>
+
+
+</LinearLayout>

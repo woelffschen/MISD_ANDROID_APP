@@ -76,6 +76,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSearchResultSubtitle"
+            android:textStyle="bold"
             android:text="Adresse &amp; Kontakt"/>
 
         <LinearLayout
@@ -112,14 +113,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/Base.Widget.AppCompat.Button.Colored"
-                android:text="XY jetzt anrufen"/>
+                android:text="XY jetzt anrufen"
+                android:visibility="gone"/>
         </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Die Kontaktdaten werden erst nach Bestätigung der Teilnahme freigegeben."
-            android:textAppearance="?android:attr/textAppearanceSmall"/>
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:visibility="gone"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -129,45 +132,52 @@
             android:textStyle="bold"
             android:text="Weitere Infos"/>
 
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:rowCount="7"
-            android:columnCount="2">
-            <TableRow
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
                 <TextView
-                    android:text="Beschränkungen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:text="Beschränkung"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:id="@+id/textEventGender"
-                    android:padding="8dp"
                     android:text="Teilnehmergeschlecht"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
-            </TableRow>
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:layout_column="3" />
+            </LinearLayout>
 
-            <TableRow
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="80dp"
                     android:text="Alter"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                    android:textAppearance="?android:attr/textAppearanceSmall"/>
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:id="@+id/textEventAge"
                     android:text="EventAge"
-                    android:padding="8dp"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
-            </TableRow>
-        </TableLayout>
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:layout_column="3" />
+            </LinearLayout>
 
         <TextView
             android:id="@+id/textEventIncompatibility"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Ernährungsform"
-            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_marginTop="15dp"
+            android:text="Ernährungsform:"
+            android:textAppearance="?android:attr/textAppearanceSearchResultSubtitle"
+            android:textStyle="bold"
             android:visibility="gone"/>
 
         <TextView

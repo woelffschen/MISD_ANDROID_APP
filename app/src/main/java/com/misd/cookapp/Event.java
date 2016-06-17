@@ -6,7 +6,7 @@ import java.util.Calendar;
 
 public class Event implements Serializable{
     // private int IconId;
-    // private int eventId;
+    private int eventId;
     private String eventDescription;
     private Meal eventMeal;
     private int eventMinAge;
@@ -15,15 +15,15 @@ public class Event implements Serializable{
     private String eventStreet;
     private int eventPostal;
     private String eventCity;
-    private User eventOwner; // TODO laut Server ändern in: int eventOwner
+    private String eventOwner;
     private Calendar eventDate;
 
     // private String address;
 
-    public Event(String eventDescription, Meal eventMeal, int eventMinAge, int eventMaxAge,
-                 char eventGender, String eventStreet, int eventPostal, String eventCity, User eventOwner, Calendar eventDate) {
+    public Event(int eventId, String eventDescription, Meal eventMeal, int eventMinAge, int eventMaxAge,
+                 char eventGender, String eventStreet, int eventPostal, String eventCity, String eventOwner, Calendar eventDate) {
 
-        // this.IconId = R.drawable.pic1;
+        this.eventId = eventId;
         this.eventDescription = eventDescription;
         this.eventMeal = eventMeal;
         this.eventMinAge = eventMinAge;
@@ -37,6 +37,15 @@ public class Event implements Serializable{
 
     }
 
+
+    public int getEventId() {
+        return eventId;
+    }
+
+    public void setEventId(int eventId) {
+        this.eventId = eventId;
+    }
+
     public String getEventDescription() {
         return eventDescription;
     }
@@ -44,14 +53,6 @@ public class Event implements Serializable{
     public void setEventDescription(String eventDescription) {
         this.eventDescription = eventDescription;
     }
-
-    /* public int getIconId() {
-        return IconId;
-    }*/
-
-    /* public void setIconId(int iconId) {
-        IconId = iconId;
-    }*/
 
     public Meal getEventMeal() {
         return eventMeal;
@@ -109,11 +110,11 @@ public class Event implements Serializable{
         this.eventCity = eventCity;
     }
 
-    public User getEventOwner() {
+    public String getEventOwner() {
         return eventOwner;
     }
 
-    public void setEventOwner(User eventOwner) {
+    public void setEventOwner(String eventOwner) {
         this.eventOwner = eventOwner;
     }
 

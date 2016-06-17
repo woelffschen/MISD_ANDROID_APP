@@ -86,26 +86,25 @@ public class MyEventsFragment extends Fragment {
         // Adding child data
         List<Event> myevents = new ArrayList<>();
 
-
-
-        User currentUser = new User("Landreh", "Michael", "Boeselagerstr. 69b", 48163, "Münster", 'm', pasteCalendar(1933,2,19), "+49 163 138 92 82");
+        String currentUserMail = CookApplication.getCookApplication().getLoggedInUser().getMailAddress();
         Meal currentMeal =  new Meal("Spaghetti Bolognese",false, false, false, false, false, false);
 
-        myevents.add(new Event("Ich möchte heute etwas tolles kochen.", currentMeal,
-                18,60, 'b', "Boeselagerstr. 69b", 48163, "Münster", currentUser, pasteCalendar(2010,10,2,12,34)));
+
+        myevents.add(new Event(0,"Ich möchte heute etwas tolles kochen.", currentMeal,
+                18,60, 'b', "Boeselagerstr. 69b", 48163, "Münster", currentUserMail, pasteCalendar(2010,10,2,12,34)));
 
 
         List<Event> myrequests = new ArrayList<>();
-        myrequests.add(new Event("Ich möchte heute etwas tolles kochen.", currentMeal,
-                18,60, 'b', "Boeselagerstr. 69b", 48163, "Bochum", currentUser, pasteCalendar(2010,10,2,12,34)));
+        myrequests.add(new Event(0,"Ich möchte heute etwas tolles kochen.", currentMeal,
+                18,60, 'b', "Boeselagerstr. 69b", 48163, "Bochum", currentUserMail, pasteCalendar(2010,10,2,12,34)));
 
         List<Event> myattendance = new ArrayList<>();
-        myattendance.add(new Event("Ich möchte heute etwas tolles kochen.", currentMeal,
-                18,60, 'b', "Boeselagerstr. 69b", 48163, "München", currentUser, pasteCalendar(2010,10,2,12,34)));
+        myattendance.add(new Event(0,"Ich möchte heute etwas tolles kochen.", currentMeal,
+                18,60, 'b', "Boeselagerstr. 69b", 48163, "München", currentUserMail, pasteCalendar(2010,10,2,12,34)));
 
         List<Event> pastevents = new ArrayList<>();
-        pastevents.add(new Event("Ich möchte heute etwas tolles kochen.", currentMeal,
-                18,60, 'b', "Boeselagerstr. 69b", 48163, "TikiTaka", currentUser, pasteCalendar(2010,10,2,12,34)));
+        pastevents.add(new Event(0,"Ich möchte heute etwas tolles kochen.", currentMeal,
+                18,60, 'b', "Boeselagerstr. 69b", 48163, "TikiTaka", currentUserMail, pasteCalendar(2010,10,2,12,34)));
 
 
         listDataChild.put(listDataHeader.get(0), myevents); // Header, Child data

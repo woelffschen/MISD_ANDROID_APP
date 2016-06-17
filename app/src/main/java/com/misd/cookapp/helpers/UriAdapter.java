@@ -8,8 +8,8 @@ import com.google.gson.stream.JsonWriter;
 
 import java.io.IOException;
 
-/**
- * Created by Michael on 04.06.2016.
+/*
+ * @author Michael Landreh
  */
 public final class UriAdapter extends TypeAdapter<Uri> {
     @Override

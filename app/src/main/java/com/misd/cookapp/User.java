@@ -3,27 +3,39 @@ package com.misd.cookapp;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class User implements Serializable {
 
+    private String mailAddress;
     private String lastname;
     private String firstname;
     private String street;
     private int postalCode;
     private String city;
     private char gender;
-    private Calendar birthday;
+    private GregorianCalendar birthday;
     private String telephoneNumber;
 
-    public User(String lastname, String firstname, String street, int postalCode, String city, char gender, Calendar birthday, String telephoneNumber) {
+    public User(String mailAddress, String lastname, String firstname, String street, int postalCode, String city, char gender, int unixDateOfBirth, String telephoneNumber) {
+        this.mailAddress = mailAddress;
         this.lastname = lastname;
         this.firstname = firstname;
         this.street = street;
         this.postalCode = postalCode;
         this.city = city;
         this.gender = gender;
-        this.birthday = birthday;
+        this.birthday = new GregorianCalendar();
+        this.birthday.setTimeInMillis(unixDateOfBirth * 1000);
         this.telephoneNumber = telephoneNumber;
+    }
+
+    public String getMailAddress() {
+        return mailAddress;
+    }
+
+    public void setMailAddress(String mailAddress) {
+        this.mailAddress = mailAddress;
     }
 
     public String getLastname() {
@@ -76,10 +88,6 @@ public class User implements Serializable {
 
     public Calendar getBirthday() {
         return birthday;
-    }
-
-    public void setBirthday(Calendar birthday) {
-        this.birthday = birthday;
     }
 
     public String getTelephoneNumber() {

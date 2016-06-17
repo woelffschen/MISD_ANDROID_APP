@@ -3,6 +3,7 @@ package com.misd.cookapp;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -13,6 +14,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.misd.cookapp.interfaces.IServer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,53 +90,15 @@ public class MainFragment extends Fragment {
 
     // Methoden für die ListView - Beispiele zur Veranschaulichung
     private void populateEventList(){
-        User currentUser = new User("Landreh", "Michael", "Boeselagerstr. 69b", 48163, "Münster", 'm', pasteCalendar(1992,8,24), "+49 163 138 92 82");
-        Meal currentMeal =  new Meal("Spaghetti Bolognese", false, false, false, false, false, false);
 
-        myEvents.add(new Event("Ich möchte heute scheiße kochen.", currentMeal,
-                18,60, 'b', "Blubstr. 18", 48163, "Münster", currentUser, pasteCalendar(2016,3,2,12,34)));
+        new LoadEventsTask().execute();
 
-        myEvents.add(new Event("Ich möchte heute etwas tolles kochen.", currentMeal,
-                18,60, 'b', "Boeselagerstr. 69b", 48163, "Münster", currentUser, pasteCalendar(2010,10,2,12,34)));
+        //String currentUserMail = CookApplication.getCookApplication().getLoggedInUser().getMailAddress();
+        //Meal currentMeal =  new Meal("Spaghetti Bolognese", false, false, false, false, false, false);
 
-        myEvents.add(new Event("Ich möchte heute etwas tolles kochen.", currentMeal,
-                18,60, 'b', "Boeselagerstr. 69b", 48163, "Münster", currentUser, pasteCalendar(2010,10,2,12,34)));
 
-        myEvents.add(new Event("Ich möchte heute etwas tolles kochen.", currentMeal,
-                18,60, 'b', "Boeselagerstr. 69b", 48163, "Münster", currentUser, pasteCalendar(2010,10,2,12,34)));
-
-        myEvents.add(new Event("Ich möchte heute etwas tolles kochen.", currentMeal,
-                18,60, 'b', "Boeselagerstr. 69b", 48163, "Münster", currentUser, pasteCalendar(2010,10,2,12,34)));
-
-        myEvents.add(new Event("Ich möchte heute etwas tolles kochen.", currentMeal,
-                18,60, 'b', "Boeselagerstr. 69b", 48163, "Münster", currentUser, pasteCalendar(2010,10,2,12,34)));
-
-        myEvents.add(new Event("Ich möchte heute etwas tolles kochen.", currentMeal,
-                18,60, 'b', "Boeselagerstr. 69b", 48163, "Münster", currentUser, pasteCalendar(2010,10,2,12,34)));
-
-        myEvents.add(new Event("Ich möchte heute etwas tolles kochen.", currentMeal,
-                18,60, 'b', "Boeselagerstr. 69b", 48163, "Münster", currentUser, pasteCalendar(2010,10,2,12,34)));
-
-        myEvents.add(new Event("Ich möchte heute etwas tolles kochen.", currentMeal,
-                18,60, 'b', "Boeselagerstr. 69b", 48163, "Münster", currentUser, pasteCalendar(2010,10,2,12,34)));
-
-        myEvents.add(new Event("Ich möchte heute etwas tolles kochen.", currentMeal,
-                18,60, 'b', "Boeselagerstr. 69b", 48163, "Münster", currentUser, pasteCalendar(2010,10,2,12,34)));
-
-        myEvents.add(new Event("Ich möchte heute etwas tolles kochen.", currentMeal,
-                18,60, 'b', "Boeselagerstr. 69b", 48163, "Münster", currentUser, pasteCalendar(2010,10,2,12,34)));
-
-        myEvents.add(new Event("Ich möchte heute etwas tolles kochen.", currentMeal,
-                18,60, 'b', "Boeselagerstr. 69b", 48163, "Münster", currentUser, pasteCalendar(2010,10,2,12,34)));
-
-        myEvents.add(new Event("Ich möchte heute etwas tolles kochen.", currentMeal,
-                18,60, 'b', "Boeselagerstr. 69b", 48163, "Münster", currentUser, pasteCalendar(2010,10,2,12,34)));
-
-        myEvents.add(new Event("Ich möchte heute etwas tolles kochen.", currentMeal,
-                18,60, 'b', "Boeselagerstr. 69b", 48163, "Münster", currentUser, pasteCalendar(2010,10,2,12,34)));
-
-        myEvents.add(new Event("Ich möchte heute etwas tolles kochen.", currentMeal,
-                18,60, 'b', "Boeselagerstr. 69b", 48163, "Münster", currentUser, pasteCalendar(2010,10,2,12,34)));
+        /*myEvents.add(new Event("Ich möchte heute scheiße kochen.", currentMeal,
+                18,60, 'b', "Blubstr. 18", 48163, "Münster", currentUserMail, pasteCalendar(2016,3,2,12,34)));*/
 
     }
 
@@ -197,6 +162,28 @@ public class MainFragment extends Fragment {
             return itemView;
         }
 
+    }
+
+    private class LoadEventsTask extends AsyncTask<Void, Void, List<Event>> {
+        @Override
+        protected void onPostExecute(List<Event> events) {
+            myEvents.addAll(events);
+        }
+
+        @Override
+        protected List<Event> doInBackground(Void... params) {
+            List<Event> result= new ArrayList<Event>();
+            try {
+                Log.i(TAG,"Server get Eventslist successful");
+
+                IServer server = CookApplication.getCookApplication().getServer();
+                result = server.getListOfEvents(CookApplication.getCookApplication().getSessionId());
+            }  catch (Exception e) {
+                Log.e(TAG, e.getMessage());
+                e.printStackTrace();
+            }
+            return result;
+        }
     }
 
 }
