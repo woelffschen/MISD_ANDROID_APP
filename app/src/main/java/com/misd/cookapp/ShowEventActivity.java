@@ -1,14 +1,23 @@
 package com.misd.cookapp;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.app.FragmentManager;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 public class ShowEventActivity extends AppCompatActivity {
 
@@ -19,14 +28,14 @@ public class ShowEventActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar sb = Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null);
-                sb.getView().setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryDark));
-                sb.show();
+                FragmentManager fm = getFragmentManager();
+                StatusDialogFragment dialogFragment = new StatusDialogFragment ();
+                dialogFragment.show(fm, "Status Fragment");
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -43,7 +52,7 @@ public class ShowEventActivity extends AppCompatActivity {
         setTitle(currentEvent.getEventMeal().getName());
 
         TextView textEventOwner = (TextView) findViewById(R.id.textEventOwner);
-        textEventOwner.setText(currentEvent.getEventOwner().getFirstname() + " " + currentEvent.getEventOwner().getLastname());
+        textEventOwner.setText(currentEvent.getEventOwner());
 
         TextView textEventDescription = (TextView) findViewById(R.id.textEventDescription);
         textEventDescription.setText(currentEvent.getEventDescription());
@@ -113,4 +122,5 @@ public class ShowEventActivity extends AppCompatActivity {
             textEventVegetarisch.setVisibility(TextView.VISIBLE);
         }
     }
+
 }

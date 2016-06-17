@@ -25,11 +25,14 @@ import android.widget.TextView;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.misd.cookapp.exceptions.LoginFailedException;
 import com.misd.cookapp.helpers.HelperMethods;
 import com.misd.cookapp.Server;
+import com.misd.cookapp.interfaces.IServer;
 
 import org.ksoap2.SoapFault;
 import org.ksoap2.serialization.SoapObject;
+import org.w3c.dom.Text;
 
 import java.io.InputStream;
 import java.math.BigInteger;
@@ -80,15 +83,16 @@ NewsFragment.OnFragmentInteractionListener, GoogleApiClient.OnConnectionFailedLi
         //Set the User Info in Navigation Drawer
         View navHeaderLayout = navigationView.getHeaderView(0);
 
-        TextView userMail = (TextView) navHeaderLayout.findViewById(R.id.user_mail);
-        GoogleSignInAccount  acct = (GoogleSignInAccount) HelperMethods.getPreferenceObject(this,HelperMethods.PREFS_USER_DATA, GoogleSignInAccount.class, "GoogleSignInAccount");
-        userMail.setText(acct.getEmail());
+        CookApplication cookApplication = (CookApplication) getApplication();
 
-        TextView userDisplayName = (TextView) navHeaderLayout.findViewById(R.id.user_display_name);
-        userDisplayName.setText(acct.getDisplayName());
+        String currentUserMail = cookApplication.getLoggedInUser().getMailAddress();
+        TextView userEmail = (TextView) navHeaderLayout.findViewById(R.id.user_mail);
+        userEmail.setText(currentUserMail);
 
-        // show The Image in a ImageView
-        new DownloadImageTask((ImageView) navHeaderLayout.findViewById(R.id.imageView)).execute(acct.getPhotoUrl().toString());
+        String currentUserFirstname = cookApplication.getLoggedInUser().getFirstname();
+        String currentUserLastname = cookApplication.getLoggedInUser().getLastname();
+        TextView userDisplayName = (TextView) navHeaderLayout.findViewById(R.id.user_name);
+        userDisplayName.setText(currentUserFirstname + " " + currentUserLastname);
 
     }
 
@@ -134,6 +138,8 @@ NewsFragment.OnFragmentInteractionListener, GoogleApiClient.OnConnectionFailedLi
         Fragment fragment;
         Bundle args = new Bundle();
 
+        CookApplication cookApplication = (CookApplication)getApplication();
+
         if (id == R.id.nav_my_events) {
             fragment = new MyEventsFragment();
 
@@ -146,10 +152,12 @@ NewsFragment.OnFragmentInteractionListener, GoogleApiClient.OnConnectionFailedLi
         } else if (id == R.id.nav_share) {
             fragment = new MainFragment();
 
+            LogoutTask logoutTask = new LogoutTask();
+            logoutTask.execute(cookApplication.getSessionId());
+
             Intent i = new Intent(this, LoginActivity.class);
             i.putExtra(START_LOGOUT,START_LOGOUT);
             startActivity(i);
-
         } else {
             fragment = new MainFragment();
         }
@@ -176,42 +184,45 @@ NewsFragment.OnFragmentInteractionListener, GoogleApiClient.OnConnectionFailedLi
         Log.d(TAG, "onConnectionFailed:" + connectionResult);
     }
 
-    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-        ImageView bmImage;
-
-        public DownloadImageTask(ImageView bmImage) {
-            this.bmImage = bmImage;
+    private class LogoutTask extends AsyncTask<Integer, Void, Void> {
+        @Override
+        protected void onPreExecute() {
+            Log.i(TAG, "Start logout at server...");
         }
 
-        protected Bitmap doInBackground(String... urls) {
-            String urldisplay = urls[0];
-            Bitmap googleProfilIcon = null;
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            Log.i(TAG, "Logout at server finished...");
+
+            Intent iMainActivity = new Intent(getApplicationContext(), LoginActivity.class);
+            startActivity(iMainActivity);
+        }
+
+        @Override
+        protected Void doInBackground(Integer... params) {
             try {
+                Log.i(TAG,"Server logout successful");
+                CookApplication cookApplication = (CookApplication) getApplication();
+                IServer server = cookApplication.getServer();
 
+                int sessionId = cookApplication.getSessionId();
 
-                // TODO TESTEN SERVER
-                // int sessionId = Server.login(new BigInteger("12345678"));
-                // Server.logout(sessionId);
-                // sessionId = Server.register("Mustermann", "Max", "Münsterstraße", 47152, "Münster", 28, "+49017612344879", 'w');
-                // Server.create(sessionId,new BigInteger("12345678"),18,28,"Münsterstraße",47152,"Münster","Bitte Hintertür verwenden",'b',pasteCalendar(2010,10,2,12,34),1,"Pizza",false,false,false,false,true,true);
-                // Server.delete(eventId, userId);
+                Event currentEventObject = server.getOneEvent(4);
 
+                if(sessionId > 0) {
+                    //User user = server.getUserInfo(params[0]);
+                    server.logout(sessionId);
 
-                Log.d(TAG, "User image download started...");
-                InputStream in = new java.net.URL(urldisplay).openStream();
-                googleProfilIcon = BitmapFactory.decodeStream(in);
-
-
-            } catch (Exception e) {
-                //Log.e("Error", e.getMessage());
+                    cookApplication.setLoggedInUser(null);
+                    cookApplication.setSessionId(0);
+                }else {
+                    // do nothing
+                }
+            }  catch (Exception e) {
+                Log.e(TAG, e.getMessage());
                 e.printStackTrace();
             }
-            return googleProfilIcon;
-        }
-
-        protected void onPostExecute(Bitmap result) {
-            Log.d(TAG, "User image download finished.");
-            bmImage.setImageBitmap(result);
+            return null;
         }
     }
 

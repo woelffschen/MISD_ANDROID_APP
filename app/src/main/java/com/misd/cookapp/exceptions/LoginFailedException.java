@@ -1,7 +1,7 @@
 package com.misd.cookapp.exceptions;
 
-/**
- * Created by FH on 15.06.2016.
+/*
+ * @author Michael Landreh
  */
 public class LoginFailedException extends Exception {
 

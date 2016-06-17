@@ -18,6 +18,9 @@ import org.ksoap2.transport.HttpTransportSE;
 import java.util.Calendar;
 import java.util.List;
 
+/*
+ * @author Michael Landreh
+ */
 public class HelperMethods {
     public static final String PREFS_USER_DATA = "user_data";
     public static final String PREFS_SESSION_DATA = "session_data";
@@ -97,7 +100,7 @@ public class HelperMethods {
 
 
     /*
-     * Kommunikation mit dem Server
+     * @author Ines Müller - Kommunikation mit dem Server
      */
     private static final String NAMESPACE = "http://onlineService/";
 
