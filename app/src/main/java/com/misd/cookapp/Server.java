@@ -114,8 +114,8 @@ public class Server implements IServer {
     //
 
     // liefert status - benötigt sessionId, , attendanceId, eventId
-    public int cancel(int sessionId, int attendanceId, int eventId) throws Exception {
-        SoapObject resultCancel = HelperMethods.executeSessionSoapAction("cancelAttendance", sessionId, attendanceId, eventId);
+    public int cancel(int sessionId, int eventId, String email) throws Exception {
+        SoapObject resultCancel = HelperMethods.executeAttendanceSoapAction("cancelAttendance", sessionId, eventId, email);
         int returnCode = Integer.valueOf(resultCancel.getPrimitivePropertySafelyAsString("returnCode"));
         if (returnCode == 0) {
             return Integer.valueOf(resultCancel.getPrimitivePropertySafelyAsString("status"));
@@ -127,7 +127,7 @@ public class Server implements IServer {
 
     // liefert status - benötigt sessionId, eventId, email
     public int request(int sessionId, int eventId, String email) throws Exception {
-        SoapObject resultRequest = HelperMethods.executeSessionSoapAction("requestAttendance", sessionId, eventId, email);
+        SoapObject resultRequest = HelperMethods.executeAttendanceSoapAction("requestAttendance", sessionId, eventId, email);
         int returnCode = Integer.valueOf(resultRequest.getPrimitivePropertySafelyAsString("returnCode"));
         if (returnCode == 0) {
             return Integer.valueOf(resultRequest.getPrimitivePropertySafelyAsString("status"));
@@ -138,8 +138,8 @@ public class Server implements IServer {
     }
 
     // liefert status - benötigt sessionId, attendanceId, eventId, userId
-    public int confirm(int sessionId, int attendanceId, int eventId, int userId) throws Exception {
-        SoapObject resultConfirm = HelperMethods.executeSessionSoapAction("confirmAttendance", sessionId, attendanceId, eventId, userId);
+    public int confirm(int sessionId, int eventId, String email) throws Exception {
+        SoapObject resultConfirm = HelperMethods.executeAttendanceSoapAction("confirmAttendance", sessionId, eventId, email);
         int returnCode = Integer.valueOf(resultConfirm.getPrimitivePropertySafelyAsString("returnCode"));
         if (returnCode == 0) {
             return Integer.valueOf(resultConfirm.getPrimitivePropertySafelyAsString("status"));
@@ -150,8 +150,8 @@ public class Server implements IServer {
     }
 
     // liefert status - benötigt sessionId, attendanceId, eventId
-    public int reject(int sessionId, int attendanceId, int eventId) throws Exception {
-        SoapObject resultReject = HelperMethods.executeSessionSoapAction("rejectAttendance", sessionId, attendanceId, eventId);
+    public int reject(int sessionId, int eventId, String email) throws Exception {
+        SoapObject resultReject = HelperMethods.executeAttendanceSoapAction("rejectAttendance", sessionId, eventId, email);
         int returnCode = Integer.valueOf(resultReject.getPrimitivePropertySafelyAsString("returnCode"));
         if (returnCode == 0) {
             return Integer.valueOf(resultReject.getPrimitivePropertySafelyAsString("status"));

@@ -24,8 +24,10 @@ import com.misd.cookapp.interfaces.IServer;
 
 import org.w3c.dom.Text;
 
-public class ShowEventActivity extends AppCompatActivity {
+public class ShowEventActivity extends AppCompatActivity implements StatusDialogFragment.OnDialogResultListener {
     public static final String EXTRA_EVENT_STATUS = "event_status";
+    public static final int REQUEST_ATTENDANCE = 0;
+    public static final int CANCEL_ATTENDANCE = 1;
     private int eventStatus = -1;
     private static final String TAG = "ShowEventActivity";
     private Event currentEvent;
@@ -47,6 +49,7 @@ public class ShowEventActivity extends AppCompatActivity {
             public void onClick(View view) {
                 FragmentManager fm = getFragmentManager();
                 StatusDialogFragment dialogFragment = new StatusDialogFragment ();
+
                 Bundle bundle = new Bundle();
                 bundle.putInt(EXTRA_EVENT_STATUS, eventStatus);
                 dialogFragment.setArguments(bundle);
@@ -180,6 +183,11 @@ public class ShowEventActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onDialogDismissed(int status) {
+        new AlterAttendanceTask(status).execute();
+    }
+
 
     public class LoadEventStatusTask extends AsyncTask<Void, Void, Void> {
 
@@ -187,7 +195,7 @@ public class ShowEventActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            showProgressDialog();
+            showProgressDialogEventStatus();
         }
 
         @Override
@@ -219,10 +227,20 @@ public class ShowEventActivity extends AppCompatActivity {
         }
     }
 
-    private void showProgressDialog() {
+    private void showProgressDialogEventStatus() {
         if (mProgressDialog == null) {
             mProgressDialog = new ProgressDialog(this);
             mProgressDialog.setMessage(getString(R.string.loading_event_status));
+            mProgressDialog.setIndeterminate(true);
+        }
+
+        mProgressDialog.show();
+    }
+
+    private void showProgressDialogAlterAttendance() {
+        if (mProgressDialog == null) {
+            mProgressDialog = new ProgressDialog(this);
+            mProgressDialog.setMessage(getString(R.string.loading_alter_attendance));
             mProgressDialog.setIndeterminate(true);
         }
 
@@ -238,4 +256,63 @@ public class ShowEventActivity extends AppCompatActivity {
             mProgressDialog.hide();
         }
     }
+
+    private class AlterAttendanceTask extends AsyncTask<String, Void, Integer> {
+
+        private int status = -1;
+        private boolean taskFailed = false;
+
+        public AlterAttendanceTask(int status) {
+            this.status = status;
+        }
+
+        @Override
+        protected Integer doInBackground(String... params) {
+
+            try {
+                CookApplication ca = CookApplication.getCookApplication();
+                IServer server = ca.getServer();
+                int sessionId = ca.getSessionId();
+                String email = ca.getLoggedInUser().getMailAddress();
+                int eventId = currentEvent.getEventId();
+                switch (status) {
+                    case REQUEST_ATTENDANCE:
+                        server.request(sessionId,eventId,email);
+                        Log.i(TAG, "Request attendance successful");
+                        break;
+                    case CANCEL_ATTENDANCE:
+                        server.cancel(sessionId,eventId,email);
+                        Log.i(TAG, "Cancel attendance successful");
+                        break;
+                }
+
+            }  catch (Exception e) {
+                taskFailed = true;
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            showProgressDialogAlterAttendance();
+        }
+
+        @Override
+        protected void onPostExecute(Integer integer) {
+
+            hideProgressDialog();
+            if (taskFailed) {
+                Snackbar.make(rootView,"Die Teilnahmeanfrage ist fehlgeschlagen.",Snackbar.LENGTH_LONG).show();
+            } else {
+                finish();
+                startActivity(getIntent());
+            }
+
+        }
+
+
+    }
+
 }

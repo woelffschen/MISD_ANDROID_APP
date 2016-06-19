@@ -79,6 +79,7 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_save) {
             if (isValidMealName() &&
+                    isValidDescription() &&
                     isValidEventDate() &&
                     isValidEventTime() &&
                     isValidEventStreet() &&
@@ -174,9 +175,7 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
         timePicker.setText(timeString);
     }
 
-    /*
-     * @author Ines Müller - Validierung
-     */
+
     public boolean isValidMealName() {
         EditText textEventMealName = (EditText) findViewById(R.id.editText);
         if (textEventMealName.length() == 0) {
@@ -187,6 +186,17 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
             return false;
         } else {
             textEventMealName.setError(null);
+            return true;
+        }
+    }
+
+    public boolean isValidDescription() {
+        EditText textEventDescription = (EditText) findViewById(R.id.eventDescription);
+        if (textEventDescription.length() == 0) {
+            textEventDescription.setError("Feld darf nicht leer sein.");
+            return false;
+        } else {
+            textEventDescription.setError(null);
             return true;
         }
     }

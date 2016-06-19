@@ -18,8 +18,10 @@ import org.ksoap2.transport.HttpTransportSE;
 import java.util.Calendar;
 import java.util.List;
 
-/*
- * @author Michael Landreh
+/**
+ * This class provides a set of static methods to offer an easy access to reused excercises, such as storing and loading data in the SharedPreferences
+ * or executing Soap Actions.
+ * @author Michael Landreh, Ines Mueller
  */
 public class HelperMethods {
     public static final String PREFS_USER_DATA = "user_data";
@@ -99,9 +101,6 @@ public class HelperMethods {
     }
 
 
-    /*
-     * @author Ines Müller - Kommunikation mit dem Server
-     */
     private static final String NAMESPACE = "http://onlineService/";
 
     // localen Port bzw die vom Cluster ansprechen
@@ -148,6 +147,7 @@ public class HelperMethods {
 
             if (result instanceof SoapFault) {
                 throw (SoapFault) result;
+
             }
         }
         catch (SoapFault e) {

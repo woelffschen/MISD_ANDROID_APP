@@ -8,7 +8,8 @@ import com.google.gson.stream.JsonWriter;
 
 import java.io.IOException;
 
-/*
+/**
+ * Provides write and read access for the gson library.
  * @author Michael Landreh
  */
 public final class UriAdapter extends TypeAdapter<Uri> {

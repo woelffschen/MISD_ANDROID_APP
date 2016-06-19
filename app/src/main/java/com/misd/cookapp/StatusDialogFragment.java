@@ -2,9 +2,11 @@ package com.misd.cookapp;
 
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,7 +21,9 @@ import com.misd.cookapp.interfaces.IServer;
  * @author Ines Müller
  */
 public class StatusDialogFragment extends DialogFragment {
+    private static final String TAG = "StatusDialogFragment";
     View rootView;
+    ProgressDialog mProgressDialog;
     Button cancelButton;
     Button requestButton;
     Button confirmButton;
@@ -30,7 +34,7 @@ public class StatusDialogFragment extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.status_dialog_fragment, container, false);
-        getDialog().setTitle("Bitte eine Aktion auswählen:");
+        getDialog().setTitle("Aktion auswählen:");
         
 
         //Set Buttons
@@ -62,9 +66,12 @@ public class StatusDialogFragment extends DialogFragment {
                 break;
             case 2:
                 //Teilnahme bestätigt
+                cancelButton.setVisibility(Button.VISIBLE);
                 break;
             case 3:
                 //Teilnahme angefragt
+                cancelButton.setText("Anfrage zurückziehen");
+                cancelButton.setVisibility(Button.VISIBLE);
                 break;
             case 4:
                 //Teilnahme abgelehnt
@@ -74,18 +81,21 @@ public class StatusDialogFragment extends DialogFragment {
     }
 
     private void setupOnButtonClickListener() {
+
         requestButton.setOnClickListener(new View.OnClickListener() {
+
+
             @Override
             public void onClick(View v)
             {
-                new RequestEventTask().execute();
+                handleResult(ShowEventActivity.REQUEST_ATTENDANCE);
             }
         });
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
             {
-                // do soemthing
+                handleResult(ShowEventActivity.CANCEL_ATTENDANCE);
             }
         });
 
@@ -105,36 +115,16 @@ public class StatusDialogFragment extends DialogFragment {
         });
     }
 
-
-    private class RequestEventTask extends AsyncTask<String, Void, Integer> {
-        @Override
-        protected Integer doInBackground(String... params) {
-            int status = 0;
-            try {
-                /*
-                CookApplication cookApplication = (CookApplication) getApplication();
-                IServer server = cookApplication.getServer();
-                int sessionId = cookApplication.getSessionId();
-                int eventId = cookApplication.getCurrentEvent().getEventId();
-                String email = cookApplication.getLoggedInUser().getMailAddress();
-                status = server.request(sessionId, eventId, email);*/
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-            }
-            return status;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected void onPostExecute(Integer integer) {
-            dismiss();
-            super.onPostExecute(integer);
-
-        }
+    private void handleResult(int requestCode) {
+        OnDialogResultListener listener = (OnDialogResultListener) getActivity();
+        listener.onDialogDismissed(requestCode);
+        this.dismiss();
     }
+
+    public interface OnDialogResultListener {
+        public abstract void onDialogDismissed(int status);
+    }
+
+
+
 }
