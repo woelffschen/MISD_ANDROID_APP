@@ -105,9 +105,16 @@ public class HelperMethods {
     private static final String NAMESPACE = "http://onlineService/";
 
     // localen Port bzw die vom Cluster ansprechen
-    private static final String SESSION_URL = "http://10.70.16.37:8080/software-engineering-wildfly-archetype-ejb-1.0.0/UserInterface";
-    private static final String EVENT_URL ="http://10.70.16.37:8080/software-engineering-wildfly-archetype-ejb-1.0.0/EventInterface";
-    private static final String ATTENDANCE_URL="http://10.70.16.37:8080/software-engineering-wildfly-archetype-ejb-1.0.0/AttendanceInterface";
+    // Deployment Server Sylvia
+    //private static final String SESSION_URL = "http://10.70.16.37:8080/software-engineering-wildfly-archetype-ejb-1.0.0/UserInterface";
+    //private static final String EVENT_URL ="http://10.70.16.37:8080/software-engineering-wildfly-archetype-ejb-1.0.0/EventInterface";
+    //private static final String ATTENDANCE_URL="http://10.70.16.37:8080/software-engineering-wildfly-archetype-ejb-1.0.0/AttendanceInterface";
+
+    //Apptest: Server Ines
+    private static final String SESSION_URL = "http://192.168.178.53:8080/software-engineering-wildfly-archetype-ejb-1.0.0/UserInterface";
+    private static final String EVENT_URL ="http://192.168.178.53:8080/software-engineering-wildfly-archetype-ejb-1.0.0/EventInterface";
+    private static final String ATTENDANCE_URL="http://192.168.178.53:8080/software-engineering-wildfly-archetype-ejb-1.0.0/AttendanceInterface";
+
 
     public static SoapObject executeSessionSoapAction( String methodName, Object... args) throws SoapFault {
         return executeSoapAction(SESSION_URL, methodName, args);

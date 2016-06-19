@@ -1,8 +1,10 @@
 package com.misd.cookapp;
 
 import android.app.DialogFragment;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -32,12 +34,15 @@ public class RegisterActivity extends AppCompatActivity implements DatePickerFra
     private static final String TAG = "RegisterActivity";
     int unixDateOfBirth;
     User createdUser;
+    View rootView;
+    private ProgressDialog mProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_activity);
         setTitle("Registrierung");
+        rootView = findViewById(android.R.id.content);
     }
 
     public void showDatePickerDialog(View v) {
@@ -193,6 +198,14 @@ public class RegisterActivity extends AppCompatActivity implements DatePickerFra
     }
 
     private class LoginTask extends AsyncTask<User, Void, Integer> {
+        private boolean taskFailed = false;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            showProgressDialog();
+        }
+
         @Override
         protected Integer doInBackground(User... params) {
             int sessionId = 0;
@@ -217,8 +230,9 @@ public class RegisterActivity extends AppCompatActivity implements DatePickerFra
                     cookApplication.setLoggedInUser(null);
                 }
             } catch (Exception e) {
+                taskFailed = true;
                 e.printStackTrace();
-                Log.e(TAG, e.getMessage());
+
             }
 
             return sessionId;
@@ -226,12 +240,30 @@ public class RegisterActivity extends AppCompatActivity implements DatePickerFra
 
         @Override
         protected void onPostExecute(Integer sessionId) {
-            if(sessionId == 0) {
-                // TODO TOAST anzeigen
-            }else {
+            hideProgressDialog();
+
+            if (!taskFailed && sessionId != 0) {
                 Intent i = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(i);
+            } else {
+                Snackbar.make(rootView,"Die Registrierung konnte wegen einers Fehlers nicht abgeschlossen werden",Snackbar.LENGTH_LONG).show();
             }
+        }
+    }
+
+    private void showProgressDialog() {
+        if (mProgressDialog == null) {
+            mProgressDialog = new ProgressDialog(this);
+            mProgressDialog.setMessage(getString(R.string.loading_registration));
+            mProgressDialog.setIndeterminate(true);
+        }
+
+        mProgressDialog.show();
+    }
+
+    private void hideProgressDialog() {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            mProgressDialog.hide();
         }
     }
 }

@@ -207,12 +207,9 @@ NewsFragment.OnFragmentInteractionListener, GoogleApiClient.OnConnectionFailedLi
 
                 int sessionId = cookApplication.getSessionId();
 
-                Event currentEventObject = server.getOneEvent(4);
-
                 if(sessionId > 0) {
                     //User user = server.getUserInfo(params[0]);
                     server.logout(sessionId);
-
                     cookApplication.setLoggedInUser(null);
                     cookApplication.setSessionId(0);
                 }else {

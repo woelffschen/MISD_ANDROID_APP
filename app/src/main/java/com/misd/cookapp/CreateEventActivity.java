@@ -23,6 +23,8 @@ import com.misd.cookapp.interfaces.IServer;
 
 import org.florescu.android.rangeseekbar.RangeSeekBar;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -30,12 +32,14 @@ import static com.misd.cookapp.helpers.HelperMethods.pasteCalendar;
 
 public class CreateEventActivity extends AppCompatActivity implements DatePickerFragment.OnDatePickedListener, TimePickerFragment.OnTimePickedListener {
 
+    private static final String TAG = "CreateEventActivity";
     private Toolbar toolbar;
     private int eventYear;
     private int eventMonth;
     private int eventDay;
     private int eventMinute;
     private int eventHour;
+    private Event createdEvent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,7 +147,7 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
 
         CookApplication cookApplication = CookApplication.getCookApplication();
 
-        Event createdEvent = new Event(0,eventDescription, (new Meal(eventMealName, eventLactoseFree, eventGlutenFree, eventFructoseFree, eventSorbitFree, eventVegan, eventVegetarisch)), eventMinAge, eventMaxAge, genderRestriction, eventStreet, eventPostalCode, eventCity, cookApplication.getLoggedInUser().getMailAddress(), pasteCalendar(eventYear, eventMonth, eventDay, eventHour, eventMinute));
+        createdEvent = new Event(0,eventDescription, (new Meal(eventMealName, eventLactoseFree, eventGlutenFree, eventFructoseFree, eventSorbitFree, eventVegan, eventVegetarisch)), eventMinAge, eventMaxAge, genderRestriction, eventStreet, eventPostalCode, eventCity, cookApplication.getLoggedInUser().getMailAddress(), pasteCalendar(eventYear, eventMonth, eventDay, eventHour, eventMinute));
         new CreateEventTask().execute(createdEvent);
 
     }
@@ -154,16 +158,20 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
         eventMonth = month;
         eventDay = day;
 
+        Calendar currentDate = pasteCalendar(year, month, day);
+        String dateString = new SimpleDateFormat("dd. MMM yyyy").format(currentDate.getTime());
         Button datePicker = (Button) findViewById(R.id.date_picker);
-        datePicker.setText(day + "." + month + "." + year);
+        datePicker.setText(dateString);
     }
 
     @Override
     public void onTimePicked(final int hour, final int minute) {
         eventHour = hour;
         eventMinute = minute;
+        Calendar currentTime = pasteCalendar(2000,12,31,hour, minute);
+        String timeString = new SimpleDateFormat("HH:mm").format(currentTime.getTime());
         Button timePicker = (Button) findViewById(R.id.time_picker);
-        timePicker.setText(hour + ":" + minute);
+        timePicker.setText(timeString);
     }
 
     /*
@@ -247,11 +255,15 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
         @Override
         protected void onPostExecute(Integer integer) {
             if (integer != null && integer > 0) {
+                //EventId aktualisieren
+                createdEvent.setEventId(integer);
                 Intent i = new Intent(getApplicationContext(), ShowEventActivity.class);
-                i.putExtra("eventId", integer);
+                //i.putExtra("eventId", integer);
+                i.putExtra(MainActivity.EVENT_EXTRA, createdEvent);
                 startActivity(i);
             } else {
                 // TODO Fehler
+                Log.i(TAG, "something went wrong");
             }
         }
 
@@ -261,9 +273,10 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
             CookApplication cookApplication = CookApplication.getCookApplication();
             int sessionId = cookApplication.getSessionId();
             String userId = cookApplication.getLoggedInUser().getMailAddress();
+            int eventId= 0;
 
             try {
-                return server.create(sessionId, userId,
+                eventId=  server.create(sessionId,
                         params[0].getEventMinAge(),
                         params[0].getEventMaxAge(),
                         params[0].getEventStreet(),
@@ -271,7 +284,7 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
                         params[0].getEventCity(),
                         params[0].getEventDescription(),
                         params[0].getEventGender(),
-                        params[0].getEventDate(),
+                        (int)params[0].getEventDate().getTimeInMillis()/1000,
                         params[0].getEventOwner(),
                         params[0].getEventMeal().getName(),
                         params[0].getEventMeal().isLactoseFree(),
@@ -280,10 +293,12 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
                         params[0].getEventMeal().isSorbitFree(),
                         params[0].getEventMeal().isVegan(),
                         params[0].getEventMeal().isVegetarisch());
+
+                return eventId;
             } catch (Exception e) {
-                e.printStackTrace();
+                //e.printStackTrace();
             }
-            return null;
+            return eventId;
         }
     }
 }

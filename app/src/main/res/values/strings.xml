@@ -14,6 +14,13 @@
     <string name="incompatibility">Unverträglichkeiten</string>
     <string name="other_informations">Sonstige Informationen</string>
 
+    <string name="eventStatus_0_eventOwner">Du bist der Veranstalter</string>
+    <string name="eventStatus_1_canceled">Der Event wurde abgesagt</string>
+    <string name="eventStatus_2_confirmed">Du nimmst an diesem Event teil</string>
+    <string name="eventStatus_3_requested">Du hast die Teilnahme angefragt</string>
+    <string name="eventStatus_4_rejected">Deine Teilnahmeanfrage wurde abgelehnt</string>
+    <string name="eventStatus_default">Dein Teilnahmestatus konnte nicht geladen werden</string>
+
     <!-- ListView -->
     <string name="meal">Gericht</string>
     <string name="location">Entfernung</string>
@@ -40,7 +47,10 @@
 
 
     <string name="signed_in_fmt">Ein geloggt als %%</string>
-    <string name="loading">Sie werden eingeloggt...</string>
+    <string name="loading_signin">Du wirst eingeloggt...</string>
+    <string name="loading_event_status">Dein Status zum Event wird abgerufen...</string>
+    <string name="loading_registration">Registriere...</string>
+
     <string name="large_text">
         "Material is the metaphor.\n\n"
 

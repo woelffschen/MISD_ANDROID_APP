@@ -89,7 +89,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Straße Nr."
-                android:textAppearance="?android:attr/textAppearanceSmall"/>
+                android:textAppearance="?android:attr/textAppearanceSmall" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -118,6 +118,7 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/contact_data_excluded"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Die Kontaktdaten werden erst nach Bestätigung der Teilnahme freigegeben."

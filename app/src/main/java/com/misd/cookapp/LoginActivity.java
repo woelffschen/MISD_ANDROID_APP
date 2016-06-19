@@ -1,5 +1,6 @@
 package com.misd.cookapp;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -16,6 +17,8 @@ import com.misd.cookapp.interfaces.IServer;
  * @author Ines Müller
  */
 public class LoginActivity extends AppCompatActivity {
+
+    private ProgressDialog mProgressDialog;
 
     private static final String TAG = "LoginActivity";
 
@@ -42,11 +45,13 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             Log.i(TAG, "Start login at server...");
+            showProgressDialog();
         }
 
         @Override
         protected void onPostExecute(Integer sessionId) {
             Log.i(TAG, "Login at server finished...");
+            hideProgressDialog();
 
             if (sessionId.equals(0)) {
                 // TODO TOAST zeigen
@@ -83,6 +88,22 @@ public class LoginActivity extends AppCompatActivity {
             }
 
             return sessionId;
+        }
+    }
+
+    private void showProgressDialog() {
+        if (mProgressDialog == null) {
+            mProgressDialog = new ProgressDialog(this);
+            mProgressDialog.setMessage(getString(R.string.loading_signin));
+            mProgressDialog.setIndeterminate(true);
+        }
+
+        mProgressDialog.show();
+    }
+
+    private void hideProgressDialog() {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            mProgressDialog.hide();
         }
     }
 }

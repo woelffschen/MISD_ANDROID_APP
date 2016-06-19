@@ -8,13 +8,6 @@
     android:padding="10dp"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:text="Aktion auswählen:"
-        android:textSize="20dp" />
-
 
     <!-- TODO Anzeige wenn kein Eventowner -->
     <Button

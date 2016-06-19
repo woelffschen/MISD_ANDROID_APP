@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -30,6 +31,7 @@ import static com.misd.cookapp.helpers.HelperMethods.pasteCalendar;
 public class MainFragment extends Fragment {
     private static final String TAG = "MainFragment";
     private List<Event> myEvents = new ArrayList<>(); //ListView
+    private View rootView;
 
     private OnFragmentInteractionListener mListener;
 
@@ -46,15 +48,22 @@ public class MainFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.main_fragment, container, false);
+        rootView = inflater.inflate(R.layout.main_fragment, container, false);
 
         // Aufruf Methoden für ListView
         populateEventList();
-        populateListView(rootView);
+
         registerClickCallback(rootView);
 
         // Inflate the layout for this fragment
         return rootView;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        populateEventList();
+
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
@@ -119,6 +128,7 @@ public class MainFragment extends Fragment {
                 Event clickedEvent = myEvents.get(position);
 
                 Intent i = new Intent(getContext(),ShowEventActivity.class);
+                //i.putExtra("eventId", clickedEvent.getEventId());
                 i.putExtra(MainActivity.EVENT_EXTRA, clickedEvent);
                 startActivity(i);
             }
@@ -165,21 +175,28 @@ public class MainFragment extends Fragment {
     }
 
     private class LoadEventsTask extends AsyncTask<Void, Void, List<Event>> {
+        boolean taskFailed = false;
+
         @Override
         protected void onPostExecute(List<Event> events) {
-            myEvents.addAll(events);
+            if (!taskFailed) {
+                myEvents.addAll(events);
+                populateListView(rootView);
+            } else {
+                Snackbar.make(rootView,"Eventliste konnte nicht geladen werden.",Snackbar.LENGTH_LONG).show();
+            }
+
         }
 
         @Override
         protected List<Event> doInBackground(Void... params) {
             List<Event> result= new ArrayList<Event>();
             try {
-                Log.i(TAG,"Server get Eventslist successful");
-
                 IServer server = CookApplication.getCookApplication().getServer();
                 result = server.getListOfEvents(CookApplication.getCookApplication().getSessionId());
+                Log.i(TAG,"Server get Eventslist successful");
             }  catch (Exception e) {
-                Log.e(TAG, e.getMessage());
+                taskFailed = true;
                 e.printStackTrace();
             }
             return result;
