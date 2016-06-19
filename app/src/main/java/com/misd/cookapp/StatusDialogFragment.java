@@ -1,9 +1,11 @@
 package com.misd.cookapp;
 
+import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,15 +19,61 @@ import com.misd.cookapp.interfaces.IServer;
  * @author Ines Müller
  */
 public class StatusDialogFragment extends DialogFragment {
+    View rootView;
+    Button cancelButton;
+    Button requestButton;
+    Button confirmButton;
+    Button rejectButton;
 
     // TODO Aktion bei Anfragen ausführen
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.status_dialog_fragment, container, false);
+        rootView = inflater.inflate(R.layout.status_dialog_fragment, container, false);
         getDialog().setTitle("Bitte eine Aktion auswählen:");
+        
 
-        Button requestButton = (Button) rootView.findViewById(R.id.request_attendance);
+        //Set Buttons
+        requestButton = (Button) rootView.findViewById(R.id.request_attendance);
+        cancelButton = (Button) rootView.findViewById(R.id.cancel_attendance);
+        confirmButton = (Button) rootView.findViewById(R.id.confirm_attendance);
+        rejectButton = (Button) rootView.findViewById(R.id.reject_attendance);
+
+        int status = getArguments().getInt(ShowEventActivity.EXTRA_EVENT_STATUS);
+
+        setupUi(status);
+        setupOnButtonClickListener();
+
+        return rootView;
+    }
+
+    private void setupUi(int status) {
+        switch (status) {
+            case -1:
+                //Keine Teilnahme
+                requestButton.setVisibility(Button.VISIBLE);
+                break;
+            case 0:
+                //Eventowner
+                cancelButton.setVisibility(Button.VISIBLE);
+                break;
+            case 1:
+                //Event abgesagt
+                break;
+            case 2:
+                //Teilnahme bestätigt
+                break;
+            case 3:
+                //Teilnahme angefragt
+                break;
+            case 4:
+                //Teilnahme abgelehnt
+                break;
+        }
+
+    }
+
+    private void setupOnButtonClickListener() {
         requestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
@@ -33,8 +81,6 @@ public class StatusDialogFragment extends DialogFragment {
                 new RequestEventTask().execute();
             }
         });
-
-        Button cancelButton = (Button) rootView.findViewById(R.id.cancel_attendance);
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
@@ -43,7 +89,6 @@ public class StatusDialogFragment extends DialogFragment {
             }
         });
 
-        Button confirmButton = (Button) rootView.findViewById(R.id.confirm_attendance);
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
@@ -51,8 +96,6 @@ public class StatusDialogFragment extends DialogFragment {
                 // do something
             }
         });
-
-        Button rejectButton = (Button) rootView.findViewById(R.id.reject_attendance);
         rejectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
@@ -60,7 +103,6 @@ public class StatusDialogFragment extends DialogFragment {
                 // do something
             }
         });
-        return rootView;
     }
 
 
@@ -81,6 +123,18 @@ public class StatusDialogFragment extends DialogFragment {
                 e.printStackTrace();
             }
             return status;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onPostExecute(Integer integer) {
+            dismiss();
+            super.onPostExecute(integer);
+
         }
     }
 }

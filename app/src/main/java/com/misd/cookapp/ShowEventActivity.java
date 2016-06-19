@@ -25,6 +25,7 @@ import com.misd.cookapp.interfaces.IServer;
 import org.w3c.dom.Text;
 
 public class ShowEventActivity extends AppCompatActivity {
+    public static final String EXTRA_EVENT_STATUS = "event_status";
     private int eventStatus = -1;
     private static final String TAG = "ShowEventActivity";
     private Event currentEvent;
@@ -46,6 +47,9 @@ public class ShowEventActivity extends AppCompatActivity {
             public void onClick(View view) {
                 FragmentManager fm = getFragmentManager();
                 StatusDialogFragment dialogFragment = new StatusDialogFragment ();
+                Bundle bundle = new Bundle();
+                bundle.putInt(EXTRA_EVENT_STATUS, eventStatus);
+                dialogFragment.setArguments(bundle);
                 dialogFragment.show(fm, "Status Fragment");
             }
         });
@@ -74,6 +78,9 @@ public class ShowEventActivity extends AppCompatActivity {
 
         TextView textEventStatus = (TextView) findViewById(R.id.textEventStatus);
         switch (eventStatus) {
+            case -1:
+                textEventStatus.setVisibility(TextView.GONE);
+                break;
             case 0:
                 textEventStatus.setText(getString(R.string.eventStatus_0_eventOwner));
                 isConfirmed = true;
