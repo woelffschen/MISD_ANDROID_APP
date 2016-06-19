@@ -11,8 +11,8 @@ import android.widget.TimePicker;
 import java.util.Calendar;
 
 /**
- * This class is used so values from TimePickerFragment could be
- * returned back to the activity from which it was called.
+ * This Dialog provides an UI to pic a date.
+ * @author Michael Landreh
  */
 public class TimePickerFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener {
     OnTimePickedListener mCallback;

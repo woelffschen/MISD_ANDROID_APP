@@ -2,6 +2,10 @@ package com.misd.cookapp;
 
 import java.io.Serializable;
 
+/**
+ * This Meal contains all Meal attributes.
+ * @author Michael Landreh, Ines Mueller
+ */
 public class Meal implements Serializable{
 
     private String name;

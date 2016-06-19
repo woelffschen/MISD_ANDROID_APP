@@ -4,8 +4,9 @@ import android.app.Application;
 
 import com.misd.cookapp.interfaces.IServer;
 
-/*
- * @author Ines Müller
+/**
+ * Stores session data.
+ * @author Ines Mueller
  */
 public class CookApplication extends Application {
     private int sessionId;

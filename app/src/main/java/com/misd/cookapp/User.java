@@ -5,6 +5,10 @@ import java.math.BigInteger;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+/**
+ * User provides all user attributes.
+ * @author Michael Landreh, Ines Müller
+ */
 public class User implements Serializable {
 
     private String mailAddress;

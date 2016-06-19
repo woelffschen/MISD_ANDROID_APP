@@ -9,6 +9,10 @@ import android.widget.DatePicker;
 
 import java.util.Calendar;
 
+/**
+ * This Dialog provides an UI to pic a date.
+ * @author Michael Landreh
+ */
 public class DatePickerFragment extends DialogFragment
         implements DatePickerDialog.OnDateSetListener {
 

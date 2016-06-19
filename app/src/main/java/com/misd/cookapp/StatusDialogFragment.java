@@ -17,8 +17,9 @@ import android.widget.Button;
 import com.misd.cookapp.exceptions.LoginFailedException;
 import com.misd.cookapp.interfaces.IServer;
 
-/*
- * @author Ines Müller
+/**
+ * Offers the user a dialog for altering the attendance status.
+ * @author Michael Landreh, Ines Müller
  */
 public class StatusDialogFragment extends DialogFragment {
     private static final String TAG = "StatusDialogFragment";

@@ -13,7 +13,8 @@ import android.widget.EditText;
 import com.misd.cookapp.exceptions.LoginFailedException;
 import com.misd.cookapp.interfaces.IServer;
 
-/*
+/**
+ * This Activity ables the User to login to the Application.
  * @author Ines Müller
  */
 public class LoginActivity extends AppCompatActivity {

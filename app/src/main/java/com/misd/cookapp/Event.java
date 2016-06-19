@@ -4,6 +4,10 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+/**
+ * An Event contains Meal and all Event attributes.
+ * @author Michael Landreh, Ines Mueller
+ */
 public class Event implements Serializable{
     // private int IconId;
     private int eventId;
@@ -127,13 +131,6 @@ public class Event implements Serializable{
     }
 
     public String getEventDateAsString() {
-        /*String month = "wrong";
-        DateFormatSymbols dfs = new DateFormatSymbols();
-        String[] months = dfs.getMonths();
-        if (num >= 0 && num <= 11 ) {
-            month = months[num];
-        }
-        return month;*/
         return new SimpleDateFormat("dd. MMM yyyy").format(eventDate.getTime());
     }
 

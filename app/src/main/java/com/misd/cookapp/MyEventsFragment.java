@@ -20,6 +20,7 @@ import static com.misd.cookapp.helpers.HelperMethods.pasteCalendar;
 /**
  * A simple {@link Fragment} subclass. Activities that contain this fragment must implement the
  * {@link MyEventsFragment.OnFragmentInteractionListener} interface to handle interaction events.
+ * @author Ines Mueller
  */
 public class MyEventsFragment extends Fragment {
     public static final String ARGS_EVENT_OBJECT = "args_event_object";
@@ -86,26 +87,11 @@ public class MyEventsFragment extends Fragment {
         // Adding child data
         List<Event> myevents = new ArrayList<>();
 
-        String currentUserMail = CookApplication.getCookApplication().getLoggedInUser().getMailAddress();
-        Meal currentMeal =  new Meal("Spaghetti Bolognese",false, false, false, false, false, false);
-
-
-        myevents.add(new Event(0,"Ich möchte heute etwas tolles kochen.", currentMeal,
-                18,60, 'b', "Boeselagerstr. 69b", 48163, "Münster", currentUserMail, pasteCalendar(2010,10,2,12,34)));
-
-
         List<Event> myrequests = new ArrayList<>();
-        myrequests.add(new Event(0,"Ich möchte heute etwas tolles kochen.", currentMeal,
-                18,60, 'b', "Boeselagerstr. 69b", 48163, "Bochum", currentUserMail, pasteCalendar(2010,10,2,12,34)));
 
         List<Event> myattendance = new ArrayList<>();
-        myattendance.add(new Event(0,"Ich möchte heute etwas tolles kochen.", currentMeal,
-                18,60, 'b', "Boeselagerstr. 69b", 48163, "München", currentUserMail, pasteCalendar(2010,10,2,12,34)));
 
         List<Event> pastevents = new ArrayList<>();
-        pastevents.add(new Event(0,"Ich möchte heute etwas tolles kochen.", currentMeal,
-                18,60, 'b', "Boeselagerstr. 69b", 48163, "TikiTaka", currentUserMail, pasteCalendar(2010,10,2,12,34)));
-
 
         listDataChild.put(listDataHeader.get(0), myevents); // Header, Child data
         listDataChild.put(listDataHeader.get(1), myrequests);
@@ -154,7 +140,6 @@ public class MyEventsFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 }

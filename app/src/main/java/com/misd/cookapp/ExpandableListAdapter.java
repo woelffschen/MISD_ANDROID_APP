@@ -11,6 +11,10 @@ import android.widget.TextView;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * This Adapter provides different Lists of Event for MyEvent Activity.
+ * @author Ines Mueller
+ */
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     private Context _context;

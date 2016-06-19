@@ -17,7 +17,8 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-/*
+/**
+ * This class implements the IServer Interface.
  * @author Ines Müller
  */
 public class Server implements IServer {
@@ -30,16 +31,6 @@ public class Server implements IServer {
     // liefert sessionId - benötigt Parameter
     public int register(String mailAddress, String lastname, String firstname, String street, int postalCode, String city,
                         int unixDateOfBirth, String telephoneNumber, char gender) throws Exception {
-
-        // Datentypen richtig wählen
-        // Char ist eig nur ein int und wird durch ein Zeichensatz ein zeichen
-        // Das macht Probleme
-
-        // Char explizit zum Integer casten und dann übertragen
-        // Server kann den einkommenden Integer/int automatisch "unmarshallen" und
-        // da Char = Zahl, klappt das mit dem impliziten Casting
-        // Aber: Testet es auf dem anderen Tablet; da war glaube ihc eine andere Android Version drauf richtig? ja
-        // dann testen wir das nochmal eben darauf
         int genderAsInt = Integer.valueOf(gender);
         SoapObject resultRegister = HelperMethods.executeSessionSoapAction("registerUser", mailAddress, lastname, firstname, street, postalCode, city, unixDateOfBirth, telephoneNumber, genderAsInt);
         int returnCode = Integer.valueOf(resultRegister.getPrimitivePropertySafelyAsString("returnCode"));
@@ -113,7 +104,7 @@ public class Server implements IServer {
      */
     //
 
-    // liefert status - benötigt sessionId, , attendanceId, eventId
+    // liefert status - benötigt sessionId, , eventId, userId
     public int cancel(int sessionId, int eventId, String email) throws Exception {
         SoapObject resultCancel = HelperMethods.executeAttendanceSoapAction("cancelAttendance", sessionId, eventId, email);
         int returnCode = Integer.valueOf(resultCancel.getPrimitivePropertySafelyAsString("returnCode"));
@@ -125,7 +116,7 @@ public class Server implements IServer {
         }
     }
 
-    // liefert status - benötigt sessionId, eventId, email
+    // liefert status - benötigt sessionId, eventId, userId
     public int request(int sessionId, int eventId, String email) throws Exception {
         SoapObject resultRequest = HelperMethods.executeAttendanceSoapAction("requestAttendance", sessionId, eventId, email);
         int returnCode = Integer.valueOf(resultRequest.getPrimitivePropertySafelyAsString("returnCode"));
@@ -137,7 +128,7 @@ public class Server implements IServer {
         }
     }
 
-    // liefert status - benötigt sessionId, attendanceId, eventId, userId
+    // liefert status - benötigt sessionId, eventId, userId
     public int confirm(int sessionId, int eventId, String email) throws Exception {
         SoapObject resultConfirm = HelperMethods.executeAttendanceSoapAction("confirmAttendance", sessionId, eventId, email);
         int returnCode = Integer.valueOf(resultConfirm.getPrimitivePropertySafelyAsString("returnCode"));
@@ -149,7 +140,7 @@ public class Server implements IServer {
         }
     }
 
-    // liefert status - benötigt sessionId, attendanceId, eventId
+    // liefert status - benötigt sessionId, eventId, userId
     public int reject(int sessionId, int eventId, String email) throws Exception {
         SoapObject resultReject = HelperMethods.executeAttendanceSoapAction("rejectAttendance", sessionId, eventId, email);
         int returnCode = Integer.valueOf(resultReject.getPrimitivePropertySafelyAsString("returnCode"));
@@ -277,10 +268,8 @@ public class Server implements IServer {
         }
     }
 
-    // ??
     public void filterCity(int sessionId, String city) throws Exception {
     }
 
-    // weitere Methoden für Anzeige "Meine Events" notwendig ??
 
 }

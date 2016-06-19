@@ -39,6 +39,10 @@ import java.math.BigInteger;
 
 import static com.misd.cookapp.helpers.HelperMethods.pasteCalendar;
 
+/**
+ * This is the MainActivity with a NavigationDrawer. It shows the list of Events.
+ * @author Michael Landreh
+ */
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, MainFragment.OnFragmentInteractionListener, MyEventsFragment.OnFragmentInteractionListener,
 NewsFragment.OnFragmentInteractionListener, GoogleApiClient.OnConnectionFailedListener {

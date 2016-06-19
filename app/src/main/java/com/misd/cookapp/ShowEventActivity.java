@@ -24,6 +24,11 @@ import com.misd.cookapp.interfaces.IServer;
 
 import org.w3c.dom.Text;
 
+/**
+ * This Activity shows a single Event and offers the Users Methods to manage their attendance status.
+ * @author Michael Landreh
+ */
+
 public class ShowEventActivity extends AppCompatActivity implements StatusDialogFragment.OnDialogResultListener {
     public static final String EXTRA_EVENT_STATUS = "event_status";
     public static final int REQUEST_ATTENDANCE = 0;

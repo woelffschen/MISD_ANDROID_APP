@@ -27,6 +27,7 @@ import static com.misd.cookapp.helpers.HelperMethods.pasteCalendar;
 /**
  * A simple {@link Fragment} subclass. Activities that contain this fragment must implement the
  * {@link MainFragment.OnFragmentInteractionListener} interface to handle interaction events.
+ * @author Michael Landreh
  */
 public class MainFragment extends Fragment {
     private static final String TAG = "MainFragment";
@@ -62,7 +63,6 @@ public class MainFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         populateEventList();
-
         super.onActivityResult(requestCode, resultCode, data);
     }
 
@@ -99,16 +99,7 @@ public class MainFragment extends Fragment {
 
     // Methoden für die ListView - Beispiele zur Veranschaulichung
     private void populateEventList(){
-
         new LoadEventsTask().execute();
-
-        //String currentUserMail = CookApplication.getCookApplication().getLoggedInUser().getMailAddress();
-        //Meal currentMeal =  new Meal("Spaghetti Bolognese", false, false, false, false, false, false);
-
-
-        /*myEvents.add(new Event("Ich möchte heute scheiße kochen.", currentMeal,
-                18,60, 'b', "Blubstr. 18", 48163, "Münster", currentUserMail, pasteCalendar(2016,3,2,12,34)));*/
-
     }
 
 

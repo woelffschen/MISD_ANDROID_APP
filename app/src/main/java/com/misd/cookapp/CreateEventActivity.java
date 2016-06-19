@@ -30,6 +30,11 @@ import java.util.regex.Pattern;
 
 import static com.misd.cookapp.helpers.HelperMethods.pasteCalendar;
 
+/**
+ * This Activity offers a form to create a new Event.
+ * @author Ines Mueller
+ */
+
 public class CreateEventActivity extends AppCompatActivity implements DatePickerFragment.OnDatePickedListener, TimePickerFragment.OnTimePickedListener {
 
     private static final String TAG = "CreateEventActivity";

@@ -20,6 +20,7 @@ import java.util.List;
  * Activities that contain this fragment must implement the
  * {@link NewsFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
+ * @author Michael Landreh, Ines Mueller
  */
 public class NewsFragment extends Fragment {
     private List<String> myEventNews = new ArrayList<>(); //ListView

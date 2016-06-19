@@ -27,7 +27,8 @@ import java.util.Calendar;
 
 import static com.misd.cookapp.helpers.HelperMethods.pasteCalendar;
 
-/*
+/**
+ * This Activity ables the User to register to the Application.
  * @author Ines Müller
  */
 public class RegisterActivity extends AppCompatActivity implements DatePickerFragment.OnDatePickedListener {
