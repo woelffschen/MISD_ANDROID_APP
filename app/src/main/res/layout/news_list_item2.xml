@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/textNews"
-        android:text="Nächster Versuch"
+        android:text="Event xy"
         android:layout_marginTop="31dp"
         android:layout_marginLeft="32dp"
         android:layout_below="@+id/item_pic"

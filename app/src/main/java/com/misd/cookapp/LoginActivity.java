@@ -55,7 +55,7 @@ public class LoginActivity extends AppCompatActivity {
             hideProgressDialog();
 
             if (sessionId.equals(0)) {
-                // TODO TOAST zeigen
+                // TOAST zeigen
             }else {
                 Intent iMainActivity = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(iMainActivity);

@@ -30,7 +30,6 @@ public class StatusDialogFragment extends DialogFragment {
     Button confirmButton;
     Button rejectButton;
 
-    // TODO Aktion bei Anfragen ausführen
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

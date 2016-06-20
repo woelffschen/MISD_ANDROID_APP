@@ -247,7 +247,7 @@ public class RegisterActivity extends AppCompatActivity implements DatePickerFra
                 Intent i = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(i);
             } else {
-                Snackbar.make(rootView,"Die Registrierung konnte wegen einers Fehlers nicht abgeschlossen werden",Snackbar.LENGTH_LONG).show();
+                Snackbar.make(rootView,"Die Registrierung konnte wegen eines Fehlers nicht abgeschlossen werden",Snackbar.LENGTH_LONG).show();
             }
         }
     }

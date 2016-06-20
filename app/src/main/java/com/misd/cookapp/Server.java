@@ -271,5 +271,4 @@ public class Server implements IServer {
     public void filterCity(int sessionId, String city) throws Exception {
     }
 
-
 }

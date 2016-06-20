@@ -52,7 +52,6 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
         setContentView(R.layout.create_event_activity);
         toolbar = (Toolbar) findViewById(R.id.toolbar); // Attaching the layout to the toolbar object
         setSupportActionBar(toolbar);
-
         setTitle(""); // Titel für Activity festlegen
 
     }
@@ -277,7 +276,7 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
                 i.putExtra(MainActivity.EVENT_EXTRA, createdEvent);
                 startActivity(i);
             } else {
-                // TODO Fehler
+                // Fehler
                 Log.i(TAG, "something went wrong");
             }
         }
